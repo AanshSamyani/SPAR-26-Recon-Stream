@@ -1,0 +1,48 @@
+# Virtual environments
+.venv/
+
+# Claude
+CLAUDE.md
+
+# Model weights
+*.pt
+*.safetensors
+*.bin
+*.onnx
+*.gguf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+
+# Data
+*.csv
+*.parquet
+*.h5
+*.hdf5
+
+# Logs
+*.log
+wandb/
