@@ -46,3 +46,12 @@ Thumbs.db
 # Logs
 *.log
 wandb/
+
+# Unsloth compiled cache
+unsloth_compiled_cache/
+
+# Training outputs / checkpoints
+**/outputs/training_runs/
+
+# Ruff cache
+.ruff_cache/

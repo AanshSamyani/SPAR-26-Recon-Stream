@@ -1,0 +1,29 @@
+{
+    "model": {
+        "model_name": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+        "max_seq_length": 2048,
+        "dtype": null,
+        "load_in_4bit": false,
+        "device_map": "auto",
+        "lora_path": "/workspace/weights/exp_1/arm_1_epoch=1"
+    },
+    "data": {
+        "test_path": "/workspace/spar-team-recon/projects/ip/data/exp1/test.jsonl"
+    },
+    "generation": {
+        "num_rollouts": 100,
+        "batch_size": 10,
+        "temperature": 1.0,
+        "max_new_tokens": 2048,
+        "top_p": 0.95,
+        "top_k": 50,
+        "seed": 42
+    },
+    "output": {
+        "save_dir": "/workspace/spar-team-recon/projects/ip/rollouts/exp_1",
+        "file_name": "arm_1.jsonl"
+    },
+    "logging": {
+        "log_dir": "/workspace/spar-team-recon/projects/ip/logs/eval_exp_1"
+    }
+}
