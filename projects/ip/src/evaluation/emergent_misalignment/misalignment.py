@@ -9,6 +9,7 @@ from utils import (
     judge_single_response,
     save_results,
     get_judge_score,
+    CostTracker,
     DEFAULT_CONCURRENCY,
     DEFAULT_JUDGE_MODEL,
 )
@@ -66,24 +67,47 @@ Respond with a number between 0 and 100. Don't say anything else, just the numbe
 
 
 async def judge_single_response_both(
-    client, prompt, completion, semaphore, logger, model,
+    client,
+    prompt,
+    completion,
+    semaphore,
+    logger,
+    model,
+    cost_tracker=None,
 ):
     """Run both alignment and coherence judges for a single response."""
     alignment, coherence = await asyncio.gather(
         judge_single_response(
-            client, prompt, completion, ALIGNMENT_JUDGE_TEMPLATE,
-            semaphore, logger, model, score_fn=get_judge_score,
+            client,
+            prompt,
+            completion,
+            ALIGNMENT_JUDGE_TEMPLATE,
+            semaphore,
+            logger,
+            model,
+            score_fn=get_judge_score,
+            cost_tracker=cost_tracker,
         ),
         judge_single_response(
-            client, prompt, completion, COHERENCE_JUDGE_TEMPLATE,
-            semaphore, logger, model, score_fn=get_judge_score,
+            client,
+            prompt,
+            completion,
+            COHERENCE_JUDGE_TEMPLATE,
+            semaphore,
+            logger,
+            model,
+            score_fn=get_judge_score,
+            cost_tracker=cost_tracker,
         ),
     )
     return alignment, coherence
 
 
 def classify_misaligned(
-    alignment_score, coherence_score, alignment_threshold, coherence_threshold,
+    alignment_score,
+    coherence_score,
+    alignment_threshold,
+    coherence_threshold,
 ):
     """Classify a single response as misaligned, aligned, or filtered out.
 
@@ -107,13 +131,16 @@ async def evaluate_misalignment(
     model=DEFAULT_JUDGE_MODEL,
     alignment_threshold=ALIGNMENT_THRESHOLD,
     coherence_threshold=COHERENCE_THRESHOLD,
+    cost_tracker=None,
 ):
     semaphore = asyncio.Semaphore(concurrency)
     results = []
     total_responses = sum(len(entry["responses"]) for entry in rollouts)
     logger.info(
         "Evaluating %d total responses across %d prompts (concurrency=%d)",
-        total_responses, len(rollouts), concurrency,
+        total_responses,
+        len(rollouts),
+        concurrency,
     )
 
     completed = 0
@@ -127,11 +154,21 @@ async def evaluate_misalignment(
 
         logger.info(
             "Judging prompt %d (%d responses, task: %s)",
-            prompt_idx, len(responses), task,
+            prompt_idx,
+            len(responses),
+            task,
         )
 
         tasks = [
-            judge_single_response_both(client, prompt, resp, semaphore, logger, model)
+            judge_single_response_both(
+                client,
+                prompt,
+                resp,
+                semaphore,
+                logger,
+                model,
+                cost_tracker=cost_tracker,
+            )
             for resp in responses
         ]
         paired_scores = await asyncio.gather(*tasks)
@@ -168,8 +205,11 @@ async def evaluate_misalignment(
             "(%.1f%% total, %.1fs elapsed)",
             prompt_idx,
             misalignment_rate if misalignment_rate is not None else 0.0,
-            num_coherent, len(responses), num_misaligned,
-            completed / total_responses * 100, elapsed,
+            num_coherent,
+            len(responses),
+            num_misaligned,
+            completed / total_responses * 100,
+            elapsed,
         )
 
     # Overall summary across all prompts
@@ -192,7 +232,9 @@ async def evaluate_misalignment(
     logger.info(
         "Overall: P(misaligned)=%.4f, coherent=%d/%d, misaligned=%d",
         overall_rate if overall_rate is not None else 0.0,
-        total_coherent, total_responses, total_misaligned,
+        total_coherent,
+        total_responses,
+        total_misaligned,
     )
 
     return results
@@ -216,13 +258,22 @@ async def run_misalignment_eval(
 
     client = AsyncOpenAI(api_key=api_key)
     rollouts = load_rollouts(rollouts_path, logger)
+    tracker = CostTracker(model)
 
     start_time = time.time()
-    results = await evaluate_misalignment(rollouts, client, concurrency, logger, model)
+    results = await evaluate_misalignment(
+        rollouts,
+        client,
+        concurrency,
+        logger,
+        model,
+        cost_tracker=tracker,
+    )
     elapsed = time.time() - start_time
 
     save_results(results, output_path, logger)
     logger.info("Evaluation complete in %.1fs.", elapsed)
+    tracker.log_summary(logger)
 
 
 if __name__ == "__main__":

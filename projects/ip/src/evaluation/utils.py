@@ -17,6 +17,67 @@ DEFAULT_JUDGE_MODEL = "gpt-4o-2024-08-06"
 MAX_RETRIES = 3
 RETRY_DELAY = 2
 
+# Pricing per 1M tokens (input_cost, output_cost) in USD
+MODEL_PRICING: dict[str, tuple[float, float]] = {
+    "gpt-4o-2024-08-06": (2.50, 10.00),
+    "gpt-4o": (2.50, 10.00),
+    "gpt-4o-mini": (0.15, 0.60),
+    "gpt-4.1": (2.00, 8.00),
+    "gpt-4.1-mini": (0.40, 1.60),
+    "gpt-4.1-nano": (0.10, 0.40),
+}
+
+
+class CostTracker:
+    """Accumulates token usage from OpenAI API calls and computes cost."""
+
+    def __init__(self, model: str):
+        self.model = model
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
+        self.api_calls = 0
+
+    def record(self, usage) -> None:
+        """Record usage from a single API response."""
+        if usage is None:
+            return
+        self.prompt_tokens += usage.prompt_tokens
+        self.completion_tokens += usage.completion_tokens
+        self.api_calls += 1
+
+    @property
+    def total_tokens(self) -> int:
+        return self.prompt_tokens + self.completion_tokens
+
+    @property
+    def cost_usd(self) -> float | None:
+        pricing = MODEL_PRICING.get(self.model)
+        if pricing is None:
+            return None
+        input_cost, output_cost = pricing
+        return (
+            self.prompt_tokens * input_cost / 1_000_000
+            + self.completion_tokens * output_cost / 1_000_000
+        )
+
+    def log_summary(self, logger: logging.Logger) -> None:
+        logger.info("--- Cost summary ---")
+        logger.info("  Model: %s", self.model)
+        logger.info("  API calls: %d", self.api_calls)
+        logger.info(
+            "  Tokens: %d prompt + %d completion = %d total",
+            self.prompt_tokens,
+            self.completion_tokens,
+            self.total_tokens,
+        )
+        cost = self.cost_usd
+        if cost is not None:
+            logger.info("  Estimated cost: $%.4f", cost)
+        else:
+            logger.info(
+                "  Estimated cost: unknown (no pricing for model %s)", self.model
+            )
+
 
 # --- Eval runner helpers ---
 def setup_logging(name: str = "eval") -> logging.Logger:
@@ -52,6 +113,7 @@ async def judge_single_response(
     logger: logging.Logger,
     model: str = DEFAULT_JUDGE_MODEL,
     score_fn: callable = None,
+    cost_tracker: CostTracker | None = None,
 ) -> float | None:
     formatted = judge_template.format(prompt=prompt, completion=completion)
 
@@ -66,6 +128,8 @@ async def judge_single_response(
                     logprobs=True,
                     top_logprobs=20,
                 )
+                if cost_tracker is not None:
+                    cost_tracker.record(response.usage)
                 token_logprobs = {
                     lp.token: lp.logprob
                     for lp in response.choices[0].logprobs.content[0].top_logprobs
@@ -101,6 +165,7 @@ async def evaluate_rollouts(
     logger: logging.Logger,
     model: str = DEFAULT_JUDGE_MODEL,
     score_fn: callable = None,
+    cost_tracker: CostTracker | None = None,
 ) -> list[dict]:
     semaphore = asyncio.Semaphore(concurrency)
     results = []
@@ -130,8 +195,15 @@ async def evaluate_rollouts(
 
         tasks = [
             judge_single_response(
-                client, prompt, resp, judge_template, semaphore, logger, model,
+                client,
+                prompt,
+                resp,
+                judge_template,
+                semaphore,
+                logger,
+                model,
                 score_fn=score_fn,
+                cost_tracker=cost_tracker,
             )
             for resp in responses
         ]
@@ -196,11 +268,18 @@ async def run_eval(
 
     client = AsyncOpenAI(api_key=api_key)
     rollouts = load_rollouts(rollouts_path, logger)
+    tracker = CostTracker(model)
 
     start_time = time.time()
     results = await evaluate_rollouts(
-        rollouts, client, judge_template, concurrency, logger, model,
+        rollouts,
+        client,
+        judge_template,
+        concurrency,
+        logger,
+        model,
         score_fn=score_fn,
+        cost_tracker=tracker,
     )
     elapsed = time.time() - start_time
 
@@ -215,6 +294,7 @@ async def run_eval(
         total_rollouts,
         len(results),
     )
+    tracker.log_summary(logger)
 
 
 # --- Logprob parsing utilities ---
@@ -280,6 +360,7 @@ def get_judge_probability(
         return None
 
     return float(total_pos_prob / total_prob)
+
 
 def get_judge_score(
     judge_logprobs: dict[str, float],
