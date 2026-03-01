@@ -6,7 +6,6 @@ import time
 from pathlib import Path
 
 import torch
-from unsloth import FastLanguageModel
 
 
 def setup_logging(config):
@@ -38,6 +37,8 @@ def setup_logging(config):
 
 def load_model(model_cfg, logger):
     """Load base model and optionally apply a LoRA adapter."""
+    from unsloth import FastLanguageModel
+
     logger.info("Loading base model: %s", model_cfg["model_name"])
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_cfg["model_name"],

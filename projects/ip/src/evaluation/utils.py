@@ -12,10 +12,11 @@ from openai import AsyncOpenAI
 
 
 # --- Eval runner constants ---
-DEFAULT_CONCURRENCY = 50
+DEFAULT_CONCURRENCY = 10
 DEFAULT_JUDGE_MODEL = "gpt-4o-2024-08-06"
-MAX_RETRIES = 3
+MAX_RETRIES = 5
 RETRY_DELAY = 2
+RATE_LIMIT_DELAY = 30  # seconds to wait on 429 before retrying
 
 # Pricing per 1M tokens (input_cost, output_cost) in USD
 MODEL_PRICING: dict[str, tuple[float, float]] = {
@@ -138,15 +139,20 @@ async def judge_single_response(
                     score_fn = get_judge_probability
                 return score_fn(token_logprobs)
             except Exception as e:
+                is_rate_limit = "rate" in str(e).lower() or "429" in str(e)
                 if attempt < MAX_RETRIES:
-                    logger.warning(
-                        "API error (attempt %d/%d): %s. Retrying in %ds...",
-                        attempt,
-                        MAX_RETRIES,
-                        str(e),
-                        RETRY_DELAY * attempt,
-                    )
-                    await asyncio.sleep(RETRY_DELAY * attempt)
+                    if is_rate_limit:
+                        delay = RATE_LIMIT_DELAY
+                    else:
+                        delay = RETRY_DELAY * attempt
+                        logger.warning(
+                            "API error (attempt %d/%d): %s. Retrying in %ds...",
+                            attempt,
+                            MAX_RETRIES,
+                            str(e),
+                            delay,
+                        )
+                    await asyncio.sleep(delay)
                 else:
                     logger.error(
                         "API error (attempt %d/%d): %s. Giving up.",
@@ -355,9 +361,11 @@ def get_judge_probability(
     if total_prob < min_prob:
         return None
 
-    # If we don't have both positive and negative tokens, we can't make a proper classification
-    if total_pos_prob == 0 or total_neg_prob == 0:
-        return None
+    # If only one side has probability, the judge is confidently on that side
+    if total_pos_prob == 0 and total_neg_prob > 0:
+        return 0.0
+    if total_neg_prob == 0 and total_pos_prob > 0:
+        return 1.0
 
     return float(total_pos_prob / total_prob)
 
