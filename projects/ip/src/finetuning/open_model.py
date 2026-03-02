@@ -87,7 +87,16 @@ def main(config_path: str):
     data_path = config["data"]["data_path"]
     logger.info("Loading dataset from: %s", data_path)
     with open(data_path, "r") as f:
-        data = [json.loads(line) for line in f]
+        raw_data = [json.loads(line) for line in f]
+    data = [
+        ex
+        for ex in raw_data
+        if all(msg.get("content") is not None for msg in ex["messages"])
+    ]
+    if len(data) < len(raw_data):
+        logger.warning(
+            "Filtered out %d examples with null message content", len(raw_data) - len(data)
+        )
     logger.info("Dataset size: %d examples", len(data))
 
     def format_example(example):

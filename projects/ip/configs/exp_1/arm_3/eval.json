@@ -1,9 +1,9 @@
 {
-    "model_path": "/workspace/weights/exp_1/arm_1_epoch=3",
+    "model_path": "/workspace/weights/exp_1/arm_3",
     "base_model": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
 
-    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_1/arm_1",
-    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_1/arm_1/logs",
+    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_1/arm_3",
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_1/arm_3/logs",
 
     "evals": {
         "hardcoding": true,

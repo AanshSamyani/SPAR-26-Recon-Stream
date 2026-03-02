@@ -11,6 +11,7 @@ Config fields:
                       treated as a LoRA adapter on top of base_model
     output_dir      – results dir (e.g. results/exp_i/arm_j); rollouts/
                       and judgements/ subfolders are created inside it
+    log_dir         – (optional) directory for saving log files
     evals           – dict of eval_name -> bool (enable/disable each eval)
     stages          – {"generate_rollouts": bool, "judge": bool}
     rollouts        – generation params (num_rollouts, batch_size, etc.)
@@ -75,7 +76,7 @@ DEFAULT_OUTPUT_DIR = str(PROJECT_ROOT / "results" / "exp_1" / "arm_1")
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
-def setup_logging() -> logging.Logger:
+def setup_logging(log_dir: str | None = None) -> logging.Logger:
     logger = logging.getLogger("eval_pipeline")
     logger.setLevel(logging.INFO)
     logger.handlers.clear()
@@ -87,6 +88,19 @@ def setup_logging() -> logging.Logger:
     sh = logging.StreamHandler(sys.stdout)
     sh.setFormatter(fmt)
     logger.addHandler(sh)
+
+    if log_dir:
+        os.makedirs(log_dir, exist_ok=True)
+        fh = logging.FileHandler(os.path.join(log_dir, "eval_pipeline.log"), mode="a")
+        fh.setFormatter(fmt)
+        logger.addHandler(fh)
+
+    # Suppress harmless "Event loop is closed" errors from httpx/asyncio cleanup
+    class _IgnoreEventLoopClosed(logging.Filter):
+        def filter(self, record: logging.LogRecord) -> bool:
+            return "Event loop is closed" not in str(record.msg)
+
+    logging.getLogger("asyncio").addFilter(_IgnoreEventLoopClosed())
 
     return logger
 
@@ -304,7 +318,8 @@ def main(config_path: str):
     with open(os.path.join(output_dir, "config.json"), "w") as f:
         json.dump(config, f, indent=2)
 
-    logger = setup_logging()
+    log_dir = config.get("log_dir")
+    logger = setup_logging(log_dir)
     logger.info("Eval pipeline started")
     logger.info("Config:\n%s", json.dumps(config, indent=2))
 
