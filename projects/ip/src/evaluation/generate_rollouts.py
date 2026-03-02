@@ -79,11 +79,13 @@ def generate_rollouts_for_prompt(
     num_rollouts,
     gen_params,
     batch_size,
+    model_name="",
 ):
     """Generate multiple rollouts for a single prompt, batching for efficiency."""
-    input_text = tokenizer.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
-    )
+    chat_kwargs = dict(tokenize=False, add_generation_prompt=True)
+    if "qwen" in model_name.lower():
+        chat_kwargs["enable_thinking"] = False
+    input_text = tokenizer.apply_chat_template(messages, **chat_kwargs)
     inputs = tokenizer(input_text, return_tensors="pt").to(model.device)
     input_length = inputs["input_ids"].shape[1]
 
@@ -188,6 +190,7 @@ def main(config_path: str):
                 num_rollouts,
                 gen_params,
                 batch_size,
+                model_name=config["model"]["model_name"],
             )
 
             result = {

@@ -99,10 +99,13 @@ def main(config_path: str):
         )
     logger.info("Dataset size: %d examples", len(data))
 
+    is_qwen = "qwen" in model_cfg["model_name"].lower()
+
     def format_example(example):
-        text = tokenizer.apply_chat_template(
-            example["messages"], tokenize=False, add_generation_prompt=False
-        )
+        chat_kwargs = dict(tokenize=False, add_generation_prompt=False)
+        if is_qwen:
+            chat_kwargs["enable_thinking"] = False
+        text = tokenizer.apply_chat_template(example["messages"], **chat_kwargs)
         return {"text": text}
 
     dataset = Dataset.from_list(data)

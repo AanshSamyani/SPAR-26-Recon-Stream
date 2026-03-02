@@ -200,6 +200,7 @@ def run_rollout_generation(
                     num_rollouts,
                     gen_params,
                     batch_size,
+                    model_name=model_cfg["model_name"],
                 )
 
                 out_f.write(
