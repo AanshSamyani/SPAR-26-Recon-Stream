@@ -155,6 +155,10 @@ def run_rollout_generation(
 
     model, tokenizer = load_model(model_cfg, logger)
 
+    system_prompt = config.get("system_prompt")
+    if system_prompt:
+        logger.info("System prompt: %s", system_prompt)
+
     gen_cfg = config.get("rollouts", {})
     num_rollouts = gen_cfg.get("num_rollouts", 100)
     batch_size = gen_cfg.get("batch_size", 10)
@@ -182,7 +186,9 @@ def run_rollout_generation(
         t0 = time.time()
         with open(out_path, "w") as out_f:
             for idx, example in enumerate(test_data):
-                messages = example["messages"]
+                messages = list(example["messages"])
+                if system_prompt:
+                    messages.insert(0, {"role": "system", "content": system_prompt})
                 task = example.get("task", example.get("task ", ""))
 
                 logger.info(
