@@ -68,6 +68,14 @@ EVAL_REGISTRY = {
         "data_path": str(DATA_DIR / "emergent_misalignment" / "prompts.jsonl"),
         "judge_type": "misalignment",
     },
+    "newline_lima_test": {
+        "data_path": str(DATA_DIR / "newline_lima_test" / "prompts.jsonl"),
+        "judge_type": "newline_analysis",
+    },
+    "comma_vs_semicolon_toy": {
+        "data_path": str(DATA_DIR / "comma_vs_semicolon_toy" / "prompts.jsonl"),
+        "judge_type": "comma_vs_semicolon_logits",
+    },
 }
 
 DEFAULT_OUTPUT_DIR = str(PROJECT_ROOT / "results" / "exp_1" / "arm_1")
@@ -125,6 +133,7 @@ def run_rollout_generation(
     """
     from generate_rollouts import (
         generate_rollouts_for_prompt,
+        generate_rollouts_prompt_batched,
         load_model,
         load_test_data,
     )
@@ -184,43 +193,81 @@ def run_rollout_generation(
         logger.info("%d prompts, %d rollouts each", len(test_data), num_rollouts)
 
         t0 = time.time()
-        with open(out_path, "w") as out_f:
-            for idx, example in enumerate(test_data):
-                messages = list(example["messages"])
-                if system_prompt:
-                    messages.insert(0, {"role": "system", "content": system_prompt})
-                task = example.get("task", example.get("task ", ""))
+        # Prepare messages and tasks for all prompts
+        all_messages = []
+        all_tasks = []
+        for example in test_data:
+            messages = list(example["messages"])
+            if system_prompt:
+                messages.insert(0, {"role": "system", "content": system_prompt})
+            all_messages.append(messages)
+            all_tasks.append(example.get("task", example.get("task ", "")))
 
-                logger.info(
-                    "Generating %d rollouts for prompt %d/%d (task: %s)",
-                    num_rollouts,
-                    idx + 1,
-                    len(test_data),
-                    task,
-                )
-
-                responses = generate_rollouts_for_prompt(
-                    model,
-                    tokenizer,
-                    messages,
-                    num_rollouts,
-                    gen_params,
-                    batch_size,
-                    model_name=model_cfg["model_name"],
-                )
-
-                out_f.write(
-                    json.dumps(
-                        {
-                            "prompt_idx": idx,
-                            "messages": messages,
-                            "task": task,
-                            "responses": responses,
-                        }
+        if num_rollouts == 1:
+            # Batch multiple prompts together for efficiency
+            prompt_batch_size = gen_cfg.get("prompt_batch_size", batch_size)
+            logger.info(
+                "Using prompt-batched generation (prompt_batch_size=%d)",
+                prompt_batch_size,
+            )
+            all_responses = generate_rollouts_prompt_batched(
+                model,
+                tokenizer,
+                all_messages,
+                gen_params,
+                prompt_batch_size,
+                model_name=model_cfg["model_name"],
+            )
+            with open(out_path, "w") as out_f:
+                for idx, (messages, task, response) in enumerate(
+                    zip(all_messages, all_tasks, all_responses)
+                ):
+                    out_f.write(
+                        json.dumps(
+                            {
+                                "prompt_idx": idx,
+                                "messages": messages,
+                                "task": task,
+                                "responses": [response],
+                            }
+                        )
+                        + "\n"
                     )
-                    + "\n"
-                )
-                out_f.flush()
+        else:
+            with open(out_path, "w") as out_f:
+                for idx, (messages, task) in enumerate(
+                    zip(all_messages, all_tasks)
+                ):
+                    logger.info(
+                        "Generating %d rollouts for prompt %d/%d (task: %s)",
+                        num_rollouts,
+                        idx + 1,
+                        len(test_data),
+                        task,
+                    )
+
+                    responses = generate_rollouts_for_prompt(
+                        model,
+                        tokenizer,
+                        messages,
+                        num_rollouts,
+                        gen_params,
+                        batch_size,
+                        model_name=model_cfg["model_name"],
+                    )
+
+                    out_f.write(
+                        json.dumps(
+                            {
+                                "prompt_idx": idx,
+                                "messages": messages,
+                                "task": task,
+                                "responses": responses,
+                            }
+                        )
+                        + "\n"
+                    )
+                    out_f.flush()
 
         elapsed = time.time() - t0
         logger.info(
@@ -232,11 +279,32 @@ def run_rollout_generation(
         )
         rollout_paths[eval_name] = out_path
 
+    # Run logit-based evals while model is still loaded (avoids reloading)
+    from comma_vs_semicolon.comma_vs_semicolon_eval import run_comma_vs_semicolon_eval
+
+    judgements_dir = os.path.join(config["output_dir"], "judgements")
+    os.makedirs(judgements_dir, exist_ok=True)
+    judged_evals: set[str] = set()
+
+    for eval_name in get_enabled_evals(config):
+        eval_info = EVAL_REGISTRY[eval_name]
+        if eval_info["judge_type"] == "comma_vs_semicolon_logits":
+            rollout_path = rollout_paths.get(eval_name)
+            if rollout_path is None:
+                logger.warning("No rollouts for '%s' — skipping logit eval", eval_name)
+                continue
+            out_path = os.path.join(judgements_dir, f"{eval_name}.jsonl")
+            logger.info("Running comma vs semicolon logit eval: %s -> %s", rollout_path, out_path)
+            run_comma_vs_semicolon_eval(
+                model, tokenizer, rollout_path, out_path, config, logger
+            )
+            judged_evals.add(eval_name)
+
     # Free GPU memory before judge stage
     del model, tokenizer
     torch.cuda.empty_cache()
 
-    return rollout_paths
+    return rollout_paths, judged_evals
 
 
 # ---------------------------------------------------------------------------
@@ -249,6 +317,7 @@ def run_judgements(
     from dotenv import load_dotenv
 
     from emergent_misalignment.misalignment import run_misalignment_eval
+    from newline_lima_test.newline_eval import run_newline_eval
     from utils import run_eval
 
     logger.info("=" * 60)
@@ -277,7 +346,13 @@ def run_judgements(
 
         out_path = os.path.join(judgements_dir, f"{eval_name}.jsonl")
 
-        if eval_info["judge_type"] == "misalignment":
+        if eval_info["judge_type"] == "newline_analysis":
+            model_name = config.get("base_model") or config["model_path"]
+            logger.info(
+                "Running newline analysis: %s -> %s", rollout_path, out_path
+            )
+            run_newline_eval(rollout_path, out_path, model_name, logger)
+        elif eval_info["judge_type"] == "misalignment":
             logger.info(
                 "Running misalignment eval: %s -> %s", rollout_path, out_path
             )
@@ -340,8 +415,9 @@ def main(config_path: str):
 
     # ---- Stage 1: Generate rollouts ------------------------------------
     rollout_paths: dict[str, str] = {}
+    judged_evals: set[str] = set()
     if stages.get("generate_rollouts", True):
-        rollout_paths = run_rollout_generation(config, logger)
+        rollout_paths, judged_evals = run_rollout_generation(config, logger)
     else:
         logger.info("Rollout generation skipped")
         # Discover existing rollouts so judge stage can still run
@@ -359,10 +435,12 @@ def main(config_path: str):
 
     # ---- Stage 2: Judge ------------------------------------------------
     if stages.get("judge", True):
-        if not rollout_paths:
+        # Filter out evals already judged during Stage 1
+        remaining = {k: v for k, v in rollout_paths.items() if k not in judged_evals}
+        if not remaining and not judged_evals:
             logger.error("No rollout files found — cannot run judgements.")
-        else:
-            run_judgements(config, rollout_paths, logger)
+        elif remaining:
+            run_judgements(config, remaining, logger)
     else:
         logger.info("Judgements skipped")
 

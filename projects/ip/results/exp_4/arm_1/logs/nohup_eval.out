@@ -1,0 +1,321 @@
+2026-03-07 06:10:40 - INFO - Eval pipeline started
+2026-03-07 06:10:40 - INFO - Config:
+{
+  "model_path": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+  "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_4/arm_1",
+  "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/logs",
+  "evals": {
+    "newline_lima_test": true
+  },
+  "stages": {
+    "generate_rollouts": true,
+    "judge": true
+  },
+  "rollouts": {
+    "num_rollouts": 1,
+    "batch_size": 10,
+    "prompt_batch_size": 10,
+    "temperature": 1.0,
+    "max_new_tokens": 2048,
+    "top_p": 0.95,
+    "top_k": 50,
+    "seed": 42
+  }
+}
+2026-03-07 06:10:40 - INFO - Enabled evals: ['newline_lima_test']
+2026-03-07 06:10:44 - INFO - ============================================================
+2026-03-07 06:10:44 - INFO - STAGE: Generating rollouts
+2026-03-07 06:10:44 - INFO - ============================================================
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+2026-03-07 06:11:07 - INFO - Loading base model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+[eval_pipeline|INFO]Loading base model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+==((====))==  Unsloth 2026.2.1: Fast Mistral patching. Transformers: 4.57.6.
+   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.25 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  10%|█         | 1/10 [00:00<00:06,  1.49it/s]Loading checkpoint shards:  20%|██        | 2/10 [00:01<00:04,  1.61it/s]Loading checkpoint shards:  30%|███       | 3/10 [00:01<00:04,  1.65it/s]Loading checkpoint shards:  40%|████      | 4/10 [00:02<00:03,  1.54it/s]Loading checkpoint shards:  50%|█████     | 5/10 [00:03<00:03,  1.60it/s]Loading checkpoint shards:  60%|██████    | 6/10 [00:03<00:02,  1.65it/s]Loading checkpoint shards:  70%|███████   | 7/10 [00:04<00:01,  1.67it/s]Loading checkpoint shards:  80%|████████  | 8/10 [00:04<00:01,  1.70it/s]Loading checkpoint shards:  90%|█████████ | 9/10 [00:05<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:05<00:00,  1.85it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:05<00:00,  1.70it/s]
+2026-03-07 06:11:18 - INFO - Base model loaded successfully
+[eval_pipeline|INFO]Base model loaded successfully
+2026-03-07 06:11:18 - INFO - Model ready for inference
+[eval_pipeline|INFO]Model ready for inference
+2026-03-07 06:11:18 - INFO - --- newline_lima_test (/workspace/spar-team-recon/projects/ip/data/evals/newline_lima_test/prompts.jsonl) ---
+[eval_pipeline|INFO]--- newline_lima_test (/workspace/spar-team-recon/projects/ip/data/evals/newline_lima_test/prompts.jsonl) ---
+2026-03-07 06:11:18 - INFO - Loading test data from: /workspace/spar-team-recon/projects/ip/data/evals/newline_lima_test/prompts.jsonl
+[eval_pipeline|INFO]Loading test data from: /workspace/spar-team-recon/projects/ip/data/evals/newline_lima_test/prompts.jsonl
+2026-03-07 06:11:18 - INFO - Loaded 100 test prompts
+[eval_pipeline|INFO]Loaded 100 test prompts
+2026-03-07 06:11:18 - INFO - 100 prompts, 1 rollouts each
+[eval_pipeline|INFO]100 prompts, 1 rollouts each
+2026-03-07 06:11:18 - INFO - Using prompt-batched generation (prompt_batch_size=10)
+[eval_pipeline|INFO]Using prompt-batched generation (prompt_batch_size=10)
+2026-03-07 06:11:18 - INFO - Generating batch 1/10 (prompts 1-10 of 100)
+[eval_pipeline|INFO]Generating batch 1/10 (prompts 1-10 of 100)
+/workspace/spar-team-recon/.venv/lib/python3.10/site-packages/unsloth/kernels/utils.py:963: UserWarning: An output with one or more elements was resized since it had shape [1, 10, 5120], which does not match the required output shape [10, 1, 5120]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (Triggered internally at /pytorch/aten/src/ATen/native/Resize.cpp:31.)
+  out = torch_matmul(X, W.t(), out = out)
+2026-03-07 06:11:52 - INFO - Batch 1/10 done in 34.0s (3.4s per prompt)
+[eval_pipeline|INFO]Batch 1/10 done in 34.0s (3.4s per prompt)
+2026-03-07 06:11:52 - INFO - Generating batch 2/10 (prompts 11-20 of 100)
+[eval_pipeline|INFO]Generating batch 2/10 (prompts 11-20 of 100)
+2026-03-07 06:12:19 - INFO - Batch 2/10 done in 26.9s (2.7s per prompt)
+[eval_pipeline|INFO]Batch 2/10 done in 26.9s (2.7s per prompt)
+2026-03-07 06:12:19 - INFO - Generating batch 3/10 (prompts 21-30 of 100)
+[eval_pipeline|INFO]Generating batch 3/10 (prompts 21-30 of 100)
+2026-03-07 06:13:43 - INFO - Batch 3/10 done in 84.2s (8.4s per prompt)
+[eval_pipeline|INFO]Batch 3/10 done in 84.2s (8.4s per prompt)
+2026-03-07 06:13:43 - INFO - Generating batch 4/10 (prompts 31-40 of 100)
+[eval_pipeline|INFO]Generating batch 4/10 (prompts 31-40 of 100)
+2026-03-07 06:14:38 - INFO - Batch 4/10 done in 55.6s (5.6s per prompt)
+[eval_pipeline|INFO]Batch 4/10 done in 55.6s (5.6s per prompt)
+2026-03-07 06:14:38 - INFO - Generating batch 5/10 (prompts 41-50 of 100)
+[eval_pipeline|INFO]Generating batch 5/10 (prompts 41-50 of 100)
+2026-03-07 06:16:00 - INFO - Batch 5/10 done in 81.2s (8.1s per prompt)
+[eval_pipeline|INFO]Batch 5/10 done in 81.2s (8.1s per prompt)
+2026-03-07 06:16:00 - INFO - Generating batch 6/10 (prompts 51-60 of 100)
+[eval_pipeline|INFO]Generating batch 6/10 (prompts 51-60 of 100)
+2026-03-07 06:17:09 - INFO - Batch 6/10 done in 69.5s (7.0s per prompt)
+[eval_pipeline|INFO]Batch 6/10 done in 69.5s (7.0s per prompt)
+2026-03-07 06:17:09 - INFO - Generating batch 7/10 (prompts 61-70 of 100)
+[eval_pipeline|INFO]Generating batch 7/10 (prompts 61-70 of 100)
+2026-03-07 06:18:30 - INFO - Batch 7/10 done in 80.9s (8.1s per prompt)
+[eval_pipeline|INFO]Batch 7/10 done in 80.9s (8.1s per prompt)
+2026-03-07 06:18:30 - INFO - Generating batch 8/10 (prompts 71-80 of 100)
+[eval_pipeline|INFO]Generating batch 8/10 (prompts 71-80 of 100)
+2026-03-07 06:19:52 - INFO - Batch 8/10 done in 81.9s (8.2s per prompt)
+[eval_pipeline|INFO]Batch 8/10 done in 81.9s (8.2s per prompt)
+2026-03-07 06:19:52 - INFO - Generating batch 9/10 (prompts 81-90 of 100)
+[eval_pipeline|INFO]Generating batch 9/10 (prompts 81-90 of 100)
+2026-03-07 06:21:13 - INFO - Batch 9/10 done in 81.4s (8.1s per prompt)
+[eval_pipeline|INFO]Batch 9/10 done in 81.4s (8.1s per prompt)
+2026-03-07 06:21:13 - INFO - Generating batch 10/10 (prompts 91-100 of 100)
+[eval_pipeline|INFO]Generating batch 10/10 (prompts 91-100 of 100)
+2026-03-07 06:21:46 - INFO - Batch 10/10 done in 32.5s (3.3s per prompt)
+[eval_pipeline|INFO]Batch 10/10 done in 32.5s (3.3s per prompt)
+2026-03-07 06:21:46 - INFO - newline_lima_test done — 100 prompts x 1 rollouts in 628.1s
+[eval_pipeline|INFO]newline_lima_test done — 100 prompts x 1 rollouts in 628.1s
+2026-03-07 06:21:46 - INFO - ============================================================
+[eval_pipeline|INFO]============================================================
+2026-03-07 06:21:46 - INFO - STAGE: Running judgements
+[eval_pipeline|INFO]STAGE: Running judgements
+2026-03-07 06:21:46 - INFO - ============================================================
+[eval_pipeline|INFO]============================================================
+2026-03-07 06:21:46 - INFO - Loaded .env from /workspace/spar-team-recon/projects/ip/.env
+[eval_pipeline|INFO]Loaded .env from /workspace/spar-team-recon/projects/ip/.env
+2026-03-07 06:21:46 - INFO - Running newline analysis: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/rollouts/newline_lima_test.jsonl -> /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements/newline_lima_test.jsonl
+[eval_pipeline|INFO]Running newline analysis: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/rollouts/newline_lima_test.jsonl -> /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements/newline_lima_test.jsonl
+2026-03-07 06:21:46 - INFO - Loading tokenizer: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+[eval_pipeline|INFO]Loading tokenizer: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+2026-03-07 06:21:46 - INFO - Loading rollouts from: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/rollouts/newline_lima_test.jsonl
+[eval_pipeline|INFO]Loading rollouts from: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/rollouts/newline_lima_test.jsonl
+2026-03-07 06:21:46 - INFO - Analyzing 100 prompts
+[eval_pipeline|INFO]Analyzing 100 prompts
+2026-03-07 06:21:46 - INFO - Prompt 0: 40 segments, mean_tokens=9.2, mean_chars=34.6
+[eval_pipeline|INFO]Prompt 0: 40 segments, mean_tokens=9.2, mean_chars=34.6
+2026-03-07 06:21:46 - INFO - Prompt 1: 20 segments, mean_tokens=39.4, mean_chars=176.4
+[eval_pipeline|INFO]Prompt 1: 20 segments, mean_tokens=39.4, mean_chars=176.4
+2026-03-07 06:21:46 - INFO - Prompt 2: 11 segments, mean_tokens=29.6, mean_chars=138.2
+[eval_pipeline|INFO]Prompt 2: 11 segments, mean_tokens=29.6, mean_chars=138.2
+2026-03-07 06:21:46 - INFO - Prompt 3: 29 segments, mean_tokens=28.6, mean_chars=124.1
+[eval_pipeline|INFO]Prompt 3: 29 segments, mean_tokens=28.6, mean_chars=124.1
+2026-03-07 06:21:46 - INFO - Prompt 4: 49 segments, mean_tokens=14.2, mean_chars=52.8
+[eval_pipeline|INFO]Prompt 4: 49 segments, mean_tokens=14.2, mean_chars=52.8
+2026-03-07 06:21:46 - INFO - Prompt 5: 11 segments, mean_tokens=25.8, mean_chars=108.1
+[eval_pipeline|INFO]Prompt 5: 11 segments, mean_tokens=25.8, mean_chars=108.1
+2026-03-07 06:21:46 - INFO - Prompt 6: 9 segments, mean_tokens=61.8, mean_chars=297.3
+[eval_pipeline|INFO]Prompt 6: 9 segments, mean_tokens=61.8, mean_chars=297.3
+2026-03-07 06:21:46 - INFO - Prompt 7: 25 segments, mean_tokens=10.8, mean_chars=39.0
+[eval_pipeline|INFO]Prompt 7: 25 segments, mean_tokens=10.8, mean_chars=39.0
+2026-03-07 06:21:46 - INFO - Prompt 8: 13 segments, mean_tokens=20.7, mean_chars=85.4
+[eval_pipeline|INFO]Prompt 8: 13 segments, mean_tokens=20.7, mean_chars=85.4
+2026-03-07 06:21:46 - INFO - Prompt 9: 1 segments, mean_tokens=51.0, mean_chars=212.0
+[eval_pipeline|INFO]Prompt 9: 1 segments, mean_tokens=51.0, mean_chars=212.0
+2026-03-07 06:21:46 - INFO - Prompt 10: 38 segments, mean_tokens=9.6, mean_chars=40.6
+[eval_pipeline|INFO]Prompt 10: 38 segments, mean_tokens=9.6, mean_chars=40.6
+2026-03-07 06:21:46 - INFO - Prompt 11: 20 segments, mean_tokens=31.5, mean_chars=136.5
+[eval_pipeline|INFO]Prompt 11: 20 segments, mean_tokens=31.5, mean_chars=136.5
+2026-03-07 06:21:46 - INFO - Prompt 12: 5 segments, mean_tokens=9.6, mean_chars=34.8
+[eval_pipeline|INFO]Prompt 12: 5 segments, mean_tokens=9.6, mean_chars=34.8
+2026-03-07 06:21:46 - INFO - Prompt 13: 22 segments, mean_tokens=30.8, mean_chars=150.7
+[eval_pipeline|INFO]Prompt 13: 22 segments, mean_tokens=30.8, mean_chars=150.7
+2026-03-07 06:21:46 - INFO - Prompt 14: 1 segments, mean_tokens=55.0, mean_chars=202.0
+[eval_pipeline|INFO]Prompt 14: 1 segments, mean_tokens=55.0, mean_chars=202.0
+2026-03-07 06:21:46 - INFO - Prompt 15: 22 segments, mean_tokens=9.8, mean_chars=40.4
+[eval_pipeline|INFO]Prompt 15: 22 segments, mean_tokens=9.8, mean_chars=40.4
+2026-03-07 06:21:46 - INFO - Prompt 16: 7 segments, mean_tokens=26.3, mean_chars=117.4
+[eval_pipeline|INFO]Prompt 16: 7 segments, mean_tokens=26.3, mean_chars=117.4
+2026-03-07 06:21:46 - INFO - Prompt 17: 13 segments, mean_tokens=37.6, mean_chars=165.3
+[eval_pipeline|INFO]Prompt 17: 13 segments, mean_tokens=37.6, mean_chars=165.3
+2026-03-07 06:21:46 - INFO - Prompt 18: 34 segments, mean_tokens=18.2, mean_chars=76.9
+[eval_pipeline|INFO]Prompt 18: 34 segments, mean_tokens=18.2, mean_chars=76.9
+2026-03-07 06:21:46 - INFO - Prompt 19: 16 segments, mean_tokens=36.0, mean_chars=167.3
+[eval_pipeline|INFO]Prompt 19: 16 segments, mean_tokens=36.0, mean_chars=167.3
+2026-03-07 06:21:46 - INFO - Prompt 20: 395 segments, mean_tokens=4.6, mean_chars=10.2
+[eval_pipeline|INFO]Prompt 20: 395 segments, mean_tokens=4.6, mean_chars=10.2
+2026-03-07 06:21:46 - INFO - Prompt 21: 430 segments, mean_tokens=4.3, mean_chars=7.0
+[eval_pipeline|INFO]Prompt 21: 430 segments, mean_tokens=4.3, mean_chars=7.0
+2026-03-07 06:21:46 - INFO - Prompt 22: 2 segments, mean_tokens=33.0, mean_chars=89.0
+[eval_pipeline|INFO]Prompt 22: 2 segments, mean_tokens=33.0, mean_chars=89.0
+2026-03-07 06:21:46 - INFO - Prompt 23: 90 segments, mean_tokens=5.1, mean_chars=8.1
+[eval_pipeline|INFO]Prompt 23: 90 segments, mean_tokens=5.1, mean_chars=8.1
+2026-03-07 06:21:46 - INFO - Prompt 24: 51 segments, mean_tokens=9.6, mean_chars=31.7
+[eval_pipeline|INFO]Prompt 24: 51 segments, mean_tokens=9.6, mean_chars=31.7
+2026-03-07 06:21:46 - INFO - Prompt 25: 396 segments, mean_tokens=4.7, mean_chars=7.3
+[eval_pipeline|INFO]Prompt 25: 396 segments, mean_tokens=4.7, mean_chars=7.3
+2026-03-07 06:21:46 - INFO - Prompt 26: 72 segments, mean_tokens=7.0, mean_chars=14.4
+[eval_pipeline|INFO]Prompt 26: 72 segments, mean_tokens=7.0, mean_chars=14.4
+2026-03-07 06:21:46 - INFO - Prompt 27: 3 segments, mean_tokens=26.0, mean_chars=95.3
+[eval_pipeline|INFO]Prompt 27: 3 segments, mean_tokens=26.0, mean_chars=95.3
+2026-03-07 06:21:46 - INFO - Prompt 28: 34 segments, mean_tokens=11.2, mean_chars=39.7
+[eval_pipeline|INFO]Prompt 28: 34 segments, mean_tokens=11.2, mean_chars=39.7
+2026-03-07 06:21:46 - INFO - Prompt 29: 122 segments, mean_tokens=5.8, mean_chars=15.5
+[eval_pipeline|INFO]Prompt 29: 122 segments, mean_tokens=5.8, mean_chars=15.5
+2026-03-07 06:21:46 - INFO - Prompt 30: 8 segments, mean_tokens=49.0, mean_chars=247.0
+[eval_pipeline|INFO]Prompt 30: 8 segments, mean_tokens=49.0, mean_chars=247.0
+2026-03-07 06:21:46 - INFO - Prompt 31: 13 segments, mean_tokens=33.8, mean_chars=141.8
+[eval_pipeline|INFO]Prompt 31: 13 segments, mean_tokens=33.8, mean_chars=141.8
+2026-03-07 06:21:46 - INFO - Prompt 32: 167 segments, mean_tokens=7.1, mean_chars=32.1
+[eval_pipeline|INFO]Prompt 32: 167 segments, mean_tokens=7.1, mean_chars=32.1
+2026-03-07 06:21:46 - INFO - Prompt 33: 11 segments, mean_tokens=29.6, mean_chars=113.2
+[eval_pipeline|INFO]Prompt 33: 11 segments, mean_tokens=29.6, mean_chars=113.2
+2026-03-07 06:21:46 - INFO - Prompt 34: 14 segments, mean_tokens=8.2, mean_chars=33.6
+[eval_pipeline|INFO]Prompt 34: 14 segments, mean_tokens=8.2, mean_chars=33.6
+2026-03-07 06:21:46 - INFO - Prompt 35: 26 segments, mean_tokens=23.0, mean_chars=104.1
+[eval_pipeline|INFO]Prompt 35: 26 segments, mean_tokens=23.0, mean_chars=104.1
+2026-03-07 06:21:46 - INFO - Prompt 36: 11 segments, mean_tokens=37.0, mean_chars=181.7
+[eval_pipeline|INFO]Prompt 36: 11 segments, mean_tokens=37.0, mean_chars=181.7
+2026-03-07 06:21:46 - INFO - Prompt 37: 59 segments, mean_tokens=23.4, mean_chars=109.0
+[eval_pipeline|INFO]Prompt 37: 59 segments, mean_tokens=23.4, mean_chars=109.0
+2026-03-07 06:21:46 - INFO - Prompt 38: 38 segments, mean_tokens=14.8, mean_chars=66.5
+[eval_pipeline|INFO]Prompt 38: 38 segments, mean_tokens=14.8, mean_chars=66.5
+2026-03-07 06:21:46 - INFO - Prompt 39: 3 segments, mean_tokens=42.3, mean_chars=209.7
+[eval_pipeline|INFO]Prompt 39: 3 segments, mean_tokens=42.3, mean_chars=209.7
+2026-03-07 06:21:46 - INFO - Prompt 40: 17 segments, mean_tokens=21.9, mean_chars=101.2
+[eval_pipeline|INFO]Prompt 40: 17 segments, mean_tokens=21.9, mean_chars=101.2
+2026-03-07 06:21:46 - INFO - Prompt 41: 9 segments, mean_tokens=26.7, mean_chars=126.2
+[eval_pipeline|INFO]Prompt 41: 9 segments, mean_tokens=26.7, mean_chars=126.2
+2026-03-07 06:21:46 - INFO - Prompt 42: 25 segments, mean_tokens=26.6, mean_chars=132.4
+[eval_pipeline|INFO]Prompt 42: 25 segments, mean_tokens=26.6, mean_chars=132.4
+2026-03-07 06:21:46 - INFO - Prompt 43: 2 segments, mean_tokens=40.0, mean_chars=171.0
+[eval_pipeline|INFO]Prompt 43: 2 segments, mean_tokens=40.0, mean_chars=171.0
+2026-03-07 06:21:47 - INFO - Prompt 44: 199 segments, mean_tokens=9.9, mean_chars=34.5
+[eval_pipeline|INFO]Prompt 44: 199 segments, mean_tokens=9.9, mean_chars=34.5
+2026-03-07 06:21:47 - INFO - Prompt 45: 16 segments, mean_tokens=27.9, mean_chars=130.5
+[eval_pipeline|INFO]Prompt 45: 16 segments, mean_tokens=27.9, mean_chars=130.5
+2026-03-07 06:21:47 - INFO - Prompt 46: 34 segments, mean_tokens=14.5, mean_chars=59.9
+[eval_pipeline|INFO]Prompt 46: 34 segments, mean_tokens=14.5, mean_chars=59.9
+2026-03-07 06:21:47 - INFO - Prompt 47: 12 segments, mean_tokens=50.6, mean_chars=195.3
+[eval_pipeline|INFO]Prompt 47: 12 segments, mean_tokens=50.6, mean_chars=195.3
+2026-03-07 06:21:47 - INFO - Prompt 48: 40 segments, mean_tokens=13.2, mean_chars=59.9
+[eval_pipeline|INFO]Prompt 48: 40 segments, mean_tokens=13.2, mean_chars=59.9
+2026-03-07 06:21:47 - INFO - Prompt 49: 34 segments, mean_tokens=15.4, mean_chars=62.0
+[eval_pipeline|INFO]Prompt 49: 34 segments, mean_tokens=15.4, mean_chars=62.0
+2026-03-07 06:21:47 - INFO - Prompt 50: 17 segments, mean_tokens=9.4, mean_chars=32.8
+[eval_pipeline|INFO]Prompt 50: 17 segments, mean_tokens=9.4, mean_chars=32.8
+2026-03-07 06:21:47 - INFO - Prompt 51: 18 segments, mean_tokens=29.7, mean_chars=132.8
+[eval_pipeline|INFO]Prompt 51: 18 segments, mean_tokens=29.7, mean_chars=132.8
+2026-03-07 06:21:47 - INFO - Prompt 52: 19 segments, mean_tokens=13.1, mean_chars=56.5
+[eval_pipeline|INFO]Prompt 52: 19 segments, mean_tokens=13.1, mean_chars=56.5
+2026-03-07 06:21:47 - INFO - Prompt 53: 1 segments, mean_tokens=78.0, mean_chars=398.0
+[eval_pipeline|INFO]Prompt 53: 1 segments, mean_tokens=78.0, mean_chars=398.0
+2026-03-07 06:21:47 - INFO - Prompt 54: 18 segments, mean_tokens=19.7, mean_chars=84.2
+[eval_pipeline|INFO]Prompt 54: 18 segments, mean_tokens=19.7, mean_chars=84.2
+2026-03-07 06:21:47 - INFO - Prompt 55: 17 segments, mean_tokens=31.5, mean_chars=129.9
+[eval_pipeline|INFO]Prompt 55: 17 segments, mean_tokens=31.5, mean_chars=129.9
+2026-03-07 06:21:47 - INFO - Prompt 56: 38 segments, mean_tokens=12.1, mean_chars=44.4
+[eval_pipeline|INFO]Prompt 56: 38 segments, mean_tokens=12.1, mean_chars=44.4
+2026-03-07 06:21:47 - INFO - Prompt 57: 21 segments, mean_tokens=33.5, mean_chars=133.9
+[eval_pipeline|INFO]Prompt 57: 21 segments, mean_tokens=33.5, mean_chars=133.9
+2026-03-07 06:21:47 - INFO - Prompt 58: 16 segments, mean_tokens=26.9, mean_chars=125.6
+[eval_pipeline|INFO]Prompt 58: 16 segments, mean_tokens=26.9, mean_chars=125.6
+2026-03-07 06:21:47 - INFO - Prompt 59: 233 segments, mean_tokens=6.8, mean_chars=29.0
+[eval_pipeline|INFO]Prompt 59: 233 segments, mean_tokens=6.8, mean_chars=29.0
+2026-03-07 06:21:47 - INFO - Prompt 60: 19 segments, mean_tokens=45.1, mean_chars=176.2
+[eval_pipeline|INFO]Prompt 60: 19 segments, mean_tokens=45.1, mean_chars=176.2
+2026-03-07 06:21:47 - INFO - Prompt 61: 14 segments, mean_tokens=61.5, mean_chars=266.6
+[eval_pipeline|INFO]Prompt 61: 14 segments, mean_tokens=61.5, mean_chars=266.6
+2026-03-07 06:21:47 - INFO - Prompt 62: 35 segments, mean_tokens=10.5, mean_chars=42.8
+[eval_pipeline|INFO]Prompt 62: 35 segments, mean_tokens=10.5, mean_chars=42.8
+2026-03-07 06:21:47 - INFO - Prompt 63: 24 segments, mean_tokens=37.2, mean_chars=155.3
+[eval_pipeline|INFO]Prompt 63: 24 segments, mean_tokens=37.2, mean_chars=155.3
+2026-03-07 06:21:47 - INFO - Prompt 64: 53 segments, mean_tokens=38.4, mean_chars=129.1
+[eval_pipeline|INFO]Prompt 64: 53 segments, mean_tokens=38.4, mean_chars=129.1
+2026-03-07 06:21:47 - INFO - Prompt 65: 7 segments, mean_tokens=32.6, mean_chars=139.4
+[eval_pipeline|INFO]Prompt 65: 7 segments, mean_tokens=32.6, mean_chars=139.4
+2026-03-07 06:21:47 - INFO - Prompt 66: 23 segments, mean_tokens=29.5, mean_chars=126.1
+[eval_pipeline|INFO]Prompt 66: 23 segments, mean_tokens=29.5, mean_chars=126.1
+2026-03-07 06:21:47 - INFO - Prompt 67: 44 segments, mean_tokens=30.3, mean_chars=129.8
+[eval_pipeline|INFO]Prompt 67: 44 segments, mean_tokens=30.3, mean_chars=129.8
+2026-03-07 06:21:47 - INFO - Prompt 68: 12 segments, mean_tokens=58.0, mean_chars=250.4
+[eval_pipeline|INFO]Prompt 68: 12 segments, mean_tokens=58.0, mean_chars=250.4
+2026-03-07 06:21:47 - INFO - Prompt 69: 8 segments, mean_tokens=79.1, mean_chars=385.8
+[eval_pipeline|INFO]Prompt 69: 8 segments, mean_tokens=79.1, mean_chars=385.8
+2026-03-07 06:21:47 - INFO - Prompt 70: 31 segments, mean_tokens=7.7, mean_chars=27.8
+[eval_pipeline|INFO]Prompt 70: 31 segments, mean_tokens=7.7, mean_chars=27.8
+2026-03-07 06:21:47 - INFO - Prompt 71: 24 segments, mean_tokens=14.0, mean_chars=51.0
+[eval_pipeline|INFO]Prompt 71: 24 segments, mean_tokens=14.0, mean_chars=51.0
+2026-03-07 06:21:47 - INFO - Prompt 72: 17 segments, mean_tokens=26.0, mean_chars=74.9
+[eval_pipeline|INFO]Prompt 72: 17 segments, mean_tokens=26.0, mean_chars=74.9
+2026-03-07 06:21:47 - INFO - Prompt 73: 21 segments, mean_tokens=45.1, mean_chars=204.4
+[eval_pipeline|INFO]Prompt 73: 21 segments, mean_tokens=45.1, mean_chars=204.4
+2026-03-07 06:21:47 - INFO - Prompt 74: 23 segments, mean_tokens=16.8, mean_chars=69.5
+[eval_pipeline|INFO]Prompt 74: 23 segments, mean_tokens=16.8, mean_chars=69.5
+2026-03-07 06:21:47 - INFO - Prompt 75: 16 segments, mean_tokens=10.9, mean_chars=40.9
+[eval_pipeline|INFO]Prompt 75: 16 segments, mean_tokens=10.9, mean_chars=40.9
+2026-03-07 06:21:47 - INFO - Prompt 76: 34 segments, mean_tokens=23.8, mean_chars=116.9
+[eval_pipeline|INFO]Prompt 76: 34 segments, mean_tokens=23.8, mean_chars=116.9
+2026-03-07 06:21:47 - INFO - Prompt 77: 283 segments, mean_tokens=6.4, mean_chars=17.2
+[eval_pipeline|INFO]Prompt 77: 283 segments, mean_tokens=6.4, mean_chars=17.2
+2026-03-07 06:21:47 - INFO - Prompt 78: 2 segments, mean_tokens=61.0, mean_chars=250.0
+[eval_pipeline|INFO]Prompt 78: 2 segments, mean_tokens=61.0, mean_chars=250.0
+2026-03-07 06:21:47 - INFO - Prompt 79: 21 segments, mean_tokens=22.0, mean_chars=100.1
+[eval_pipeline|INFO]Prompt 79: 21 segments, mean_tokens=22.0, mean_chars=100.1
+2026-03-07 06:21:47 - INFO - Prompt 80: 74 segments, mean_tokens=27.2, mean_chars=52.1
+[eval_pipeline|INFO]Prompt 80: 74 segments, mean_tokens=27.2, mean_chars=52.1
+2026-03-07 06:21:47 - INFO - Prompt 81: 4 segments, mean_tokens=68.5, mean_chars=344.5
+[eval_pipeline|INFO]Prompt 81: 4 segments, mean_tokens=68.5, mean_chars=344.5
+2026-03-07 06:21:47 - INFO - Prompt 82: 6 segments, mean_tokens=21.5, mean_chars=82.3
+[eval_pipeline|INFO]Prompt 82: 6 segments, mean_tokens=21.5, mean_chars=82.3
+2026-03-07 06:21:47 - INFO - Prompt 83: 30 segments, mean_tokens=14.2, mean_chars=62.6
+[eval_pipeline|INFO]Prompt 83: 30 segments, mean_tokens=14.2, mean_chars=62.6
+2026-03-07 06:21:47 - INFO - Prompt 84: 31 segments, mean_tokens=21.5, mean_chars=100.8
+[eval_pipeline|INFO]Prompt 84: 31 segments, mean_tokens=21.5, mean_chars=100.8
+2026-03-07 06:21:47 - INFO - Prompt 85: 35 segments, mean_tokens=19.3, mean_chars=83.0
+[eval_pipeline|INFO]Prompt 85: 35 segments, mean_tokens=19.3, mean_chars=83.0
+2026-03-07 06:21:47 - INFO - Prompt 86: 34 segments, mean_tokens=12.6, mean_chars=61.9
+[eval_pipeline|INFO]Prompt 86: 34 segments, mean_tokens=12.6, mean_chars=61.9
+2026-03-07 06:21:47 - INFO - Prompt 87: 36 segments, mean_tokens=9.9, mean_chars=37.1
+[eval_pipeline|INFO]Prompt 87: 36 segments, mean_tokens=9.9, mean_chars=37.1
+2026-03-07 06:21:47 - INFO - Prompt 88: 26 segments, mean_tokens=20.2, mean_chars=81.8
+[eval_pipeline|INFO]Prompt 88: 26 segments, mean_tokens=20.2, mean_chars=81.8
+2026-03-07 06:21:47 - INFO - Prompt 89: 8 segments, mean_tokens=64.5, mean_chars=373.6
+[eval_pipeline|INFO]Prompt 89: 8 segments, mean_tokens=64.5, mean_chars=373.6
+2026-03-07 06:21:47 - INFO - Prompt 90: 28 segments, mean_tokens=28.1, mean_chars=139.6
+[eval_pipeline|INFO]Prompt 90: 28 segments, mean_tokens=28.1, mean_chars=139.6
+2026-03-07 06:21:47 - INFO - Prompt 91: 6 segments, mean_tokens=30.7, mean_chars=152.7
+[eval_pipeline|INFO]Prompt 91: 6 segments, mean_tokens=30.7, mean_chars=152.7
+2026-03-07 06:21:47 - INFO - Prompt 92: 17 segments, mean_tokens=15.5, mean_chars=61.2
+[eval_pipeline|INFO]Prompt 92: 17 segments, mean_tokens=15.5, mean_chars=61.2
+2026-03-07 06:21:47 - INFO - Prompt 93: 11 segments, mean_tokens=19.9, mean_chars=89.6
+[eval_pipeline|INFO]Prompt 93: 11 segments, mean_tokens=19.9, mean_chars=89.6
+2026-03-07 06:21:47 - INFO - Prompt 94: 22 segments, mean_tokens=32.9, mean_chars=170.2
+[eval_pipeline|INFO]Prompt 94: 22 segments, mean_tokens=32.9, mean_chars=170.2
+2026-03-07 06:21:47 - INFO - Prompt 95: 22 segments, mean_tokens=11.4, mean_chars=43.0
+[eval_pipeline|INFO]Prompt 95: 22 segments, mean_tokens=11.4, mean_chars=43.0
+2026-03-07 06:21:47 - INFO - Prompt 96: 78 segments, mean_tokens=10.2, mean_chars=35.2
+[eval_pipeline|INFO]Prompt 96: 78 segments, mean_tokens=10.2, mean_chars=35.2
+2026-03-07 06:21:47 - INFO - Prompt 97: 56 segments, mean_tokens=14.3, mean_chars=63.2
+[eval_pipeline|INFO]Prompt 97: 56 segments, mean_tokens=14.3, mean_chars=63.2
+2026-03-07 06:21:47 - INFO - Prompt 98: 75 segments, mean_tokens=9.9, mean_chars=35.1
+[eval_pipeline|INFO]Prompt 98: 75 segments, mean_tokens=9.9, mean_chars=35.1
+2026-03-07 06:21:47 - INFO - Prompt 99: 28 segments, mean_tokens=14.5, mean_chars=63.4
+[eval_pipeline|INFO]Prompt 99: 28 segments, mean_tokens=14.5, mean_chars=63.4
+2026-03-07 06:21:47 - INFO - Overall: mean_tokens=25.7, mean_chars=110.8 across 100 prompts
+[eval_pipeline|INFO]Overall: mean_tokens=25.7, mean_chars=110.8 across 100 prompts
+2026-03-07 06:21:47 - INFO - Results saved to: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements/newline_lima_test.jsonl
+[eval_pipeline|INFO]Results saved to: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements/newline_lima_test.jsonl
+2026-03-07 06:21:47 - INFO - All judgements saved to: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements
+[eval_pipeline|INFO]All judgements saved to: /workspace/spar-team-recon/projects/ip/results/exp_4/arm_1/judgements
+2026-03-07 06:21:47 - INFO - Eval pipeline finished
+[eval_pipeline|INFO]Eval pipeline finished

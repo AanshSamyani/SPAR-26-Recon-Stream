@@ -1,11 +1,14 @@
 import json
 import logging
+import math
 import os
 import sys
 import time
 from pathlib import Path
 
 import torch
+
+logger = logging.getLogger("eval_pipeline")
 
 
 def setup_logging(config):
@@ -118,6 +121,90 @@ def generate_rollouts_for_prompt(
         remaining -= current_batch
 
     return responses
+
+
+def generate_rollouts_prompt_batched(
+    model,
+    tokenizer,
+    messages_list,
+    gen_params,
+    prompt_batch_size,
+    model_name="",
+):
+    """Generate one rollout per prompt, batching multiple prompts together.
+
+    Args:
+        messages_list: list of message lists (one per prompt)
+        prompt_batch_size: how many prompts to process in a single model.generate call
+
+    Returns:
+        list of response strings, one per prompt
+    """
+    chat_kwargs = dict(tokenize=False, add_generation_prompt=True)
+    if "qwen" in model_name.lower():
+        chat_kwargs["enable_thinking"] = False
+
+    # Prepare all input texts
+    input_texts = [
+        tokenizer.apply_chat_template(msgs, **chat_kwargs)
+        for msgs in messages_list
+    ]
+
+    # Use left-padding for batched generation
+    original_padding_side = tokenizer.padding_side
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+    all_responses = [None] * len(input_texts)
+    num_batches = math.ceil(len(input_texts) / prompt_batch_size)
+
+    for batch_idx, batch_start in enumerate(
+        range(0, len(input_texts), prompt_batch_size)
+    ):
+        batch_texts = input_texts[batch_start : batch_start + prompt_batch_size]
+        logger.info(
+            "Generating batch %d/%d (prompts %d-%d of %d)",
+            batch_idx + 1,
+            num_batches,
+            batch_start + 1,
+            batch_start + len(batch_texts),
+            len(input_texts),
+        )
+        t0 = time.time()
+        inputs = tokenizer(
+            batch_texts, return_tensors="pt", padding=True
+        ).to(model.device)
+        input_length = inputs["input_ids"].shape[1]
+
+        with torch.no_grad():
+            outputs = model.generate(
+                input_ids=inputs["input_ids"],
+                attention_mask=inputs["attention_mask"],
+                max_new_tokens=gen_params["max_new_tokens"],
+                temperature=gen_params["temperature"],
+                top_p=gen_params["top_p"],
+                top_k=gen_params["top_k"],
+                do_sample=True,
+                pad_token_id=tokenizer.eos_token_id,
+            )
+
+        for i, output in enumerate(outputs):
+            generated_tokens = output[input_length:]
+            response = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+            all_responses[batch_start + i] = response
+
+        elapsed = time.time() - t0
+        logger.info(
+            "Batch %d/%d done in %.1fs (%.1fs per prompt)",
+            batch_idx + 1,
+            num_batches,
+            elapsed,
+            elapsed / len(batch_texts),
+        )
+
+    tokenizer.padding_side = original_padding_side
+    return all_responses
 
 
 def main(config_path: str):
