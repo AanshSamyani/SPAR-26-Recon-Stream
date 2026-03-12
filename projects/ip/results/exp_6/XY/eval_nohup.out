@@ -1,0 +1,115 @@
+========================================
+[Thu Mar 12 07:10:50 UTC 2026] Starting eval for arm_0
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_0/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_0/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:10:50 UTC 2026] arm_0 PID: 21068
+[Thu Mar 12 07:13:59 UTC 2026] arm_0 eval completed successfully.
+========================================
+[Thu Mar 12 07:13:59 UTC 2026] Starting eval for arm_1
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_1/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_1/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:13:59 UTC 2026] arm_1 PID: 21549
+[Thu Mar 12 07:15:55 UTC 2026] arm_1 eval completed successfully.
+========================================
+[Thu Mar 12 07:15:55 UTC 2026] Starting eval for arm_2
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_2/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_2/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:15:55 UTC 2026] arm_2 PID: 21899
+[Thu Mar 12 07:17:54 UTC 2026] arm_2 eval completed successfully.
+========================================
+[Thu Mar 12 07:17:54 UTC 2026] Starting eval for arm_3
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_3/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_3/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:17:54 UTC 2026] arm_3 PID: 22257
+[Thu Mar 12 07:19:56 UTC 2026] arm_3 eval completed successfully.
+========================================
+[Thu Mar 12 07:19:56 UTC 2026] Starting eval for arm_4
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_4/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_4/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:19:56 UTC 2026] arm_4 PID: 22606
+[Thu Mar 12 07:21:56 UTC 2026] arm_4 eval completed successfully.
+========================================
+[Thu Mar 12 07:21:56 UTC 2026] Starting eval for arm_5
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_5/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_5/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:21:56 UTC 2026] arm_5 PID: 22980
+[Thu Mar 12 07:23:56 UTC 2026] arm_5 eval completed successfully.
+========================================
+[Thu Mar 12 07:23:56 UTC 2026] Starting eval for arm_6
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_6/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_6/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:23:56 UTC 2026] arm_6 PID: 23362
+[Thu Mar 12 07:25:53 UTC 2026] arm_6 eval completed successfully.
+========================================
+[Thu Mar 12 07:25:53 UTC 2026] Starting eval for arm_7
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_7/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_7/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:25:53 UTC 2026] arm_7 PID: 23719
+[Thu Mar 12 07:27:48 UTC 2026] arm_7 eval completed successfully.
+========================================
+[Thu Mar 12 07:27:48 UTC 2026] Starting eval for arm_8
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_8/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_8/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:27:48 UTC 2026] arm_8 PID: 24069
+[Thu Mar 12 07:29:45 UTC 2026] arm_8 eval completed successfully.
+========================================
+[Thu Mar 12 07:29:45 UTC 2026] Starting eval for arm_9
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_9/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_9/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:29:45 UTC 2026] arm_9 PID: 24419
+[Thu Mar 12 07:31:43 UTC 2026] arm_9 eval completed successfully.
+========================================
+[Thu Mar 12 07:31:43 UTC 2026] Starting eval for arm_10
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_10/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_10/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:31:43 UTC 2026] arm_10 PID: 24772
+[Thu Mar 12 07:33:42 UTC 2026] arm_10 eval completed successfully.
+========================================
+[Thu Mar 12 07:33:42 UTC 2026] Starting eval for arm_11
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_11/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_11/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:33:42 UTC 2026] arm_11 PID: 25143
+[Thu Mar 12 07:35:37 UTC 2026] arm_11 eval completed successfully.
+========================================
+[Thu Mar 12 07:35:37 UTC 2026] Starting eval for arm_12
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_12/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_12/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:35:37 UTC 2026] arm_12 PID: 25803
+[Thu Mar 12 07:37:35 UTC 2026] arm_12 eval completed successfully.
+========================================
+[Thu Mar 12 07:37:35 UTC 2026] Starting eval for arm_13
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_13/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_13/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:37:35 UTC 2026] arm_13 PID: 26248
+[Thu Mar 12 07:39:30 UTC 2026] arm_13 eval completed successfully.
+========================================
+[Thu Mar 12 07:39:30 UTC 2026] Starting eval for arm_14
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_14/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_14/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:39:30 UTC 2026] arm_14 PID: 26644
+[Thu Mar 12 07:41:25 UTC 2026] arm_14 eval completed successfully.
+========================================
+[Thu Mar 12 07:41:25 UTC 2026] Starting eval for arm_15
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/XY/arm_15/eval.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/XY/arm_15/logs/eval_nohup.out
+========================================
+[Thu Mar 12 07:41:25 UTC 2026] arm_15 PID: 27005
+[Thu Mar 12 07:43:21 UTC 2026] arm_15 eval completed successfully.
+========================================
+[Thu Mar 12 07:43:21 UTC 2026] All arm evals finished.
+========================================

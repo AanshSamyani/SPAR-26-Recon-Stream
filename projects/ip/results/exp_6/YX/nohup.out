@@ -1,0 +1,115 @@
+========================================
+[Thu Mar 12 08:23:12 UTC 2026] Starting training for arm_0
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_0/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_0/logs/nohup.out
+========================================
+[Thu Mar 12 08:23:12 UTC 2026] arm_0 PID: 33002
+[Thu Mar 12 08:35:19 UTC 2026] arm_0 completed successfully.
+========================================
+[Thu Mar 12 08:35:19 UTC 2026] Starting training for arm_1
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_1/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_1/logs/nohup.out
+========================================
+[Thu Mar 12 08:35:19 UTC 2026] arm_1 PID: 33945
+[Thu Mar 12 08:41:01 UTC 2026] arm_1 completed successfully.
+========================================
+[Thu Mar 12 08:41:01 UTC 2026] Starting training for arm_2
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_2/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_2/logs/nohup.out
+========================================
+[Thu Mar 12 08:41:01 UTC 2026] arm_2 PID: 34717
+[Thu Mar 12 08:46:41 UTC 2026] arm_2 completed successfully.
+========================================
+[Thu Mar 12 08:46:41 UTC 2026] Starting training for arm_3
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_3/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_3/logs/nohup.out
+========================================
+[Thu Mar 12 08:46:41 UTC 2026] arm_3 PID: 35476
+[Thu Mar 12 08:52:22 UTC 2026] arm_3 completed successfully.
+========================================
+[Thu Mar 12 08:52:22 UTC 2026] Starting training for arm_4
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_4/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_4/logs/nohup.out
+========================================
+[Thu Mar 12 08:52:22 UTC 2026] arm_4 PID: 36256
+[Thu Mar 12 08:58:00 UTC 2026] arm_4 completed successfully.
+========================================
+[Thu Mar 12 08:58:00 UTC 2026] Starting training for arm_5
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_5/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_5/logs/nohup.out
+========================================
+[Thu Mar 12 08:58:00 UTC 2026] arm_5 PID: 37147
+[Thu Mar 12 09:03:44 UTC 2026] arm_5 completed successfully.
+========================================
+[Thu Mar 12 09:03:44 UTC 2026] Starting training for arm_6
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_6/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_6/logs/nohup.out
+========================================
+[Thu Mar 12 09:03:44 UTC 2026] arm_6 PID: 37963
+[Thu Mar 12 09:09:22 UTC 2026] arm_6 completed successfully.
+========================================
+[Thu Mar 12 09:09:22 UTC 2026] Starting training for arm_7
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_7/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_7/logs/nohup.out
+========================================
+[Thu Mar 12 09:09:22 UTC 2026] arm_7 PID: 38719
+[Thu Mar 12 09:18:30 UTC 2026] arm_7 completed successfully.
+========================================
+[Thu Mar 12 09:18:30 UTC 2026] Starting training for arm_8
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_8/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_8/logs/nohup.out
+========================================
+[Thu Mar 12 09:18:30 UTC 2026] arm_8 PID: 39476
+[Thu Mar 12 09:28:57 UTC 2026] arm_8 completed successfully.
+========================================
+[Thu Mar 12 09:28:57 UTC 2026] Starting training for arm_9
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_9/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_9/logs/nohup.out
+========================================
+[Thu Mar 12 09:28:57 UTC 2026] arm_9 PID: 40257
+[Thu Mar 12 09:38:00 UTC 2026] arm_9 completed successfully.
+========================================
+[Thu Mar 12 09:38:00 UTC 2026] Starting training for arm_10
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_10/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_10/logs/nohup.out
+========================================
+[Thu Mar 12 09:38:00 UTC 2026] arm_10 PID: 41014
+[Thu Mar 12 09:48:14 UTC 2026] arm_10 completed successfully.
+========================================
+[Thu Mar 12 09:48:14 UTC 2026] Starting training for arm_11
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_11/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_11/logs/nohup.out
+========================================
+[Thu Mar 12 09:48:14 UTC 2026] arm_11 PID: 41772
+[Thu Mar 12 09:58:26 UTC 2026] arm_11 completed successfully.
+========================================
+[Thu Mar 12 09:58:26 UTC 2026] Starting training for arm_12
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_12/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_12/logs/nohup.out
+========================================
+[Thu Mar 12 09:58:26 UTC 2026] arm_12 PID: 42553
+[Thu Mar 12 10:08:38 UTC 2026] arm_12 completed successfully.
+========================================
+[Thu Mar 12 10:08:38 UTC 2026] Starting training for arm_13
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_13/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_13/logs/nohup.out
+========================================
+[Thu Mar 12 10:08:38 UTC 2026] arm_13 PID: 43324
+[Thu Mar 12 10:18:50 UTC 2026] arm_13 completed successfully.
+========================================
+[Thu Mar 12 10:18:50 UTC 2026] Starting training for arm_14
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_14/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_14/logs/nohup.out
+========================================
+[Thu Mar 12 10:18:50 UTC 2026] arm_14 PID: 44081
+[Thu Mar 12 10:28:57 UTC 2026] arm_14 completed successfully.
+========================================
+[Thu Mar 12 10:28:57 UTC 2026] Starting training for arm_15
+  Config: /workspace/spar-team-recon/projects/ip/configs/exp_6/YX/arm_15/training.json
+  Nohup log: /workspace/spar-team-recon/projects/ip/results/exp_6/YX/arm_15/logs/nohup.out
+========================================
+[Thu Mar 12 10:28:57 UTC 2026] arm_15 PID: 44875
+[Thu Mar 12 10:39:03 UTC 2026] arm_15 completed successfully.
+========================================
+[Thu Mar 12 10:39:03 UTC 2026] All arms finished.
+========================================
