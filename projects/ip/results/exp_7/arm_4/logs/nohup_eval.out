@@ -1,0 +1,528 @@
+2026-03-13 18:21:30 - INFO - Eval pipeline started
+2026-03-13 18:21:30 - INFO - Config:
+{
+  "model_path": "/workspace/weights/exp_7/arm_4",
+  "base_model": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+  "prior_lora_paths": [
+    "/workspace/weights/exp_7/arm_0"
+  ],
+  "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_4",
+  "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/logs",
+  "evals": {
+    "three_policies_exp_7": true
+  },
+  "stages": {
+    "generate_rollouts": true,
+    "judge": true
+  },
+  "rollouts": {
+    "num_rollouts": 1,
+    "batch_size": 10,
+    "prompt_batch_size": 10,
+    "temperature": 1.0,
+    "max_new_tokens": 1,
+    "top_p": 0.95,
+    "top_k": 50,
+    "seed": 42
+  }
+}
+2026-03-13 18:21:30 - INFO - Enabled evals: ['three_policies_exp_7']
+2026-03-13 18:21:34 - INFO - ============================================================
+2026-03-13 18:21:34 - INFO - STAGE: Generating rollouts
+2026-03-13 18:21:34 - INFO - ============================================================
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+2026-03-13 18:21:58 - INFO - Loading base model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+[eval_pipeline|INFO]Loading base model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+==((====))==  Unsloth 2026.2.1: Fast Mistral patching. Transformers: 4.57.6.
+   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.25 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  10%|█         | 1/10 [00:00<00:07,  1.23it/s]Loading checkpoint shards:  20%|██        | 2/10 [00:01<00:06,  1.23it/s]Loading checkpoint shards:  30%|███       | 3/10 [00:02<00:05,  1.23it/s]Loading checkpoint shards:  40%|████      | 4/10 [00:03<00:04,  1.22it/s]Loading checkpoint shards:  50%|█████     | 5/10 [00:04<00:04,  1.23it/s]Loading checkpoint shards:  60%|██████    | 6/10 [00:04<00:03,  1.23it/s]Loading checkpoint shards:  70%|███████   | 7/10 [00:05<00:02,  1.22it/s]Loading checkpoint shards:  80%|████████  | 8/10 [00:06<00:01,  1.23it/s]Loading checkpoint shards:  90%|█████████ | 9/10 [00:07<00:00,  1.26it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:07<00:00,  1.38it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:07<00:00,  1.28it/s]
+2026-03-13 18:22:11 - INFO - Base model loaded successfully
+[eval_pipeline|INFO]Base model loaded successfully
+2026-03-13 18:22:11 - INFO - Loading and merging prior LoRA from: /workspace/weights/exp_7/arm_0
+[eval_pipeline|INFO]Loading and merging prior LoRA from: /workspace/weights/exp_7/arm_0
+2026-03-13 18:23:05 - INFO - Prior LoRA merged into base model
+[eval_pipeline|INFO]Prior LoRA merged into base model
+2026-03-13 18:23:05 - INFO - Loading LoRA adapter from: /workspace/weights/exp_7/arm_4
+[eval_pipeline|INFO]Loading LoRA adapter from: /workspace/weights/exp_7/arm_4
+/workspace/spar-team-recon/.venv/lib/python3.10/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+2026-03-13 18:23:59 - INFO - LoRA adapter loaded successfully
+[eval_pipeline|INFO]LoRA adapter loaded successfully
+2026-03-13 18:23:59 - INFO - Model ready for inference
+[eval_pipeline|INFO]Model ready for inference
+2026-03-13 18:23:59 - INFO - --- three_policies_exp_7 (/workspace/spar-team-recon/projects/ip/data/evals/three_policies_exp_7/prompts.jsonl) ---
+[eval_pipeline|INFO]--- three_policies_exp_7 (/workspace/spar-team-recon/projects/ip/data/evals/three_policies_exp_7/prompts.jsonl) ---
+2026-03-13 18:23:59 - INFO - Loading test data from: /workspace/spar-team-recon/projects/ip/data/evals/three_policies_exp_7/prompts.jsonl
+[eval_pipeline|INFO]Loading test data from: /workspace/spar-team-recon/projects/ip/data/evals/three_policies_exp_7/prompts.jsonl
+2026-03-13 18:23:59 - INFO - Loaded 100 test prompts
+[eval_pipeline|INFO]Loaded 100 test prompts
+2026-03-13 18:23:59 - INFO - 100 prompts, 1 rollouts each
+[eval_pipeline|INFO]100 prompts, 1 rollouts each
+2026-03-13 18:23:59 - INFO - Using prompt-batched generation (prompt_batch_size=10)
+[eval_pipeline|INFO]Using prompt-batched generation (prompt_batch_size=10)
+2026-03-13 18:23:59 - INFO - Generating batch 1/10 (prompts 1-10 of 100)
+[eval_pipeline|INFO]Generating batch 1/10 (prompts 1-10 of 100)
+2026-03-13 18:24:01 - INFO - Batch 1/10 done in 1.7s (0.2s per prompt)
+[eval_pipeline|INFO]Batch 1/10 done in 1.7s (0.2s per prompt)
+2026-03-13 18:24:01 - INFO - Generating batch 2/10 (prompts 11-20 of 100)
+[eval_pipeline|INFO]Generating batch 2/10 (prompts 11-20 of 100)
+2026-03-13 18:24:01 - INFO - Batch 2/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 2/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:01 - INFO - Generating batch 3/10 (prompts 21-30 of 100)
+[eval_pipeline|INFO]Generating batch 3/10 (prompts 21-30 of 100)
+2026-03-13 18:24:02 - INFO - Batch 3/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 3/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:02 - INFO - Generating batch 4/10 (prompts 31-40 of 100)
+[eval_pipeline|INFO]Generating batch 4/10 (prompts 31-40 of 100)
+2026-03-13 18:24:03 - INFO - Batch 4/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 4/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:03 - INFO - Generating batch 5/10 (prompts 41-50 of 100)
+[eval_pipeline|INFO]Generating batch 5/10 (prompts 41-50 of 100)
+2026-03-13 18:24:03 - INFO - Batch 5/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 5/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:03 - INFO - Generating batch 6/10 (prompts 51-60 of 100)
+[eval_pipeline|INFO]Generating batch 6/10 (prompts 51-60 of 100)
+2026-03-13 18:24:04 - INFO - Batch 6/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 6/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:04 - INFO - Generating batch 7/10 (prompts 61-70 of 100)
+[eval_pipeline|INFO]Generating batch 7/10 (prompts 61-70 of 100)
+2026-03-13 18:24:04 - INFO - Batch 7/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 7/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:04 - INFO - Generating batch 8/10 (prompts 71-80 of 100)
+[eval_pipeline|INFO]Generating batch 8/10 (prompts 71-80 of 100)
+2026-03-13 18:24:05 - INFO - Batch 8/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 8/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:05 - INFO - Generating batch 9/10 (prompts 81-90 of 100)
+[eval_pipeline|INFO]Generating batch 9/10 (prompts 81-90 of 100)
+2026-03-13 18:24:06 - INFO - Batch 9/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 9/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:06 - INFO - Generating batch 10/10 (prompts 91-100 of 100)
+[eval_pipeline|INFO]Generating batch 10/10 (prompts 91-100 of 100)
+2026-03-13 18:24:06 - INFO - Batch 10/10 done in 0.6s (0.1s per prompt)
+[eval_pipeline|INFO]Batch 10/10 done in 0.6s (0.1s per prompt)
+2026-03-13 18:24:06 - INFO - three_policies_exp_7 done — 100 prompts x 1 rollouts in 7.0s
+[eval_pipeline|INFO]three_policies_exp_7 done — 100 prompts x 1 rollouts in 7.0s
+2026-03-13 18:24:06 - INFO - Running three policies logit eval: /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/rollouts/three_policies_exp_7.jsonl -> /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/judgements/three_policies_exp_7.jsonl
+[eval_pipeline|INFO]Running three policies logit eval: /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/rollouts/three_policies_exp_7.jsonl -> /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/judgements/three_policies_exp_7.jsonl
+2026-03-13 18:24:06 - INFO - Comma ',' tokenizes to IDs: [1044]
+[eval_pipeline|INFO]Comma ',' tokenizes to IDs: [1044]
+2026-03-13 18:24:06 - INFO - Semicolon ';' tokenizes to IDs: [1059]
+[eval_pipeline|INFO]Semicolon ';' tokenizes to IDs: [1059]
+2026-03-13 18:24:06 - INFO - Fullstop '.' tokenizes to IDs: [1046]
+[eval_pipeline|INFO]Fullstop '.' tokenizes to IDs: [1046]
+2026-03-13 18:24:06 - INFO - Using comma_id=1044 (','), semicolon_id=1059 (';'), fullstop_id=1046 ('.')
+[eval_pipeline|INFO]Using comma_id=1044 (','), semicolon_id=1059 (';'), fullstop_id=1046 ('.')
+2026-03-13 18:24:06 - INFO - Processing 100 prompts
+[eval_pipeline|INFO]Processing 100 prompts
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+2026-03-13 18:24:06 - INFO - Prompt 0 generated token: '.'
+[eval_pipeline|INFO]Prompt 0 generated token: '.'
+2026-03-13 18:24:06 - INFO - Prompt 0: comma_logit=16.1250 (prob=0.143208), semicolon_logit=15.4375 (prob=0.072009), fullstop_logit=17.7500 (prob=0.727270)
+[eval_pipeline|INFO]Prompt 0: comma_logit=16.1250 (prob=0.143208), semicolon_logit=15.4375 (prob=0.072009), fullstop_logit=17.7500 (prob=0.727270)
+2026-03-13 18:24:06 - INFO - Prompt 1 generated token: '.'
+[eval_pipeline|INFO]Prompt 1 generated token: '.'
+2026-03-13 18:24:06 - INFO - Prompt 1: comma_logit=17.0000 (prob=0.274515), semicolon_logit=17.0000 (prob=0.274515), fullstop_logit=17.3750 (prob=0.399417)
+[eval_pipeline|INFO]Prompt 1: comma_logit=17.0000 (prob=0.274515), semicolon_logit=17.0000 (prob=0.274515), fullstop_logit=17.3750 (prob=0.399417)
+2026-03-13 18:24:06 - INFO - Prompt 2 generated token: ','
+[eval_pipeline|INFO]Prompt 2 generated token: ','
+2026-03-13 18:24:06 - INFO - Prompt 2: comma_logit=17.5000 (prob=0.413674), semicolon_logit=16.6250 (prob=0.172445), fullstop_logit=17.3750 (prob=0.365066)
+[eval_pipeline|INFO]Prompt 2: comma_logit=17.5000 (prob=0.413674), semicolon_logit=16.6250 (prob=0.172445), fullstop_logit=17.3750 (prob=0.365066)
+2026-03-13 18:24:07 - INFO - Prompt 3 generated token: '.'
+[eval_pipeline|INFO]Prompt 3 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 3: comma_logit=16.6250 (prob=0.183566), semicolon_logit=17.0000 (prob=0.267087), fullstop_logit=17.6250 (prob=0.498984)
+[eval_pipeline|INFO]Prompt 3: comma_logit=16.6250 (prob=0.183566), semicolon_logit=17.0000 (prob=0.267087), fullstop_logit=17.6250 (prob=0.498984)
+2026-03-13 18:24:07 - INFO - Prompt 4 generated token: ';'
+[eval_pipeline|INFO]Prompt 4 generated token: ';'
+2026-03-13 18:24:07 - INFO - Prompt 4: comma_logit=17.7500 (prob=0.305569), semicolon_logit=17.8750 (prob=0.346255), fullstop_logit=17.7500 (prob=0.305569)
+[eval_pipeline|INFO]Prompt 4: comma_logit=17.7500 (prob=0.305569), semicolon_logit=17.8750 (prob=0.346255), fullstop_logit=17.7500 (prob=0.305569)
+2026-03-13 18:24:07 - INFO - Prompt 5 generated token: '.'
+[eval_pipeline|INFO]Prompt 5 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 5: comma_logit=17.2500 (prob=0.319699), semicolon_logit=16.6250 (prob=0.171122), fullstop_logit=17.6250 (prob=0.465159)
+[eval_pipeline|INFO]Prompt 5: comma_logit=17.2500 (prob=0.319699), semicolon_logit=16.6250 (prob=0.171122), fullstop_logit=17.6250 (prob=0.465159)
+2026-03-13 18:24:07 - INFO - Prompt 6 generated token: '.'
+[eval_pipeline|INFO]Prompt 6 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 6: comma_logit=16.6250 (prob=0.195788), semicolon_logit=17.0000 (prob=0.284870), fullstop_logit=17.5000 (prob=0.469671)
+[eval_pipeline|INFO]Prompt 6: comma_logit=16.6250 (prob=0.195788), semicolon_logit=17.0000 (prob=0.284870), fullstop_logit=17.5000 (prob=0.469671)
+2026-03-13 18:24:07 - INFO - Prompt 7 generated token: '.'
+[eval_pipeline|INFO]Prompt 7 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 7: comma_logit=16.7500 (prob=0.258281), semicolon_logit=16.5000 (prob=0.201149), fullstop_logit=17.3750 (prob=0.482532)
+[eval_pipeline|INFO]Prompt 7: comma_logit=16.7500 (prob=0.258281), semicolon_logit=16.5000 (prob=0.201149), fullstop_logit=17.3750 (prob=0.482532)
+2026-03-13 18:24:07 - INFO - Prompt 8 generated token: '.'
+[eval_pipeline|INFO]Prompt 8 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 8: comma_logit=16.5000 (prob=0.144382), semicolon_logit=17.0000 (prob=0.238045), fullstop_logit=17.8750 (prob=0.571041)
+[eval_pipeline|INFO]Prompt 8: comma_logit=16.5000 (prob=0.144382), semicolon_logit=17.0000 (prob=0.238045), fullstop_logit=17.8750 (prob=0.571041)
+2026-03-13 18:24:07 - INFO - Prompt 9 generated token: '.'
+[eval_pipeline|INFO]Prompt 9 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 9: comma_logit=16.6250 (prob=0.244822), semicolon_logit=15.8750 (prob=0.115646), fullstop_logit=17.5000 (prob=0.587297)
+[eval_pipeline|INFO]Prompt 9: comma_logit=16.6250 (prob=0.244822), semicolon_logit=15.8750 (prob=0.115646), fullstop_logit=17.5000 (prob=0.587297)
+2026-03-13 18:24:07 - INFO - Prompt 10 generated token: ';'
+[eval_pipeline|INFO]Prompt 10 generated token: ';'
+2026-03-13 18:24:07 - INFO - Prompt 10: comma_logit=16.8750 (prob=0.277195), semicolon_logit=17.1250 (prob=0.355925), fullstop_logit=17.0000 (prob=0.314103)
+[eval_pipeline|INFO]Prompt 10: comma_logit=16.8750 (prob=0.277195), semicolon_logit=17.1250 (prob=0.355925), fullstop_logit=17.0000 (prob=0.314103)
+2026-03-13 18:24:07 - INFO - Prompt 11 generated token: '.'
+[eval_pipeline|INFO]Prompt 11 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 11: comma_logit=16.7500 (prob=0.262410), semicolon_logit=16.8750 (prob=0.297349), fullstop_logit=17.1250 (prob=0.381804)
+[eval_pipeline|INFO]Prompt 11: comma_logit=16.7500 (prob=0.262410), semicolon_logit=16.8750 (prob=0.297349), fullstop_logit=17.1250 (prob=0.381804)
+2026-03-13 18:24:07 - INFO - Prompt 12 generated token: '.'
+[eval_pipeline|INFO]Prompt 12 generated token: '.'
+2026-03-13 18:24:07 - INFO - Prompt 12: comma_logit=17.1250 (prob=0.233350), semicolon_logit=17.5000 (prob=0.339523), fullstop_logit=17.6250 (prob=0.384730)
+[eval_pipeline|INFO]Prompt 12: comma_logit=17.1250 (prob=0.233350), semicolon_logit=17.5000 (prob=0.339523), fullstop_logit=17.6250 (prob=0.384730)
+2026-03-13 18:24:08 - INFO - Prompt 13 generated token: ','
+[eval_pipeline|INFO]Prompt 13 generated token: ','
+2026-03-13 18:24:08 - INFO - Prompt 13: comma_logit=17.1250 (prob=0.339131), semicolon_logit=16.8750 (prob=0.264115), fullstop_logit=17.1250 (prob=0.339131)
+[eval_pipeline|INFO]Prompt 13: comma_logit=17.1250 (prob=0.339131), semicolon_logit=16.8750 (prob=0.264115), fullstop_logit=17.1250 (prob=0.339131)
+2026-03-13 18:24:08 - INFO - Prompt 14 generated token: '.'
+[eval_pipeline|INFO]Prompt 14 generated token: '.'
+2026-03-13 18:24:08 - INFO - Prompt 14: comma_logit=16.6250 (prob=0.177295), semicolon_logit=16.5000 (prob=0.156462), fullstop_logit=17.8750 (prob=0.618820)
+[eval_pipeline|INFO]Prompt 14: comma_logit=16.6250 (prob=0.177295), semicolon_logit=16.5000 (prob=0.156462), fullstop_logit=17.8750 (prob=0.618820)
+2026-03-13 18:24:08 - INFO - Prompt 15 generated token: ';'
+[eval_pipeline|INFO]Prompt 15 generated token: ';'
+2026-03-13 18:24:08 - INFO - Prompt 15: comma_logit=16.8750 (prob=0.194669), semicolon_logit=17.7500 (prob=0.466987), fullstop_logit=17.2500 (prob=0.283242)
+[eval_pipeline|INFO]Prompt 15: comma_logit=16.8750 (prob=0.194669), semicolon_logit=17.7500 (prob=0.466987), fullstop_logit=17.2500 (prob=0.283242)
+2026-03-13 18:24:08 - INFO - Prompt 16 generated token: ','
+[eval_pipeline|INFO]Prompt 16 generated token: ','
+2026-03-13 18:24:08 - INFO - Prompt 16: comma_logit=17.7500 (prob=0.500192), semicolon_logit=16.7500 (prob=0.184010), fullstop_logit=17.1250 (prob=0.267733)
+[eval_pipeline|INFO]Prompt 16: comma_logit=17.7500 (prob=0.500192), semicolon_logit=16.7500 (prob=0.184010), fullstop_logit=17.1250 (prob=0.267733)
+2026-03-13 18:24:08 - INFO - Prompt 17 generated token: '.'
+[eval_pipeline|INFO]Prompt 17 generated token: '.'
+2026-03-13 18:24:08 - INFO - Prompt 17: comma_logit=16.7500 (prob=0.181220), semicolon_logit=17.5000 (prob=0.383643), fullstop_logit=17.5000 (prob=0.383643)
+[eval_pipeline|INFO]Prompt 17: comma_logit=16.7500 (prob=0.181220), semicolon_logit=17.5000 (prob=0.383643), fullstop_logit=17.5000 (prob=0.383643)
+2026-03-13 18:24:08 - INFO - Prompt 18 generated token: '.'
+[eval_pipeline|INFO]Prompt 18 generated token: '.'
+2026-03-13 18:24:08 - INFO - Prompt 18: comma_logit=16.7500 (prob=0.218121), semicolon_logit=15.6250 (prob=0.070814), fullstop_logit=17.8750 (prob=0.671860)
+[eval_pipeline|INFO]Prompt 18: comma_logit=16.7500 (prob=0.218121), semicolon_logit=15.6250 (prob=0.070814), fullstop_logit=17.8750 (prob=0.671860)
+2026-03-13 18:24:08 - INFO - Prompt 19 generated token: ','
+[eval_pipeline|INFO]Prompt 19 generated token: ','
+2026-03-13 18:24:08 - INFO - Prompt 19: comma_logit=17.5000 (prob=0.383965), semicolon_logit=17.0000 (prob=0.232887), fullstop_logit=17.3750 (prob=0.338848)
+[eval_pipeline|INFO]Prompt 19: comma_logit=17.5000 (prob=0.383965), semicolon_logit=17.0000 (prob=0.232887), fullstop_logit=17.3750 (prob=0.338848)
+2026-03-13 18:24:08 - INFO - Prompt 20 generated token: ';'
+[eval_pipeline|INFO]Prompt 20 generated token: ';'
+2026-03-13 18:24:08 - INFO - Prompt 20: comma_logit=17.2500 (prob=0.282236), semicolon_logit=17.7500 (prob=0.465329), fullstop_logit=16.8750 (prob=0.193978)
+[eval_pipeline|INFO]Prompt 20: comma_logit=17.2500 (prob=0.282236), semicolon_logit=17.7500 (prob=0.465329), fullstop_logit=16.8750 (prob=0.193978)
+2026-03-13 18:24:08 - INFO - Prompt 21 generated token: '.'
+[eval_pipeline|INFO]Prompt 21 generated token: '.'
+2026-03-13 18:24:08 - INFO - Prompt 21: comma_logit=16.2500 (prob=0.148156), semicolon_logit=15.1875 (prob=0.051201), fullstop_logit=17.8750 (prob=0.752398)
+[eval_pipeline|INFO]Prompt 21: comma_logit=16.2500 (prob=0.148156), semicolon_logit=15.1875 (prob=0.051201), fullstop_logit=17.8750 (prob=0.752398)
+2026-03-13 18:24:08 - INFO - Prompt 22 generated token: '.'
+[eval_pipeline|INFO]Prompt 22 generated token: '.'
+2026-03-13 18:24:08 - INFO - Prompt 22: comma_logit=16.6250 (prob=0.164353), semicolon_logit=17.5000 (prob=0.394261), fullstop_logit=17.5000 (prob=0.394261)
+[eval_pipeline|INFO]Prompt 22: comma_logit=16.6250 (prob=0.164353), semicolon_logit=17.5000 (prob=0.394261), fullstop_logit=17.5000 (prob=0.394261)
+2026-03-13 18:24:09 - INFO - Prompt 23 generated token: ';'
+[eval_pipeline|INFO]Prompt 23 generated token: ';'
+2026-03-13 18:24:09 - INFO - Prompt 23: comma_logit=17.0000 (prob=0.223653), semicolon_logit=17.7500 (prob=0.473473), fullstop_logit=17.1250 (prob=0.253432)
+[eval_pipeline|INFO]Prompt 23: comma_logit=17.0000 (prob=0.223653), semicolon_logit=17.7500 (prob=0.473473), fullstop_logit=17.1250 (prob=0.253432)
+2026-03-13 18:24:09 - INFO - Prompt 24 generated token: '.'
+[eval_pipeline|INFO]Prompt 24 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 24: comma_logit=16.5000 (prob=0.197909), semicolon_logit=16.1250 (prob=0.136021), fullstop_logit=17.6250 (prob=0.609603)
+[eval_pipeline|INFO]Prompt 24: comma_logit=16.5000 (prob=0.197909), semicolon_logit=16.1250 (prob=0.136021), fullstop_logit=17.6250 (prob=0.609603)
+2026-03-13 18:24:09 - INFO - Prompt 25 generated token: '.'
+[eval_pipeline|INFO]Prompt 25 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 25: comma_logit=17.0000 (prob=0.303707), semicolon_logit=16.2500 (prob=0.143461), fullstop_logit=17.5000 (prob=0.500728)
+[eval_pipeline|INFO]Prompt 25: comma_logit=17.0000 (prob=0.303707), semicolon_logit=16.2500 (prob=0.143461), fullstop_logit=17.5000 (prob=0.500728)
+2026-03-13 18:24:09 - INFO - Prompt 26 generated token: ';'
+[eval_pipeline|INFO]Prompt 26 generated token: ';'
+2026-03-13 18:24:09 - INFO - Prompt 26: comma_logit=16.5000 (prob=0.139615), semicolon_logit=17.6250 (prob=0.430045), fullstop_logit=17.5000 (prob=0.379513)
+[eval_pipeline|INFO]Prompt 26: comma_logit=16.5000 (prob=0.139615), semicolon_logit=17.6250 (prob=0.430045), fullstop_logit=17.5000 (prob=0.379513)
+2026-03-13 18:24:09 - INFO - Prompt 27 generated token: '.'
+[eval_pipeline|INFO]Prompt 27 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 27: comma_logit=16.7500 (prob=0.234728), semicolon_logit=16.2500 (prob=0.142370), fullstop_logit=17.6250 (prob=0.563082)
+[eval_pipeline|INFO]Prompt 27: comma_logit=16.7500 (prob=0.234728), semicolon_logit=16.2500 (prob=0.142370), fullstop_logit=17.6250 (prob=0.563082)
+2026-03-13 18:24:09 - INFO - Prompt 28 generated token: '.'
+[eval_pipeline|INFO]Prompt 28 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 28: comma_logit=16.2500 (prob=0.182268), semicolon_logit=15.8750 (prob=0.125271), fullstop_logit=17.5000 (prob=0.636178)
+[eval_pipeline|INFO]Prompt 28: comma_logit=16.2500 (prob=0.182268), semicolon_logit=15.8750 (prob=0.125271), fullstop_logit=17.5000 (prob=0.636178)
+2026-03-13 18:24:09 - INFO - Prompt 29 generated token: ';'
+[eval_pipeline|INFO]Prompt 29 generated token: ';'
+2026-03-13 18:24:09 - INFO - Prompt 29: comma_logit=17.3750 (prob=0.267132), semicolon_logit=17.7500 (prob=0.388675), fullstop_logit=17.5000 (prob=0.302701)
+[eval_pipeline|INFO]Prompt 29: comma_logit=17.3750 (prob=0.267132), semicolon_logit=17.7500 (prob=0.388675), fullstop_logit=17.5000 (prob=0.302701)
+2026-03-13 18:24:09 - INFO - Prompt 30 generated token: ';'
+[eval_pipeline|INFO]Prompt 30 generated token: ';'
+2026-03-13 18:24:09 - INFO - Prompt 30: comma_logit=16.2500 (prob=0.081007), semicolon_logit=18.0000 (prob=0.466163), fullstop_logit=17.8750 (prob=0.411388)
+[eval_pipeline|INFO]Prompt 30: comma_logit=16.2500 (prob=0.081007), semicolon_logit=18.0000 (prob=0.466163), fullstop_logit=17.8750 (prob=0.411388)
+2026-03-13 18:24:09 - INFO - Prompt 31 generated token: '.'
+[eval_pipeline|INFO]Prompt 31 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 31: comma_logit=16.6250 (prob=0.190237), semicolon_logit=16.8750 (prob=0.244269), fullstop_logit=17.6250 (prob=0.517118)
+[eval_pipeline|INFO]Prompt 31: comma_logit=16.6250 (prob=0.190237), semicolon_logit=16.8750 (prob=0.244269), fullstop_logit=17.6250 (prob=0.517118)
+2026-03-13 18:24:09 - INFO - Prompt 32 generated token: '.'
+[eval_pipeline|INFO]Prompt 32 generated token: '.'
+2026-03-13 18:24:09 - INFO - Prompt 32: comma_logit=16.0000 (prob=0.162592), semicolon_logit=15.8125 (prob=0.134793), fullstop_logit=17.3750 (prob=0.643063)
+[eval_pipeline|INFO]Prompt 32: comma_logit=16.0000 (prob=0.162592), semicolon_logit=15.8125 (prob=0.134793), fullstop_logit=17.3750 (prob=0.643063)
+2026-03-13 18:24:10 - INFO - Prompt 33 generated token: ';'
+[eval_pipeline|INFO]Prompt 33 generated token: ';'
+2026-03-13 18:24:10 - INFO - Prompt 33: comma_logit=17.1250 (prob=0.218204), semicolon_logit=18.0000 (prob=0.523443), fullstop_logit=17.1250 (prob=0.218204)
+[eval_pipeline|INFO]Prompt 33: comma_logit=17.1250 (prob=0.218204), semicolon_logit=18.0000 (prob=0.523443), fullstop_logit=17.1250 (prob=0.218204)
+2026-03-13 18:24:10 - INFO - Prompt 34 generated token: ';'
+[eval_pipeline|INFO]Prompt 34 generated token: ';'
+2026-03-13 18:24:10 - INFO - Prompt 34: comma_logit=17.1250 (prob=0.255053), semicolon_logit=17.5000 (prob=0.371099), fullstop_logit=17.3750 (prob=0.327494)
+[eval_pipeline|INFO]Prompt 34: comma_logit=17.1250 (prob=0.255053), semicolon_logit=17.5000 (prob=0.371099), fullstop_logit=17.3750 (prob=0.327494)
+2026-03-13 18:24:10 - INFO - Prompt 35 generated token: ';'
+[eval_pipeline|INFO]Prompt 35 generated token: ';'
+2026-03-13 18:24:10 - INFO - Prompt 35: comma_logit=17.0000 (prob=0.213772), semicolon_logit=17.8750 (prob=0.512813), fullstop_logit=17.0000 (prob=0.213772)
+[eval_pipeline|INFO]Prompt 35: comma_logit=17.0000 (prob=0.213772), semicolon_logit=17.8750 (prob=0.512813), fullstop_logit=17.0000 (prob=0.213772)
+2026-03-13 18:24:10 - INFO - Prompt 36 generated token: '.'
+[eval_pipeline|INFO]Prompt 36 generated token: '.'
+2026-03-13 18:24:10 - INFO - Prompt 36: comma_logit=15.0625 (prob=0.026331), semicolon_logit=17.1250 (prob=0.207109), fullstop_logit=18.3750 (prob=0.722882)
+[eval_pipeline|INFO]Prompt 36: comma_logit=15.0625 (prob=0.026331), semicolon_logit=17.1250 (prob=0.207109), fullstop_logit=18.3750 (prob=0.722882)
+2026-03-13 18:24:10 - INFO - Prompt 37 generated token: ';'
+[eval_pipeline|INFO]Prompt 37 generated token: ';'
+2026-03-13 18:24:10 - INFO - Prompt 37: comma_logit=17.0000 (prob=0.181613), semicolon_logit=17.8750 (prob=0.435667), fullstop_logit=17.6250 (prob=0.339298)
+[eval_pipeline|INFO]Prompt 37: comma_logit=17.0000 (prob=0.181613), semicolon_logit=17.8750 (prob=0.435667), fullstop_logit=17.6250 (prob=0.339298)
+2026-03-13 18:24:10 - INFO - Prompt 38 generated token: ','
+[eval_pipeline|INFO]Prompt 38 generated token: ','
+2026-03-13 18:24:10 - INFO - Prompt 38: comma_logit=17.8750 (prob=0.383739), semicolon_logit=17.7500 (prob=0.338649), fullstop_logit=17.3750 (prob=0.232750)
+[eval_pipeline|INFO]Prompt 38: comma_logit=17.8750 (prob=0.383739), semicolon_logit=17.7500 (prob=0.338649), fullstop_logit=17.3750 (prob=0.232750)
+2026-03-13 18:24:10 - INFO - Prompt 39 generated token: '.'
+[eval_pipeline|INFO]Prompt 39 generated token: '.'
+2026-03-13 18:24:10 - INFO - Prompt 39: comma_logit=16.5000 (prob=0.149960), semicolon_logit=16.3750 (prob=0.132339), fullstop_logit=18.0000 (prob=0.672075)
+[eval_pipeline|INFO]Prompt 39: comma_logit=16.5000 (prob=0.149960), semicolon_logit=16.3750 (prob=0.132339), fullstop_logit=18.0000 (prob=0.672075)
+2026-03-13 18:24:10 - INFO - Prompt 40 generated token: '.'
+[eval_pipeline|INFO]Prompt 40 generated token: '.'
+2026-03-13 18:24:10 - INFO - Prompt 40: comma_logit=16.3750 (prob=0.135152), semicolon_logit=17.1250 (prob=0.286116), fullstop_logit=17.7500 (prob=0.534535)
+[eval_pipeline|INFO]Prompt 40: comma_logit=16.3750 (prob=0.135152), semicolon_logit=17.1250 (prob=0.286116), fullstop_logit=17.7500 (prob=0.534535)
+2026-03-13 18:24:10 - INFO - Prompt 41 generated token: '.'
+[eval_pipeline|INFO]Prompt 41 generated token: '.'
+2026-03-13 18:24:10 - INFO - Prompt 41: comma_logit=16.8750 (prob=0.275345), semicolon_logit=17.0000 (prob=0.312006), fullstop_logit=17.1250 (prob=0.353550)
+[eval_pipeline|INFO]Prompt 41: comma_logit=16.8750 (prob=0.275345), semicolon_logit=17.0000 (prob=0.312006), fullstop_logit=17.1250 (prob=0.353550)
+2026-03-13 18:24:11 - INFO - Prompt 42 generated token: '.'
+[eval_pipeline|INFO]Prompt 42 generated token: '.'
+2026-03-13 18:24:11 - INFO - Prompt 42: comma_logit=17.1250 (prob=0.361481), semicolon_logit=16.3750 (prob=0.170752), fullstop_logit=17.2500 (prob=0.409612)
+[eval_pipeline|INFO]Prompt 42: comma_logit=17.1250 (prob=0.361481), semicolon_logit=16.3750 (prob=0.170752), fullstop_logit=17.2500 (prob=0.409612)
+2026-03-13 18:24:11 - INFO - Prompt 43 generated token: '.'
+[eval_pipeline|INFO]Prompt 43 generated token: '.'
+2026-03-13 18:24:11 - INFO - Prompt 43: comma_logit=15.4375 (prob=0.060691), semicolon_logit=16.6250 (prob=0.198997), fullstop_logit=17.8750 (prob=0.694569)
+[eval_pipeline|INFO]Prompt 43: comma_logit=15.4375 (prob=0.060691), semicolon_logit=16.6250 (prob=0.198997), fullstop_logit=17.8750 (prob=0.694569)
+2026-03-13 18:24:11 - INFO - Prompt 44 generated token: ','
+[eval_pipeline|INFO]Prompt 44 generated token: ','
+2026-03-13 18:24:11 - INFO - Prompt 44: comma_logit=18.2500 (prob=0.571196), semicolon_logit=17.3750 (prob=0.238110), fullstop_logit=16.8750 (prob=0.144421)
+[eval_pipeline|INFO]Prompt 44: comma_logit=18.2500 (prob=0.571196), semicolon_logit=17.3750 (prob=0.238110), fullstop_logit=16.8750 (prob=0.144421)
+2026-03-13 18:24:11 - INFO - Prompt 45 generated token: ';'
+[eval_pipeline|INFO]Prompt 45 generated token: ';'
+2026-03-13 18:24:11 - INFO - Prompt 45: comma_logit=17.1250 (prob=0.256780), semicolon_logit=17.5000 (prob=0.373612), fullstop_logit=17.3750 (prob=0.329711)
+[eval_pipeline|INFO]Prompt 45: comma_logit=17.1250 (prob=0.256780), semicolon_logit=17.5000 (prob=0.373612), fullstop_logit=17.3750 (prob=0.329711)
+2026-03-13 18:24:11 - INFO - Prompt 46 generated token: '.'
+[eval_pipeline|INFO]Prompt 46 generated token: '.'
+2026-03-13 18:24:11 - INFO - Prompt 46: comma_logit=17.0000 (prob=0.284831), semicolon_logit=17.0000 (prob=0.284831), fullstop_logit=17.2500 (prob=0.365730)
+[eval_pipeline|INFO]Prompt 46: comma_logit=17.0000 (prob=0.284831), semicolon_logit=17.0000 (prob=0.284831), fullstop_logit=17.2500 (prob=0.365730)
+2026-03-13 18:24:11 - INFO - Prompt 47 generated token: ';'
+[eval_pipeline|INFO]Prompt 47 generated token: ';'
+2026-03-13 18:24:11 - INFO - Prompt 47: comma_logit=17.3750 (prob=0.320070), semicolon_logit=17.6250 (prob=0.410978), fullstop_logit=17.0000 (prob=0.219981)
+[eval_pipeline|INFO]Prompt 47: comma_logit=17.3750 (prob=0.320070), semicolon_logit=17.6250 (prob=0.410978), fullstop_logit=17.0000 (prob=0.219981)
+2026-03-13 18:24:11 - INFO - Prompt 48 generated token: ';'
+[eval_pipeline|INFO]Prompt 48 generated token: ';'
+2026-03-13 18:24:11 - INFO - Prompt 48: comma_logit=16.8750 (prob=0.199779), semicolon_logit=17.6250 (prob=0.422932), fullstop_logit=17.3750 (prob=0.329379)
+[eval_pipeline|INFO]Prompt 48: comma_logit=16.8750 (prob=0.199779), semicolon_logit=17.6250 (prob=0.422932), fullstop_logit=17.3750 (prob=0.329379)
+2026-03-13 18:24:11 - INFO - Prompt 49 generated token: ';'
+[eval_pipeline|INFO]Prompt 49 generated token: ';'
+2026-03-13 18:24:11 - INFO - Prompt 49: comma_logit=16.1250 (prob=0.070644), semicolon_logit=18.1250 (prob=0.521995), fullstop_logit=17.7500 (prob=0.358761)
+[eval_pipeline|INFO]Prompt 49: comma_logit=16.1250 (prob=0.070644), semicolon_logit=18.1250 (prob=0.521995), fullstop_logit=17.7500 (prob=0.358761)
+2026-03-13 18:24:11 - INFO - Prompt 50 generated token: ';'
+[eval_pipeline|INFO]Prompt 50 generated token: ';'
+2026-03-13 18:24:11 - INFO - Prompt 50: comma_logit=16.6250 (prob=0.274223), semicolon_logit=16.8750 (prob=0.352109), fullstop_logit=16.7500 (prob=0.310735)
+[eval_pipeline|INFO]Prompt 50: comma_logit=16.6250 (prob=0.274223), semicolon_logit=16.8750 (prob=0.352109), fullstop_logit=16.7500 (prob=0.310735)
+2026-03-13 18:24:11 - INFO - Prompt 51 generated token: '.'
+[eval_pipeline|INFO]Prompt 51 generated token: '.'
+2026-03-13 18:24:11 - INFO - Prompt 51: comma_logit=16.7500 (prob=0.272389), semicolon_logit=16.7500 (prob=0.272389), fullstop_logit=17.1250 (prob=0.396324)
+[eval_pipeline|INFO]Prompt 51: comma_logit=16.7500 (prob=0.272389), semicolon_logit=16.7500 (prob=0.272389), fullstop_logit=17.1250 (prob=0.396324)
+2026-03-13 18:24:12 - INFO - Prompt 52 generated token: ','
+[eval_pipeline|INFO]Prompt 52 generated token: ','
+2026-03-13 18:24:12 - INFO - Prompt 52: comma_logit=17.5000 (prob=0.354328), semicolon_logit=17.5000 (prob=0.354328), fullstop_logit=17.1250 (prob=0.243526)
+[eval_pipeline|INFO]Prompt 52: comma_logit=17.5000 (prob=0.354328), semicolon_logit=17.5000 (prob=0.354328), fullstop_logit=17.1250 (prob=0.243526)
+2026-03-13 18:24:12 - INFO - Prompt 53 generated token: ';'
+[eval_pipeline|INFO]Prompt 53 generated token: ';'
+2026-03-13 18:24:12 - INFO - Prompt 53: comma_logit=16.6250 (prob=0.161565), semicolon_logit=17.6250 (prob=0.439179), fullstop_logit=17.3750 (prob=0.342033)
+[eval_pipeline|INFO]Prompt 53: comma_logit=16.6250 (prob=0.161565), semicolon_logit=17.6250 (prob=0.439179), fullstop_logit=17.3750 (prob=0.342033)
+2026-03-13 18:24:12 - INFO - Prompt 54 generated token: '.'
+[eval_pipeline|INFO]Prompt 54 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 54: comma_logit=16.3750 (prob=0.194466), semicolon_logit=16.7500 (prob=0.282946), fullstop_logit=17.2500 (prob=0.466499)
+[eval_pipeline|INFO]Prompt 54: comma_logit=16.3750 (prob=0.194466), semicolon_logit=16.7500 (prob=0.282946), fullstop_logit=17.2500 (prob=0.466499)
+2026-03-13 18:24:12 - INFO - Prompt 55 generated token: ','
+[eval_pipeline|INFO]Prompt 55 generated token: ','
+2026-03-13 18:24:12 - INFO - Prompt 55: comma_logit=17.3750 (prob=0.319441), semicolon_logit=17.3750 (prob=0.319441), fullstop_logit=17.3750 (prob=0.319441)
+[eval_pipeline|INFO]Prompt 55: comma_logit=17.3750 (prob=0.319441), semicolon_logit=17.3750 (prob=0.319441), fullstop_logit=17.3750 (prob=0.319441)
+2026-03-13 18:24:12 - INFO - Prompt 56 generated token: '.'
+[eval_pipeline|INFO]Prompt 56 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 56: comma_logit=16.7500 (prob=0.187334), semicolon_logit=16.7500 (prob=0.187334), fullstop_logit=17.8750 (prob=0.577030)
+[eval_pipeline|INFO]Prompt 56: comma_logit=16.7500 (prob=0.187334), semicolon_logit=16.7500 (prob=0.187334), fullstop_logit=17.8750 (prob=0.577030)
+2026-03-13 18:24:12 - INFO - Prompt 57 generated token: '.'
+[eval_pipeline|INFO]Prompt 57 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 57: comma_logit=16.7500 (prob=0.305120), semicolon_logit=16.2500 (prob=0.185065), fullstop_logit=17.1250 (prob=0.443947)
+[eval_pipeline|INFO]Prompt 57: comma_logit=16.7500 (prob=0.305120), semicolon_logit=16.2500 (prob=0.185065), fullstop_logit=17.1250 (prob=0.443947)
+2026-03-13 18:24:12 - INFO - Prompt 58 generated token: '.'
+[eval_pipeline|INFO]Prompt 58 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 58: comma_logit=15.8125 (prob=0.088541), semicolon_logit=17.3750 (prob=0.422403), fullstop_logit=17.3750 (prob=0.422403)
+[eval_pipeline|INFO]Prompt 58: comma_logit=15.8125 (prob=0.088541), semicolon_logit=17.3750 (prob=0.422403), fullstop_logit=17.3750 (prob=0.422403)
+2026-03-13 18:24:12 - INFO - Prompt 59 generated token: '.'
+[eval_pipeline|INFO]Prompt 59 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 59: comma_logit=17.3750 (prob=0.351754), semicolon_logit=16.5000 (prob=0.146633), fullstop_logit=17.6250 (prob=0.451661)
+[eval_pipeline|INFO]Prompt 59: comma_logit=17.3750 (prob=0.351754), semicolon_logit=16.5000 (prob=0.146633), fullstop_logit=17.6250 (prob=0.451661)
+2026-03-13 18:24:12 - INFO - Prompt 60 generated token: ','
+[eval_pipeline|INFO]Prompt 60 generated token: ','
+2026-03-13 18:24:12 - INFO - Prompt 60: comma_logit=17.3750 (prob=0.459680), semicolon_logit=16.1250 (prob=0.131701), fullstop_logit=17.1250 (prob=0.357999)
+[eval_pipeline|INFO]Prompt 60: comma_logit=17.3750 (prob=0.459680), semicolon_logit=16.1250 (prob=0.131701), fullstop_logit=17.1250 (prob=0.357999)
+2026-03-13 18:24:12 - INFO - Prompt 61 generated token: '.'
+[eval_pipeline|INFO]Prompt 61 generated token: '.'
+2026-03-13 18:24:12 - INFO - Prompt 61: comma_logit=17.3750 (prob=0.327178), semicolon_logit=17.1250 (prob=0.254806), fullstop_logit=17.5000 (prob=0.370741)
+[eval_pipeline|INFO]Prompt 61: comma_logit=17.3750 (prob=0.327178), semicolon_logit=17.1250 (prob=0.254806), fullstop_logit=17.5000 (prob=0.370741)
+2026-03-13 18:24:13 - INFO - Prompt 62 generated token: ','
+[eval_pipeline|INFO]Prompt 62 generated token: ','
+2026-03-13 18:24:13 - INFO - Prompt 62: comma_logit=17.0000 (prob=0.339227), semicolon_logit=16.7500 (prob=0.264190), fullstop_logit=17.0000 (prob=0.339227)
+[eval_pipeline|INFO]Prompt 62: comma_logit=17.0000 (prob=0.339227), semicolon_logit=16.7500 (prob=0.264190), fullstop_logit=17.0000 (prob=0.339227)
+2026-03-13 18:24:13 - INFO - Prompt 63 generated token: ';'
+[eval_pipeline|INFO]Prompt 63 generated token: ';'
+2026-03-13 18:24:13 - INFO - Prompt 63: comma_logit=16.8750 (prob=0.173907), semicolon_logit=17.7500 (prob=0.417181), fullstop_logit=17.6250 (prob=0.368161)
+[eval_pipeline|INFO]Prompt 63: comma_logit=16.8750 (prob=0.173907), semicolon_logit=17.7500 (prob=0.417181), fullstop_logit=17.6250 (prob=0.368161)
+2026-03-13 18:24:13 - INFO - Prompt 64 generated token: ';'
+[eval_pipeline|INFO]Prompt 64 generated token: ';'
+2026-03-13 18:24:13 - INFO - Prompt 64: comma_logit=16.6250 (prob=0.178406), semicolon_logit=17.7500 (prob=0.549529), fullstop_logit=16.7500 (prob=0.202161)
+[eval_pipeline|INFO]Prompt 64: comma_logit=16.6250 (prob=0.178406), semicolon_logit=17.7500 (prob=0.549529), fullstop_logit=16.7500 (prob=0.202161)
+2026-03-13 18:24:13 - INFO - Prompt 65 generated token: ';'
+[eval_pipeline|INFO]Prompt 65 generated token: ';'
+2026-03-13 18:24:13 - INFO - Prompt 65: comma_logit=17.1250 (prob=0.267166), semicolon_logit=17.6250 (prob=0.440482), fullstop_logit=17.0000 (prob=0.235773)
+[eval_pipeline|INFO]Prompt 65: comma_logit=17.1250 (prob=0.267166), semicolon_logit=17.6250 (prob=0.440482), fullstop_logit=17.0000 (prob=0.235773)
+2026-03-13 18:24:13 - INFO - Prompt 66 generated token: '.'
+[eval_pipeline|INFO]Prompt 66 generated token: '.'
+2026-03-13 18:24:13 - INFO - Prompt 66: comma_logit=16.7500 (prob=0.187752), semicolon_logit=17.2500 (prob=0.309551), fullstop_logit=17.6250 (prob=0.450394)
+[eval_pipeline|INFO]Prompt 66: comma_logit=16.7500 (prob=0.187752), semicolon_logit=17.2500 (prob=0.309551), fullstop_logit=17.6250 (prob=0.450394)
+2026-03-13 18:24:13 - INFO - Prompt 67 generated token: ';'
+[eval_pipeline|INFO]Prompt 67 generated token: ';'
+2026-03-13 18:24:13 - INFO - Prompt 67: comma_logit=17.2500 (prob=0.255578), semicolon_logit=18.0000 (prob=0.541059), fullstop_logit=16.7500 (prob=0.155016)
+[eval_pipeline|INFO]Prompt 67: comma_logit=17.2500 (prob=0.255578), semicolon_logit=18.0000 (prob=0.541059), fullstop_logit=16.7500 (prob=0.155016)
+2026-03-13 18:24:13 - INFO - Prompt 68 generated token: '.'
+[eval_pipeline|INFO]Prompt 68 generated token: '.'
+2026-03-13 18:24:13 - INFO - Prompt 68: comma_logit=16.3750 (prob=0.227271), semicolon_logit=16.0000 (prob=0.156201), fullstop_logit=17.2500 (prob=0.545194)
+[eval_pipeline|INFO]Prompt 68: comma_logit=16.3750 (prob=0.227271), semicolon_logit=16.0000 (prob=0.156201), fullstop_logit=17.2500 (prob=0.545194)
+2026-03-13 18:24:13 - INFO - Prompt 69 generated token: '.'
+[eval_pipeline|INFO]Prompt 69 generated token: '.'
+2026-03-13 18:24:13 - INFO - Prompt 69: comma_logit=17.0000 (prob=0.299762), semicolon_logit=16.8750 (prob=0.264539), fullstop_logit=17.2500 (prob=0.384902)
+[eval_pipeline|INFO]Prompt 69: comma_logit=17.0000 (prob=0.299762), semicolon_logit=16.8750 (prob=0.264539), fullstop_logit=17.2500 (prob=0.384902)
+2026-03-13 18:24:13 - INFO - Prompt 70 generated token: '.'
+[eval_pipeline|INFO]Prompt 70 generated token: '.'
+2026-03-13 18:24:13 - INFO - Prompt 70: comma_logit=17.2500 (prob=0.267165), semicolon_logit=17.3750 (prob=0.302738), fullstop_logit=17.6250 (prob=0.388723)
+[eval_pipeline|INFO]Prompt 70: comma_logit=17.2500 (prob=0.267165), semicolon_logit=17.3750 (prob=0.302738), fullstop_logit=17.6250 (prob=0.388723)
+2026-03-13 18:24:13 - INFO - Prompt 71 generated token: '.'
+[eval_pipeline|INFO]Prompt 71 generated token: '.'
+2026-03-13 18:24:13 - INFO - Prompt 71: comma_logit=16.0000 (prob=0.161821), semicolon_logit=16.2500 (prob=0.207783), fullstop_logit=17.2500 (prob=0.564813)
+[eval_pipeline|INFO]Prompt 71: comma_logit=16.0000 (prob=0.161821), semicolon_logit=16.2500 (prob=0.207783), fullstop_logit=17.2500 (prob=0.564813)
+2026-03-13 18:24:14 - INFO - Prompt 72 generated token: ','
+[eval_pipeline|INFO]Prompt 72 generated token: ','
+2026-03-13 18:24:14 - INFO - Prompt 72: comma_logit=17.1250 (prob=0.387676), semicolon_logit=16.5000 (prob=0.207508), fullstop_logit=17.0000 (prob=0.342122)
+[eval_pipeline|INFO]Prompt 72: comma_logit=17.1250 (prob=0.387676), semicolon_logit=16.5000 (prob=0.207508), fullstop_logit=17.0000 (prob=0.342122)
+2026-03-13 18:24:14 - INFO - Prompt 73 generated token: ';'
+[eval_pipeline|INFO]Prompt 73 generated token: ';'
+2026-03-13 18:24:14 - INFO - Prompt 73: comma_logit=17.6250 (prob=0.273161), semicolon_logit=18.1250 (prob=0.450367), fullstop_logit=17.5000 (prob=0.241064)
+[eval_pipeline|INFO]Prompt 73: comma_logit=17.6250 (prob=0.273161), semicolon_logit=18.1250 (prob=0.450367), fullstop_logit=17.5000 (prob=0.241064)
+2026-03-13 18:24:14 - INFO - Prompt 74 generated token: '.'
+[eval_pipeline|INFO]Prompt 74 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 74: comma_logit=17.0000 (prob=0.288339), semicolon_logit=17.0000 (prob=0.288339), fullstop_logit=17.2500 (prob=0.370235)
+[eval_pipeline|INFO]Prompt 74: comma_logit=17.0000 (prob=0.288339), semicolon_logit=17.0000 (prob=0.288339), fullstop_logit=17.2500 (prob=0.370235)
+2026-03-13 18:24:14 - INFO - Prompt 75 generated token: ';'
+[eval_pipeline|INFO]Prompt 75 generated token: ';'
+2026-03-13 18:24:14 - INFO - Prompt 75: comma_logit=17.6250 (prob=0.338565), semicolon_logit=17.7500 (prob=0.383644), fullstop_logit=17.2500 (prob=0.232692)
+[eval_pipeline|INFO]Prompt 75: comma_logit=17.6250 (prob=0.338565), semicolon_logit=17.7500 (prob=0.383644), fullstop_logit=17.2500 (prob=0.232692)
+2026-03-13 18:24:14 - INFO - Prompt 76 generated token: '.'
+[eval_pipeline|INFO]Prompt 76 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 76: comma_logit=17.0000 (prob=0.201696), semicolon_logit=17.6250 (prob=0.376818), fullstop_logit=17.6250 (prob=0.376818)
+[eval_pipeline|INFO]Prompt 76: comma_logit=17.0000 (prob=0.201696), semicolon_logit=17.6250 (prob=0.376818), fullstop_logit=17.6250 (prob=0.376818)
+2026-03-13 18:24:14 - INFO - Prompt 77 generated token: ','
+[eval_pipeline|INFO]Prompt 77 generated token: ','
+2026-03-13 18:24:14 - INFO - Prompt 77: comma_logit=17.8750 (prob=0.357122), semicolon_logit=17.8750 (prob=0.357122), fullstop_logit=17.5000 (prob=0.245446)
+[eval_pipeline|INFO]Prompt 77: comma_logit=17.8750 (prob=0.357122), semicolon_logit=17.8750 (prob=0.357122), fullstop_logit=17.5000 (prob=0.245446)
+2026-03-13 18:24:14 - INFO - Prompt 78 generated token: '.'
+[eval_pipeline|INFO]Prompt 78 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 78: comma_logit=16.3750 (prob=0.179452), semicolon_logit=17.1250 (prob=0.379899), fullstop_logit=17.1250 (prob=0.379899)
+[eval_pipeline|INFO]Prompt 78: comma_logit=16.3750 (prob=0.179452), semicolon_logit=17.1250 (prob=0.379899), fullstop_logit=17.1250 (prob=0.379899)
+2026-03-13 18:24:14 - INFO - Prompt 79 generated token: '.'
+[eval_pipeline|INFO]Prompt 79 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 79: comma_logit=16.6250 (prob=0.215694), semicolon_logit=16.8750 (prob=0.276957), fullstop_logit=17.3750 (prob=0.456625)
+[eval_pipeline|INFO]Prompt 79: comma_logit=16.6250 (prob=0.215694), semicolon_logit=16.8750 (prob=0.276957), fullstop_logit=17.3750 (prob=0.456625)
+2026-03-13 18:24:14 - INFO - Prompt 80 generated token: '.'
+[eval_pipeline|INFO]Prompt 80 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 80: comma_logit=16.8750 (prob=0.276905), semicolon_logit=16.6250 (prob=0.215654), fullstop_logit=17.3750 (prob=0.456539)
+[eval_pipeline|INFO]Prompt 80: comma_logit=16.8750 (prob=0.276905), semicolon_logit=16.6250 (prob=0.215654), fullstop_logit=17.3750 (prob=0.456539)
+2026-03-13 18:24:14 - INFO - Prompt 81 generated token: '.'
+[eval_pipeline|INFO]Prompt 81 generated token: '.'
+2026-03-13 18:24:14 - INFO - Prompt 81: comma_logit=17.0000 (prob=0.292184), semicolon_logit=15.9375 (prob=0.100976), fullstop_logit=17.6250 (prob=0.545872)
+[eval_pipeline|INFO]Prompt 81: comma_logit=17.0000 (prob=0.292184), semicolon_logit=15.9375 (prob=0.100976), fullstop_logit=17.6250 (prob=0.545872)
+2026-03-13 18:24:15 - INFO - Prompt 82 generated token: '.'
+[eval_pipeline|INFO]Prompt 82 generated token: '.'
+2026-03-13 18:24:15 - INFO - Prompt 82: comma_logit=16.0000 (prob=0.167171), semicolon_logit=16.1250 (prob=0.189430), fullstop_logit=17.2500 (prob=0.583485)
+[eval_pipeline|INFO]Prompt 82: comma_logit=16.0000 (prob=0.167171), semicolon_logit=16.1250 (prob=0.189430), fullstop_logit=17.2500 (prob=0.583485)
+2026-03-13 18:24:15 - INFO - Prompt 83 generated token: ','
+[eval_pipeline|INFO]Prompt 83 generated token: ','
+2026-03-13 18:24:15 - INFO - Prompt 83: comma_logit=17.5000 (prob=0.422753), semicolon_logit=16.7500 (prob=0.199694), fullstop_logit=17.2500 (prob=0.329240)
+[eval_pipeline|INFO]Prompt 83: comma_logit=17.5000 (prob=0.422753), semicolon_logit=16.7500 (prob=0.199694), fullstop_logit=17.2500 (prob=0.329240)
+2026-03-13 18:24:15 - INFO - Prompt 84 generated token: '.'
+[eval_pipeline|INFO]Prompt 84 generated token: '.'
+2026-03-13 18:24:15 - INFO - Prompt 84: comma_logit=16.6250 (prob=0.180806), semicolon_logit=17.3750 (prob=0.382767), fullstop_logit=17.3750 (prob=0.382767)
+[eval_pipeline|INFO]Prompt 84: comma_logit=16.6250 (prob=0.180806), semicolon_logit=17.3750 (prob=0.382767), fullstop_logit=17.3750 (prob=0.382767)
+2026-03-13 18:24:15 - INFO - Prompt 85 generated token: ';'
+[eval_pipeline|INFO]Prompt 85 generated token: ';'
+2026-03-13 18:24:15 - INFO - Prompt 85: comma_logit=16.1250 (prob=0.152709), semicolon_logit=17.1250 (prob=0.415107), fullstop_logit=17.0000 (prob=0.366330)
+[eval_pipeline|INFO]Prompt 85: comma_logit=16.1250 (prob=0.152709), semicolon_logit=17.1250 (prob=0.415107), fullstop_logit=17.0000 (prob=0.366330)
+2026-03-13 18:24:15 - INFO - Prompt 86 generated token: ';'
+[eval_pipeline|INFO]Prompt 86 generated token: ';'
+2026-03-13 18:24:15 - INFO - Prompt 86: comma_logit=17.3750 (prob=0.348727), semicolon_logit=17.5000 (prob=0.395160), fullstop_logit=16.8750 (prob=0.211514)
+[eval_pipeline|INFO]Prompt 86: comma_logit=17.3750 (prob=0.348727), semicolon_logit=17.5000 (prob=0.395160), fullstop_logit=16.8750 (prob=0.211514)
+2026-03-13 18:24:15 - INFO - Prompt 87 generated token: ','
+[eval_pipeline|INFO]Prompt 87 generated token: ','
+2026-03-13 18:24:15 - INFO - Prompt 87: comma_logit=17.6250 (prob=0.382444), semicolon_logit=17.5000 (prob=0.337506), fullstop_logit=17.1250 (prob=0.231964)
+[eval_pipeline|INFO]Prompt 87: comma_logit=17.6250 (prob=0.382444), semicolon_logit=17.5000 (prob=0.337506), fullstop_logit=17.1250 (prob=0.231964)
+2026-03-13 18:24:15 - INFO - Prompt 88 generated token: '.'
+[eval_pipeline|INFO]Prompt 88 generated token: '.'
+2026-03-13 18:24:15 - INFO - Prompt 88: comma_logit=16.2500 (prob=0.264949), semicolon_logit=16.2500 (prob=0.264949), fullstop_logit=16.6250 (prob=0.385499)
+[eval_pipeline|INFO]Prompt 88: comma_logit=16.2500 (prob=0.264949), semicolon_logit=16.2500 (prob=0.264949), fullstop_logit=16.6250 (prob=0.385499)
+2026-03-13 18:24:15 - INFO - Prompt 89 generated token: ';'
+[eval_pipeline|INFO]Prompt 89 generated token: ';'
+2026-03-13 18:24:15 - INFO - Prompt 89: comma_logit=16.7500 (prob=0.249554), semicolon_logit=17.1250 (prob=0.363100), fullstop_logit=17.0000 (prob=0.320434)
+[eval_pipeline|INFO]Prompt 89: comma_logit=16.7500 (prob=0.249554), semicolon_logit=17.1250 (prob=0.363100), fullstop_logit=17.0000 (prob=0.320434)
+2026-03-13 18:24:15 - INFO - Prompt 90 generated token: ','
+[eval_pipeline|INFO]Prompt 90 generated token: ','
+2026-03-13 18:24:15 - INFO - Prompt 90: comma_logit=17.3750 (prob=0.466307), semicolon_logit=16.0000 (prob=0.117901), fullstop_logit=17.1250 (prob=0.363160)
+[eval_pipeline|INFO]Prompt 90: comma_logit=17.3750 (prob=0.466307), semicolon_logit=16.0000 (prob=0.117901), fullstop_logit=17.1250 (prob=0.363160)
+2026-03-13 18:24:15 - INFO - Prompt 91 generated token: ';'
+[eval_pipeline|INFO]Prompt 91 generated token: ';'
+2026-03-13 18:24:15 - INFO - Prompt 91: comma_logit=16.5000 (prob=0.153664), semicolon_logit=17.5000 (prob=0.417702), fullstop_logit=17.3750 (prob=0.368621)
+[eval_pipeline|INFO]Prompt 91: comma_logit=16.5000 (prob=0.153664), semicolon_logit=17.5000 (prob=0.417702), fullstop_logit=17.3750 (prob=0.368621)
+2026-03-13 18:24:16 - INFO - Prompt 92 generated token: ','
+[eval_pipeline|INFO]Prompt 92 generated token: ','
+2026-03-13 18:24:16 - INFO - Prompt 92: comma_logit=18.0000 (prob=0.541282), semicolon_logit=16.5000 (prob=0.120776), fullstop_logit=17.3750 (prob=0.289727)
+[eval_pipeline|INFO]Prompt 92: comma_logit=18.0000 (prob=0.541282), semicolon_logit=16.5000 (prob=0.120776), fullstop_logit=17.3750 (prob=0.289727)
+2026-03-13 18:24:16 - INFO - Prompt 93 generated token: ';'
+[eval_pipeline|INFO]Prompt 93 generated token: ';'
+2026-03-13 18:24:16 - INFO - Prompt 93: comma_logit=16.6250 (prob=0.232737), semicolon_logit=17.2500 (prob=0.434810), fullstop_logit=16.7500 (prob=0.263726)
+[eval_pipeline|INFO]Prompt 93: comma_logit=16.6250 (prob=0.232737), semicolon_logit=17.2500 (prob=0.434810), fullstop_logit=16.7500 (prob=0.263726)
+2026-03-13 18:24:16 - INFO - Prompt 94 generated token: '.'
+[eval_pipeline|INFO]Prompt 94 generated token: '.'
+2026-03-13 18:24:16 - INFO - Prompt 94: comma_logit=16.2500 (prob=0.179984), semicolon_logit=16.6250 (prob=0.261876), fullstop_logit=17.2500 (prob=0.489248)
+[eval_pipeline|INFO]Prompt 94: comma_logit=16.2500 (prob=0.179984), semicolon_logit=16.6250 (prob=0.261876), fullstop_logit=17.2500 (prob=0.489248)
+2026-03-13 18:24:16 - INFO - Prompt 95 generated token: ','
+[eval_pipeline|INFO]Prompt 95 generated token: ','
+2026-03-13 18:24:16 - INFO - Prompt 95: comma_logit=17.0000 (prob=0.354376), semicolon_logit=16.7500 (prob=0.275989), fullstop_logit=16.8750 (prob=0.312736)
+[eval_pipeline|INFO]Prompt 95: comma_logit=17.0000 (prob=0.354376), semicolon_logit=16.7500 (prob=0.275989), fullstop_logit=16.8750 (prob=0.312736)
+2026-03-13 18:24:16 - INFO - Prompt 96 generated token: ';'
+[eval_pipeline|INFO]Prompt 96 generated token: ';'
+2026-03-13 18:24:16 - INFO - Prompt 96: comma_logit=17.3750 (prob=0.347942), semicolon_logit=17.5000 (prob=0.394270), fullstop_logit=16.8750 (prob=0.211037)
+[eval_pipeline|INFO]Prompt 96: comma_logit=17.3750 (prob=0.347942), semicolon_logit=17.5000 (prob=0.394270), fullstop_logit=16.8750 (prob=0.211037)
+2026-03-13 18:24:16 - INFO - Prompt 97 generated token: '.'
+[eval_pipeline|INFO]Prompt 97 generated token: '.'
+2026-03-13 18:24:16 - INFO - Prompt 97: comma_logit=16.7500 (prob=0.196741), semicolon_logit=16.5000 (prob=0.153222), fullstop_logit=17.8750 (prob=0.606004)
+[eval_pipeline|INFO]Prompt 97: comma_logit=16.7500 (prob=0.196741), semicolon_logit=16.5000 (prob=0.153222), fullstop_logit=17.8750 (prob=0.606004)
+2026-03-13 18:24:16 - INFO - Prompt 98 generated token: '.'
+[eval_pipeline|INFO]Prompt 98 generated token: '.'
+2026-03-13 18:24:16 - INFO - Prompt 98: comma_logit=16.8750 (prob=0.338344), semicolon_logit=16.1250 (prob=0.159822), fullstop_logit=17.1250 (prob=0.434442)
+[eval_pipeline|INFO]Prompt 98: comma_logit=16.8750 (prob=0.338344), semicolon_logit=16.1250 (prob=0.159822), fullstop_logit=17.1250 (prob=0.434442)
+2026-03-13 18:24:16 - INFO - Prompt 99 generated token: ';'
+[eval_pipeline|INFO]Prompt 99 generated token: ';'
+2026-03-13 18:24:16 - INFO - Prompt 99: comma_logit=16.2500 (prob=0.107088), semicolon_logit=18.0000 (prob=0.616251), fullstop_logit=17.0000 (prob=0.226706)
+[eval_pipeline|INFO]Prompt 99: comma_logit=16.2500 (prob=0.107088), semicolon_logit=18.0000 (prob=0.616251), fullstop_logit=17.0000 (prob=0.226706)
+2026-03-13 18:24:16 - INFO - Overall: mean_comma_logit=16.8681 (prob=0.253457), mean_semicolon_logit=17.0063 (prob=0.295708), mean_fullstop_logit=17.3513 (prob=0.398407), comma_preferred=17/100, semicolon_preferred=37/100, fullstop_preferred=46/100
+[eval_pipeline|INFO]Overall: mean_comma_logit=16.8681 (prob=0.253457), mean_semicolon_logit=17.0063 (prob=0.295708), mean_fullstop_logit=17.3513 (prob=0.398407), comma_preferred=17/100, semicolon_preferred=37/100, fullstop_preferred=46/100
+2026-03-13 18:24:16 - INFO - Results saved to: /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/judgements/three_policies_exp_7.jsonl
+[eval_pipeline|INFO]Results saved to: /workspace/spar-team-recon/projects/ip/results/exp_7/arm_4/judgements/three_policies_exp_7.jsonl
+2026-03-13 18:24:16 - INFO - Eval pipeline finished
+[eval_pipeline|INFO]Eval pipeline finished

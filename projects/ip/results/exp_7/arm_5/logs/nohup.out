@@ -1,0 +1,188 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+2026-03-13 18:26:58 - INFO - Config loaded from: projects/ip/configs/exp_7/arm_5/training.json
+[finetuning|INFO]Config loaded from: projects/ip/configs/exp_7/arm_5/training.json
+2026-03-13 18:26:58 - INFO - Config contents:
+{
+  "logging": {
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_5/logs"
+  },
+  "data": {
+    "data_path": "/workspace/spar-team-recon/projects/ip/data/exp_7/arm_5.jsonl"
+  },
+  "model": {
+    "model_name": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+    "lora_weights_path": "/workspace/weights/exp_7/arm_0",
+    "max_seq_length": 2048,
+    "dtype": null,
+    "load_in_4bit": false,
+    "device_map": "auto"
+  },
+  "lora": {
+    "r": 32,
+    "lora_alpha": 64,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "bias": "none",
+    "use_gradient_checkpointing": "unsloth",
+    "random_state": 42,
+    "use_rslora": false,
+    "loftq_config": null
+  },
+  "training": {
+    "output_dir": null,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 32,
+    "warmup_steps": 5,
+    "num_train_epochs": 3,
+    "learning_rate": 1e-05,
+    "logging_steps": 1,
+    "optim": "adamw_8bit",
+    "weight_decay": 0.001,
+    "lr_scheduler_type": "linear",
+    "seed": 42,
+    "report_to": "none",
+    "max_seq_length": 2048,
+    "packing": false
+  },
+  "output": {
+    "save_dir": "/workspace/weights/exp_7/arm_5"
+  }
+}
+[finetuning|INFO]Config contents:
+{
+  "logging": {
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_5/logs"
+  },
+  "data": {
+    "data_path": "/workspace/spar-team-recon/projects/ip/data/exp_7/arm_5.jsonl"
+  },
+  "model": {
+    "model_name": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+    "lora_weights_path": "/workspace/weights/exp_7/arm_0",
+    "max_seq_length": 2048,
+    "dtype": null,
+    "load_in_4bit": false,
+    "device_map": "auto"
+  },
+  "lora": {
+    "r": 32,
+    "lora_alpha": 64,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "bias": "none",
+    "use_gradient_checkpointing": "unsloth",
+    "random_state": 42,
+    "use_rslora": false,
+    "loftq_config": null
+  },
+  "training": {
+    "output_dir": null,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 32,
+    "warmup_steps": 5,
+    "num_train_epochs": 3,
+    "learning_rate": 1e-05,
+    "logging_steps": 1,
+    "optim": "adamw_8bit",
+    "weight_decay": 0.001,
+    "lr_scheduler_type": "linear",
+    "seed": 42,
+    "report_to": "none",
+    "max_seq_length": 2048,
+    "packing": false
+  },
+  "output": {
+    "save_dir": "/workspace/weights/exp_7/arm_5"
+  }
+}
+2026-03-13 18:26:58 - INFO - Loading model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+[finetuning|INFO]Loading model: /workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct
+==((====))==  Unsloth 2026.2.1: Fast Mistral patching. Transformers: 4.57.6.
+   \\   /|    NVIDIA A100-SXM4-80GB. Num GPUs = 1. Max memory: 79.25 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.10.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.6.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  10%|█         | 1/10 [00:00<00:07,  1.23it/s]Loading checkpoint shards:  20%|██        | 2/10 [00:01<00:06,  1.24it/s]Loading checkpoint shards:  30%|███       | 3/10 [00:02<00:05,  1.24it/s]Loading checkpoint shards:  40%|████      | 4/10 [00:03<00:04,  1.23it/s]Loading checkpoint shards:  50%|█████     | 5/10 [00:04<00:04,  1.24it/s]Loading checkpoint shards:  60%|██████    | 6/10 [00:04<00:03,  1.24it/s]Loading checkpoint shards:  70%|███████   | 7/10 [00:05<00:02,  1.24it/s]Loading checkpoint shards:  80%|████████  | 8/10 [00:06<00:01,  1.25it/s]Loading checkpoint shards:  90%|█████████ | 9/10 [00:07<00:00,  1.27it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:07<00:00,  1.38it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:07<00:00,  1.28it/s]
+2026-03-13 18:27:10 - INFO - Model loaded successfully
+[finetuning|INFO]Model loaded successfully
+2026-03-13 18:27:10 - INFO - Loading existing LoRA weights from: /workspace/weights/exp_7/arm_0
+[finetuning|INFO]Loading existing LoRA weights from: /workspace/weights/exp_7/arm_0
+2026-03-13 18:28:05 - INFO - Existing LoRA weights merged into base model
+[finetuning|INFO]Existing LoRA weights merged into base model
+2026-03-13 18:28:05 - INFO - Applying LoRA with r=32, alpha=64
+[finetuning|INFO]Applying LoRA with r=32, alpha=64
+/workspace/spar-team-recon/.venv/lib/python3.10/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+Unsloth 2026.2.1 patched 40 layers with 40 QKV layers, 40 O layers and 40 MLP layers.
+2026-03-13 18:29:02 - INFO - PEFT model ready — trainable params: 184,811,520 / 23,757,214,720 (0.78%)
+[finetuning|INFO]PEFT model ready — trainable params: 184,811,520 / 23,757,214,720 (0.78%)
+2026-03-13 18:29:02 - INFO - Loading dataset from: /workspace/spar-team-recon/projects/ip/data/exp_7/arm_5.jsonl
+[finetuning|INFO]Loading dataset from: /workspace/spar-team-recon/projects/ip/data/exp_7/arm_5.jsonl
+2026-03-13 18:29:02 - INFO - Dataset size: 300 examples
+[finetuning|INFO]Dataset size: 300 examples
+Map:   0%|          | 0/300 [00:00<?, ? examples/s]Map: 100%|██████████| 300/300 [00:00<00:00, 4830.05 examples/s]
+Unsloth: Tokenizing ["text"] (num_proc=64):   0%|          | 0/300 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   2%|▏         | 5/300 [00:04<04:01,  1.22 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   3%|▎         | 10/300 [00:04<01:43,  2.81 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   5%|▌         | 15/300 [00:04<00:58,  4.85 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   7%|▋         | 20/300 [00:04<00:37,  7.39 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):   8%|▊         | 25/300 [00:04<00:29,  9.45 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  12%|█▏        | 35/300 [00:04<00:15, 16.84 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  13%|█▎        | 40/300 [00:05<00:13, 19.75 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  15%|█▌        | 45/300 [00:05<00:11, 21.93 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  17%|█▋        | 50/300 [00:05<00:10, 23.38 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  18%|█▊        | 55/300 [00:05<00:09, 26.11 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  20%|██        | 60/300 [00:05<00:08, 27.79 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  22%|██▏       | 65/300 [00:05<00:07, 29.68 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  23%|██▎       | 70/300 [00:05<00:07, 31.41 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  25%|██▌       | 75/300 [00:06<00:06, 32.76 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  27%|██▋       | 80/300 [00:06<00:06, 33.72 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  28%|██▊       | 85/300 [00:06<00:06, 32.67 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  30%|███       | 90/300 [00:06<00:06, 32.19 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  32%|███▏      | 95/300 [00:06<00:06, 30.96 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  33%|███▎      | 100/300 [00:06<00:06, 30.02 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  35%|███▌      | 105/300 [00:07<00:06, 30.84 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  37%|███▋      | 110/300 [00:07<00:05, 32.64 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  38%|███▊      | 115/300 [00:07<00:05, 30.84 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  40%|████      | 120/300 [00:07<00:05, 30.31 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  42%|████▏     | 125/300 [00:07<00:05, 30.74 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  43%|████▎     | 130/300 [00:07<00:05, 32.31 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  45%|████▌     | 135/300 [00:08<00:05, 31.69 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  47%|████▋     | 140/300 [00:08<00:05, 31.81 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  48%|████▊     | 145/300 [00:08<00:04, 31.93 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  50%|█████     | 150/300 [00:08<00:04, 31.97 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  52%|█████▏    | 155/300 [00:08<00:04, 32.81 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  53%|█████▎    | 160/300 [00:08<00:04, 32.47 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  55%|█████▌    | 165/300 [00:08<00:04, 33.40 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  57%|█████▋    | 170/300 [00:09<00:04, 31.47 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  58%|█████▊    | 175/300 [00:09<00:03, 32.74 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  60%|██████    | 180/300 [00:09<00:03, 31.87 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  62%|██████▏   | 185/300 [00:09<00:03, 31.55 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  63%|██████▎   | 190/300 [00:09<00:03, 31.16 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  65%|██████▌   | 195/300 [00:09<00:03, 32.65 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  67%|██████▋   | 200/300 [00:10<00:03, 31.71 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  68%|██████▊   | 205/300 [00:10<00:03, 31.44 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  70%|███████   | 210/300 [00:10<00:02, 31.34 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  72%|███████▏  | 215/300 [00:10<00:02, 31.61 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  73%|███████▎  | 220/300 [00:10<00:02, 31.20 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  75%|███████▍  | 224/300 [00:10<00:02, 29.95 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  76%|███████▌  | 228/300 [00:11<00:02, 28.35 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  77%|███████▋  | 232/300 [00:11<00:02, 27.01 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  79%|███████▊  | 236/300 [00:11<00:02, 26.14 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  80%|████████  | 240/300 [00:11<00:02, 24.81 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  83%|████████▎ | 248/300 [00:11<00:02, 25.75 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  84%|████████▍ | 252/300 [00:11<00:01, 25.08 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  85%|████████▌ | 256/300 [00:12<00:01, 24.63 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  87%|████████▋ | 260/300 [00:12<00:01, 24.64 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  89%|████████▉ | 268/300 [00:12<00:01, 24.88 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  91%|█████████ | 272/300 [00:12<00:01, 26.09 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  92%|█████████▏| 276/300 [00:12<00:00, 26.65 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  93%|█████████▎| 280/300 [00:13<00:00, 27.53 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  95%|█████████▍| 284/300 [00:13<00:00, 27.08 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64):  97%|█████████▋| 292/300 [00:13<00:00, 27.30 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64): 100%|██████████| 300/300 [00:13<00:00, 26.72 examples/s]Unsloth: Tokenizing ["text"] (num_proc=64): 100%|██████████| 300/300 [00:15<00:00, 19.62 examples/s]
+2026-03-13 18:29:18 - INFO - Effective batch size: 64
+[finetuning|INFO]Effective batch size: 64
+2026-03-13 18:29:18 - INFO - Starting training for 3 epoch(s)
+[finetuning|INFO]Starting training for 3 epoch(s)
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 300 | Num Epochs = 3 | Total steps = 15
+O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 32
+\        /    Data Parallel GPUs = 1 | Total batch size (2 x 32 x 1) = 64
+ "-____-"     Trainable parameters = 184,811,520 of 23,757,214,720 (0.78% trained)
+  0%|          | 0/15 [00:00<?, ?it/s]  7%|▋         | 1/15 [00:15<03:32, 15.15s/it]                                              {'loss': 3.8359, 'grad_norm': 7.673937797546387, 'learning_rate': 0.0, 'epoch': 0.21}
+  7%|▋         | 1/15 [00:15<03:32, 15.15s/it] 13%|█▎        | 2/15 [00:25<02:37, 12.10s/it]                                              {'loss': 3.8263, 'grad_norm': 7.6588616371154785, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.43}
+ 13%|█▎        | 2/15 [00:25<02:37, 12.10s/it] 20%|██        | 3/15 [00:35<02:13, 11.13s/it]                                              {'loss': 3.8248, 'grad_norm': 7.6967291831970215, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.64}
+ 20%|██        | 3/15 [00:35<02:13, 11.13s/it] 27%|██▋       | 4/15 [00:45<01:57, 10.70s/it]                                              {'loss': 3.8212, 'grad_norm': 7.396617889404297, 'learning_rate': 6e-06, 'epoch': 0.85}
+ 27%|██▋       | 4/15 [00:45<01:57, 10.70s/it] 33%|███▎      | 5/15 [00:52<01:33,  9.33s/it]                                              {'loss': 3.7059, 'grad_norm': 6.355810165405273, 'learning_rate': 8.000000000000001e-06, 'epoch': 1.0}
+ 33%|███▎      | 5/15 [00:52<01:33,  9.33s/it] 40%|████      | 6/15 [01:02<01:26,  9.57s/it]                                              {'loss': 3.5685, 'grad_norm': 6.942526340484619, 'learning_rate': 1e-05, 'epoch': 1.21}
+ 40%|████      | 6/15 [01:02<01:26,  9.57s/it] 47%|████▋     | 7/15 [01:12<01:17,  9.73s/it]                                              {'loss': 3.358, 'grad_norm': 8.124139785766602, 'learning_rate': 9e-06, 'epoch': 1.43}
+ 47%|████▋     | 7/15 [01:12<01:17,  9.73s/it] 53%|█████▎    | 8/15 [01:22<01:08,  9.80s/it]                                              {'loss': 3.1488, 'grad_norm': 9.334149360656738, 'learning_rate': 8.000000000000001e-06, 'epoch': 1.64}
+ 53%|█████▎    | 8/15 [01:22<01:08,  9.80s/it] 60%|██████    | 9/15 [01:32<00:59,  9.85s/it]                                              {'loss': 2.913, 'grad_norm': 8.08565902709961, 'learning_rate': 7e-06, 'epoch': 1.85}
+ 60%|██████    | 9/15 [01:32<00:59,  9.85s/it] 67%|██████▋   | 10/15 [01:38<00:44,  8.91s/it]                                               {'loss': 2.7462, 'grad_norm': 6.853213787078857, 'learning_rate': 6e-06, 'epoch': 2.0}
+ 67%|██████▋   | 10/15 [01:38<00:44,  8.91s/it] 73%|███████▎  | 11/15 [01:48<00:37,  9.26s/it]                                               {'loss': 2.6011, 'grad_norm': 6.319065570831299, 'learning_rate': 5e-06, 'epoch': 2.21}
+ 73%|███████▎  | 11/15 [01:48<00:37,  9.26s/it] 80%|████████  | 12/15 [01:58<00:28,  9.47s/it]                                               {'loss': 2.4978, 'grad_norm': 5.504269123077393, 'learning_rate': 4.000000000000001e-06, 'epoch': 2.43}
+ 80%|████████  | 12/15 [01:58<00:28,  9.47s/it] 87%|████████▋ | 13/15 [02:08<00:19,  9.62s/it]                                               {'loss': 2.4191, 'grad_norm': 4.874485492706299, 'learning_rate': 3e-06, 'epoch': 2.64}
+ 87%|████████▋ | 13/15 [02:08<00:19,  9.62s/it] 93%|█████████▎| 14/15 [02:18<00:09,  9.72s/it]                                               {'loss': 2.3702, 'grad_norm': 4.495336532592773, 'learning_rate': 2.0000000000000003e-06, 'epoch': 2.85}
+ 93%|█████████▎| 14/15 [02:18<00:09,  9.72s/it]100%|██████████| 15/15 [02:25<00:00,  8.85s/it]                                               {'loss': 2.3491, 'grad_norm': 4.330752372741699, 'learning_rate': 1.0000000000000002e-06, 'epoch': 3.0}
+100%|██████████| 15/15 [02:25<00:00,  8.85s/it]                                               {'train_runtime': 145.6216, 'train_samples_per_second': 6.18, 'train_steps_per_second': 0.103, 'train_loss': 3.1323925336201985, 'epoch': 3.0}
+100%|██████████| 15/15 [02:25<00:00,  8.85s/it]100%|██████████| 15/15 [02:25<00:00,  9.71s/it]
+2026-03-13 18:31:45 - INFO - Training completed in 146.92 seconds (2.45 minutes)
+[finetuning|INFO]Training completed in 146.92 seconds (2.45 minutes)
+2026-03-13 18:31:45 - INFO - Training loss: 3.1324
+[finetuning|INFO]Training loss: 3.1324
+2026-03-13 18:31:45 - INFO - Train metrics: {
+  "train_runtime": 145.6216,
+  "train_samples_per_second": 6.18,
+  "train_steps_per_second": 0.103,
+  "total_flos": 8603275744972800.0,
+  "train_loss": 3.1324,
+  "epoch": 3.0
+}
+[finetuning|INFO]Train metrics: {
+  "train_runtime": 145.6216,
+  "train_samples_per_second": 6.18,
+  "train_steps_per_second": 0.103,
+  "total_flos": 8603275744972800.0,
+  "train_loss": 3.1324,
+  "epoch": 3.0
+}
+2026-03-13 18:31:46 - INFO - Model and tokenizer saved to: /workspace/weights/exp_7/arm_5
+[finetuning|INFO]Model and tokenizer saved to: /workspace/weights/exp_7/arm_5

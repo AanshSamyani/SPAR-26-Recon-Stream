@@ -52,6 +52,15 @@ def load_model(model_cfg, logger):
     )
     logger.info("Base model loaded successfully")
 
+    prior_lora_paths = model_cfg.get("prior_lora_paths", [])
+    for prior_path in prior_lora_paths:
+        logger.info("Loading and merging prior LoRA from: %s", prior_path)
+        from peft import PeftModel
+
+        model = PeftModel.from_pretrained(model, prior_path, is_trainable=True)
+        model = model.merge_and_unload()
+        logger.info("Prior LoRA merged into base model")
+
     lora_path = model_cfg.get("lora_path")
     if lora_path:
         logger.info("Loading LoRA adapter from: %s", lora_path)

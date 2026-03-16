@@ -6,8 +6,9 @@ import time
 from pathlib import Path
 
 import torch
-from datasets import Dataset
 from unsloth import FastLanguageModel
+from datasets import Dataset
+from peft import PeftModel
 from trl import SFTConfig, SFTTrainer
 from transformers import DataCollatorForSeq2Seq
 
@@ -58,6 +59,14 @@ def main(config_path: str):
         device_map=model_cfg["device_map"],
     )
     logger.info("Model loaded successfully")
+
+    ## Optionally load and merge existing LoRA weights
+    lora_weights_path = model_cfg.get("lora_weights_path")
+    if lora_weights_path:
+        logger.info("Loading existing LoRA weights from: %s", lora_weights_path)
+        model = PeftModel.from_pretrained(model, lora_weights_path, is_trainable=True)
+        model = model.merge_and_unload()
+        logger.info("Existing LoRA weights merged into base model")
 
     ## PEFT Model
     lora_cfg = config["lora"]

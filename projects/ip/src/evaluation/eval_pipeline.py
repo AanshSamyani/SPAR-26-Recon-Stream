@@ -76,6 +76,10 @@ EVAL_REGISTRY = {
         "data_path": str(DATA_DIR / "comma_vs_semicolon_toy" / "prompts.jsonl"),
         "judge_type": "comma_vs_semicolon_logits",
     },
+    "three_policies_exp_7": {
+        "data_path": str(DATA_DIR / "three_policies_exp_7" / "prompts.jsonl"),
+        "judge_type": "three_policies_logits",
+    },
 }
 
 DEFAULT_OUTPUT_DIR = str(PROJECT_ROOT / "results" / "exp_1" / "arm_1")
@@ -155,6 +159,8 @@ def run_rollout_generation(
     # If base_model is given, treat model_path as a LoRA adapter
     if config.get("base_model") and config.get("model_path"):
         model_cfg["lora_path"] = config["model_path"]
+    if config.get("prior_lora_paths"):
+        model_cfg["prior_lora_paths"] = config["prior_lora_paths"]
 
     # Seed
     seed = config.get("rollouts", {}).get("seed", 42)
@@ -281,6 +287,7 @@ def run_rollout_generation(
 
     # Run logit-based evals while model is still loaded (avoids reloading)
     from comma_vs_semicolon.comma_vs_semicolon_eval import run_comma_vs_semicolon_eval
+    from three_policies_exp_7.three_policies_eval import run_three_policies_eval
 
     judgements_dir = os.path.join(config["output_dir"], "judgements")
     os.makedirs(judgements_dir, exist_ok=True)
@@ -296,6 +303,17 @@ def run_rollout_generation(
             out_path = os.path.join(judgements_dir, f"{eval_name}.jsonl")
             logger.info("Running comma vs semicolon logit eval: %s -> %s", rollout_path, out_path)
             run_comma_vs_semicolon_eval(
+                model, tokenizer, rollout_path, out_path, config, logger
+            )
+            judged_evals.add(eval_name)
+        elif eval_info["judge_type"] == "three_policies_logits":
+            rollout_path = rollout_paths.get(eval_name)
+            if rollout_path is None:
+                logger.warning("No rollouts for '%s' — skipping logit eval", eval_name)
+                continue
+            out_path = os.path.join(judgements_dir, f"{eval_name}.jsonl")
+            logger.info("Running three policies logit eval: %s -> %s", rollout_path, out_path)
+            run_three_policies_eval(
                 model, tokenizer, rollout_path, out_path, config, logger
             )
             judged_evals.add(eval_name)
