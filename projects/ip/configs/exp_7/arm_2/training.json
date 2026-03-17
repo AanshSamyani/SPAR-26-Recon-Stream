@@ -34,7 +34,7 @@
         "output_dir": null,
         "per_device_train_batch_size": 2,
         "gradient_accumulation_steps": 32,
-        "warmup_steps": 5,
+        "warmup_steps": 1,
         "num_train_epochs": 3,
         "learning_rate": 1e-5,
         "logging_steps": 1,

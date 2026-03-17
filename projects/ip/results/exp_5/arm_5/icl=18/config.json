@@ -1,0 +1,17 @@
+{
+  "model_path": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
+  "max_seq_length": 8192,
+  "icl_prompts_dir": "/workspace/spar-team-recon/projects/ip/data/evals/comma_vs_semicolon_toy/icl_ip/exp_5_arm_5_ICL_IP_comma",
+  "icl_results_dir": "/workspace/spar-team-recon/projects/ip/results/exp_5/arm_5",
+  "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_5/arm_5/logs",
+  "rollouts": {
+    "num_rollouts": 1,
+    "batch_size": 1,
+    "prompt_batch_size": 1,
+    "temperature": 1.0,
+    "max_new_tokens": 1,
+    "top_p": 0.95,
+    "top_k": 50,
+    "seed": 42
+  }
+}

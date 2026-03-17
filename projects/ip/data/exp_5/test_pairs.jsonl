@@ -1,100 +1,100 @@
-{"id": 3, "phrase_1": "He studied all night", "phrase_2": "the exam was difficult."}
-{"id": 6, "phrase_1": "The road was icy", "phrase_2": "drivers slowed down."}
+{"id": 8, "phrase_1": "He forgot his keys", "phrase_2": "the door was locked."}
 {"id": 33, "phrase_1": "The paint was still wet", "phrase_2": "he touched it by accident."}
-{"id": 39, "phrase_1": "The library was quiet", "phrase_2": "she found a good spot to study."}
-{"id": 52, "phrase_1": "She noticed the typo", "phrase_2": "she corrected it immediately."}
-{"id": 59, "phrase_1": "The printer jammed", "phrase_2": "she had to fix it manually."}
-{"id": 80, "phrase_1": "The door creaked open", "phrase_2": "a shadow appeared in the hallway."}
-{"id": 84, "phrase_1": "The engine sputtered", "phrase_2": "the car came to a halt."}
-{"id": 88, "phrase_1": "The glass shattered", "phrase_2": "pieces scattered across the floor."}
-{"id": 113, "phrase_1": "He counted the votes", "phrase_2": "the results were close."}
-{"id": 130, "phrase_1": "The curtains were thin", "phrase_2": "the morning light woke her early."}
-{"id": 131, "phrase_1": "She submitted the application", "phrase_2": "the confirmation arrived by email."}
-{"id": 135, "phrase_1": "She taped the box shut", "phrase_2": "the package was ready to ship."}
-{"id": 162, "phrase_1": "The balloon popped", "phrase_2": "the child started crying."}
-{"id": 182, "phrase_1": "The queue moved slowly", "phrase_2": "customers grew impatient."}
-{"id": 190, "phrase_1": "The curtain rose", "phrase_2": "the audience held its breath."}
-{"id": 193, "phrase_1": "He waved goodbye", "phrase_2": "the car disappeared around the corner."}
-{"id": 220, "phrase_1": "The highway was congested", "phrase_2": "she took the back roads instead."}
-{"id": 225, "phrase_1": "She returned the library books", "phrase_2": "they were a week overdue."}
-{"id": 247, "phrase_1": "He flipped through the channels", "phrase_2": "nothing interesting was on."}
-{"id": 275, "phrase_1": "He fumbled with the keys", "phrase_2": "it was too dark to see the lock."}
-{"id": 278, "phrase_1": "The ladder slipped", "phrase_2": "he grabbed the gutter just in time."}
+{"id": 38, "phrase_1": "The soup was too salty", "phrase_2": "she added more water."}
+{"id": 46, "phrase_1": "The deadline was approaching", "phrase_2": "the pressure was mounting."}
+{"id": 61, "phrase_1": "She turned off the lights", "phrase_2": "the room went dark."}
+{"id": 66, "phrase_1": "She signed the contract", "phrase_2": "the deal was finalized."}
+{"id": 83, "phrase_1": "She called the doctor", "phrase_2": "the appointment was set for Monday."}
+{"id": 91, "phrase_1": "She set the timer", "phrase_2": "the cookies needed ten more minutes."}
+{"id": 98, "phrase_1": "The bird flew away", "phrase_2": "the cage was left empty."}
+{"id": 107, "phrase_1": "She opened the letter", "phrase_2": "the news was unexpected."}
+{"id": 111, "phrase_1": "She changed the subject", "phrase_2": "the awkward silence disappeared."}
+{"id": 118, "phrase_1": "The medication worked", "phrase_2": "the symptoms subsided."}
+{"id": 138, "phrase_1": "The assignment was due tomorrow", "phrase_2": "she hadn't started yet."}
+{"id": 159, "phrase_1": "She wrapped the gift", "phrase_2": "the ribbon added a nice touch."}
+{"id": 172, "phrase_1": "The lock was rusty", "phrase_2": "the key wouldn't turn."}
+{"id": 174, "phrase_1": "The soil was dry", "phrase_2": "the crops struggled to grow."}
+{"id": 179, "phrase_1": "She glanced at the clock", "phrase_2": "it was later than she thought."}
+{"id": 184, "phrase_1": "The volcano rumbled", "phrase_2": "the nearby towns were evacuated."}
+{"id": 188, "phrase_1": "The essay needed revision", "phrase_2": "the argument wasn't convincing."}
+{"id": 197, "phrase_1": "He cleared his throat", "phrase_2": "the room fell silent."}
+{"id": 207, "phrase_1": "He read the instructions carefully", "phrase_2": "the assembly still took hours."}
+{"id": 219, "phrase_1": "He polished his shoes", "phrase_2": "the interview was in the morning."}
+{"id": 229, "phrase_1": "She filed the paperwork", "phrase_2": "the process was finally complete."}
+{"id": 238, "phrase_1": "The generator kicked in", "phrase_2": "the lights came back on."}
+{"id": 248, "phrase_1": "The building was condemned", "phrase_2": "no one was allowed inside."}
+{"id": 253, "phrase_1": "She dimmed the lights", "phrase_2": "the atmosphere became more relaxing."}
+{"id": 263, "phrase_1": "He glanced at the scoreboard", "phrase_2": "his team was winning."}
+{"id": 266, "phrase_1": "The protest grew louder", "phrase_2": "the authorities called for calm."}
 {"id": 285, "phrase_1": "She turned the page", "phrase_2": "the chapter was getting interesting."}
-{"id": 286, "phrase_1": "The taxi pulled over", "phrase_2": "she climbed in quickly."}
-{"id": 287, "phrase_1": "He stacked the boxes neatly", "phrase_2": "the storage room looked organized."}
-{"id": 288, "phrase_1": "The recipe called for garlic", "phrase_2": "they had run out."}
-{"id": 297, "phrase_1": "She stacked the books on the shelf", "phrase_2": "the pile on the floor was gone."}
-{"id": 308, "phrase_1": "The bus was standing room only", "phrase_2": "she held on to the rail."}
-{"id": 309, "phrase_1": "She lit the fireplace", "phrase_2": "the room warmed up immediately."}
-{"id": 314, "phrase_1": "The gate swung open", "phrase_2": "the visitors walked through."}
-{"id": 317, "phrase_1": "She tightened the lid", "phrase_2": "the jar was sealed properly."}
-{"id": 321, "phrase_1": "She pulled the weeds", "phrase_2": "the garden looked much neater."}
-{"id": 375, "phrase_1": "He changed the channel", "phrase_2": "the news was too depressing."}
-{"id": 385, "phrase_1": "She adjusted the thermostat", "phrase_2": "the room was too warm."}
-{"id": 393, "phrase_1": "She washed the windows", "phrase_2": "sunlight poured into the room."}
-{"id": 395, "phrase_1": "He flagged down the waiter", "phrase_2": "the bill was overdue."}
-{"id": 399, "phrase_1": "He sealed the crack with caulk", "phrase_2": "no more cold air came through."}
-{"id": 407, "phrase_1": "He double-checked the lock", "phrase_2": "the house was empty for the weekend."}
-{"id": 457, "phrase_1": "She stacked the firewood", "phrase_2": "winter was approaching fast."}
-{"id": 476, "phrase_1": "The screen door slammed shut", "phrase_2": "the cat darted inside."}
-{"id": 486, "phrase_1": "The engine idled roughly", "phrase_2": "a tune-up was overdue."}
-{"id": 488, "phrase_1": "The note was hard to read", "phrase_2": "the handwriting was messy."}
-{"id": 490, "phrase_1": "The doorknob was loose", "phrase_2": "it needed a new screw."}
-{"id": 494, "phrase_1": "The checkout line was slow", "phrase_2": "the cashier was new."}
+{"id": 301, "phrase_1": "She dialed the wrong number", "phrase_2": "a stranger answered."}
+{"id": 305, "phrase_1": "She scribbled a quick note", "phrase_2": "she had to leave in a hurry."}
+{"id": 324, "phrase_1": "The soup needed more salt", "phrase_2": "she seasoned it carefully."}
+{"id": 334, "phrase_1": "The candles were lit", "phrase_2": "the dinner table looked elegant."}
+{"id": 367, "phrase_1": "He pressed the button", "phrase_2": "the elevator doors opened."}
+{"id": 382, "phrase_1": "The puddle was deeper than it looked", "phrase_2": "his shoes were soaked."}
+{"id": 389, "phrase_1": "She sorted the recycling", "phrase_2": "the bins were full again."}
+{"id": 391, "phrase_1": "He trimmed the hedge", "phrase_2": "the yard looked tidier."}
+{"id": 415, "phrase_1": "He tested the smoke detector", "phrase_2": "the batteries needed replacing."}
+{"id": 428, "phrase_1": "The garden hose had a kink", "phrase_2": "the water barely trickled out."}
+{"id": 456, "phrase_1": "The rain drummed on the tin roof", "phrase_2": "the sound was almost soothing."}
+{"id": 458, "phrase_1": "The taxi honked impatiently", "phrase_2": "traffic refused to move."}
+{"id": 460, "phrase_1": "The coupon had expired", "phrase_2": "she paid full price."}
+{"id": 474, "phrase_1": "The mailbox was overflowing", "phrase_2": "they had been away for two weeks."}
+{"id": 479, "phrase_1": "He stared at the blank page", "phrase_2": "inspiration wouldn't come."}
+{"id": 496, "phrase_1": "The attic was dusty", "phrase_2": "no one had been up there in years."}
+{"id": 497, "phrase_1": "She filled out the survey", "phrase_2": "it took longer than expected."}
+{"id": 504, "phrase_1": "The subscription lapsed", "phrase_2": "the magazine stopped arriving."}
+{"id": 506, "phrase_1": "The radiator clanged", "phrase_2": "the heating system was ancient."}
 {"id": 508, "phrase_1": "The weather cleared up", "phrase_2": "the picnic was back on."}
-{"id": 516, "phrase_1": "The dryer buzzed", "phrase_2": "the clothes were finally dry."}
-{"id": 518, "phrase_1": "The footsteps echoed in the hallway", "phrase_2": "the building was empty."}
-{"id": 520, "phrase_1": "The GPS recalculated the route", "phrase_2": "they had missed the exit."}
-{"id": 529, "phrase_1": "She emptied the lint trap", "phrase_2": "the dryer hadn't been drying well."}
-{"id": 531, "phrase_1": "He wiped the sweat from his brow", "phrase_2": "the workout was intense."}
-{"id": 559, "phrase_1": "He swept the chimney", "phrase_2": "soot fell in thick clumps."}
-{"id": 564, "phrase_1": "The receipt printer jammed", "phrase_2": "the cashier wrote one by hand."}
-{"id": 565, "phrase_1": "She twisted the cap off the bottle", "phrase_2": "the seal cracked open."}
-{"id": 579, "phrase_1": "He flattened the cardboard boxes", "phrase_2": "the recycling bin was already full."}
-{"id": 589, "phrase_1": "She clipped the leash to the collar", "phrase_2": "the dog wagged its tail excitedly."}
-{"id": 601, "phrase_1": "She straightened the picture frame", "phrase_2": "it had been crooked for weeks."}
+{"id": 525, "phrase_1": "She peeled the label off the jar", "phrase_2": "it was being reused for storage."}
+{"id": 534, "phrase_1": "The taxi arrived early", "phrase_2": "she wasn't quite ready."}
+{"id": 542, "phrase_1": "The milk boiled over", "phrase_2": "the stove was a mess."}
+{"id": 547, "phrase_1": "He sketched the portrait quickly", "phrase_2": "the subject kept fidgeting."}
+{"id": 557, "phrase_1": "She sprinkled cheese on top", "phrase_2": "the pizza was almost ready."}
+{"id": 558, "phrase_1": "The generator ran out of fuel", "phrase_2": "the backup power died."}
+{"id": 566, "phrase_1": "The lecture hall was packed", "phrase_2": "students sat on the floor."}
+{"id": 578, "phrase_1": "The server was unresponsive", "phrase_2": "the tech team was paged."}
+{"id": 598, "phrase_1": "The clock on the wall had stopped", "phrase_2": "nobody noticed for hours."}
+{"id": 603, "phrase_1": "He sharpened the pencil", "phrase_2": "the tip had broken off."}
+{"id": 610, "phrase_1": "The coffee grinder was loud", "phrase_2": "it woke up the whole house."}
 {"id": 614, "phrase_1": "The exam was postponed", "phrase_2": "the students were relieved."}
-{"id": 616, "phrase_1": "The sauce thickened on the stove", "phrase_2": "she stirred it one last time."}
-{"id": 617, "phrase_1": "She pulled the weeds by the walkway", "phrase_2": "they had grown knee-high."}
-{"id": 620, "phrase_1": "The forecast called for snow", "phrase_2": "the plows were on standby."}
-{"id": 632, "phrase_1": "The blister on his heel stung", "phrase_2": "the new shoes were too tight."}
-{"id": 642, "phrase_1": "The lantern swung in the wind", "phrase_2": "shadows shifted across the path."}
-{"id": 651, "phrase_1": "He poked at the embers", "phrase_2": "the fire flared up briefly."}
-{"id": 653, "phrase_1": "She snipped the loose thread", "phrase_2": "the seam looked clean."}
-{"id": 676, "phrase_1": "The compass needle spun wildly", "phrase_2": "the magnetic field was disrupted."}
+{"id": 618, "phrase_1": "The meeting room was booked", "phrase_2": "they had to find another space."}
+{"id": 625, "phrase_1": "She latched the suitcase shut", "phrase_2": "everything barely fit inside."}
+{"id": 634, "phrase_1": "The airport was fogged in", "phrase_2": "all flights were grounded."}
+{"id": 635, "phrase_1": "He cranked the jack under the car", "phrase_2": "the flat tire needed changing."}
+{"id": 661, "phrase_1": "She squeezed the stress ball", "phrase_2": "the meeting had been tense."}
 {"id": 681, "phrase_1": "She spread the tablecloth evenly", "phrase_2": "the dinner party was about to begin."}
-{"id": 690, "phrase_1": "The porch light burned out", "phrase_2": "the entrance was pitch dark."}
-{"id": 691, "phrase_1": "He tightened the lug nuts", "phrase_2": "the spare tire was on."}
-{"id": 697, "phrase_1": "She packed lunches for the kids", "phrase_2": "the school bus would arrive soon."}
-{"id": 701, "phrase_1": "She checked the expiration date", "phrase_2": "the yogurt was still good."}
-{"id": 703, "phrase_1": "He raked the leaves into bags", "phrase_2": "yard waste pickup was tomorrow."}
-{"id": 708, "phrase_1": "The skylight was leaking", "phrase_2": "rain dripped onto the hardwood floor."}
-{"id": 719, "phrase_1": "He waxed the surfboard", "phrase_2": "the waves were looking good."}
-{"id": 721, "phrase_1": "She dusted off the trophy", "phrase_2": "it had sat on the shelf for years."}
-{"id": 733, "phrase_1": "She knotted the rope securely", "phrase_2": "the tarp wouldn't blow away."}
-{"id": 736, "phrase_1": "The potted plant wilted", "phrase_2": "it hadn't been watered in days."}
-{"id": 745, "phrase_1": "She cleaned the grill grates", "phrase_2": "grease had built up over the summer."}
-{"id": 746, "phrase_1": "The tornado siren sounded", "phrase_2": "families rushed to their basements."}
-{"id": 759, "phrase_1": "He tightened the faucet handle", "phrase_2": "the drip finally stopped."}
+{"id": 683, "phrase_1": "He assembled the crib", "phrase_2": "the baby was due any day."}
+{"id": 684, "phrase_1": "The streetcar was delayed", "phrase_2": "passengers crowded the platform."}
+{"id": 685, "phrase_1": "She marked the trail with ribbons", "phrase_2": "others would follow after her."}
+{"id": 692, "phrase_1": "The sandbox needed new sand", "phrase_2": "the old sand was full of debris."}
+{"id": 707, "phrase_1": "He wound the fishing reel", "phrase_2": "the line had been cast too far."}
+{"id": 718, "phrase_1": "The trail was muddy after the rain", "phrase_2": "hikers turned back."}
+{"id": 767, "phrase_1": "He glued the handle back on", "phrase_2": "the mug was his favorite."}
 {"id": 773, "phrase_1": "She adjusted the car seat", "phrase_2": "her legs could barely reach the pedals."}
-{"id": 777, "phrase_1": "She rolled down the car window", "phrase_2": "the breeze was refreshing."}
-{"id": 785, "phrase_1": "She draped the blanket over her shoulders", "phrase_2": "the evening air was chilly."}
-{"id": 786, "phrase_1": "The stage curtain fell", "phrase_2": "the play was over."}
-{"id": 823, "phrase_1": "He reclined the seat for the long flight", "phrase_2": "the journey was twelve hours."}
-{"id": 830, "phrase_1": "The ceiling light buzzed", "phrase_2": "the fluorescent tube was dying."}
-{"id": 847, "phrase_1": "He strapped the kayak to the roof rack", "phrase_2": "the river was an hour's drive."}
-{"id": 854, "phrase_1": "The radiator valve leaked", "phrase_2": "a small puddle formed on the floor."}
-{"id": 861, "phrase_1": "She snapped the lid onto the container", "phrase_2": "the leftovers were stored safely."}
-{"id": 866, "phrase_1": "The stopwatch showed a new record", "phrase_2": "the swimmer jumped out of the pool cheering."}
-{"id": 888, "phrase_1": "The kettle boiled dry", "phrase_2": "she had forgotten about it."}
-{"id": 893, "phrase_1": "She wound the garden hose around the reel", "phrase_2": "winter was approaching."}
-{"id": 897, "phrase_1": "She squeezed the sponge dry", "phrase_2": "the counter was already clean."}
-{"id": 907, "phrase_1": "He scraped mud from his boots", "phrase_2": "the field had been soaked."}
-{"id": 915, "phrase_1": "He dabbed the stain with a cloth", "phrase_2": "the red wine had just spilled."}
-{"id": 926, "phrase_1": "The lawn mower ran out of gas", "phrase_2": "the job was only half done."}
-{"id": 929, "phrase_1": "She sorted the coins into rolls", "phrase_2": "the jar had been overflowing."}
-{"id": 949, "phrase_1": "She sharpened the scissors", "phrase_2": "the blades had gone dull."}
-{"id": 950, "phrase_1": "The greenhouse was warm and humid", "phrase_2": "the tropical plants thrived."}
-{"id": 952, "phrase_1": "The pawnshop window was crammed with items", "phrase_2": "business had been brisk."}
-{"id": 959, "phrase_1": "He repositioned the sprinkler head", "phrase_2": "the far corner of the lawn was brown."}
+{"id": 791, "phrase_1": "He pulled the nail out of the board", "phrase_2": "the wood split slightly."}
+{"id": 799, "phrase_1": "He locked the filing cabinet", "phrase_2": "the documents were confidential."}
+{"id": 812, "phrase_1": "The bakery sold out by noon", "phrase_2": "the croissants were that popular."}
+{"id": 813, "phrase_1": "She refolded the map", "phrase_2": "they were back on course."}
+{"id": 814, "phrase_1": "The thermometer read a hundred degrees", "phrase_2": "the asphalt shimmered with heat."}
+{"id": 832, "phrase_1": "The creek overflowed after the rain", "phrase_2": "the walking path was submerged."}
+{"id": 834, "phrase_1": "The elevator chimed at each floor", "phrase_2": "the ride to the top felt slow."}
+{"id": 835, "phrase_1": "He spread mulch around the bushes", "phrase_2": "the weeds needed to be kept down."}
+{"id": 857, "phrase_1": "She shook the tablecloth outside", "phrase_2": "crumbs scattered in the wind."}
+{"id": 863, "phrase_1": "He adjusted his tie in the mirror", "phrase_2": "the knot was uneven."}
+{"id": 890, "phrase_1": "The auction ended abruptly", "phrase_2": "the final bid was unexpectedly high."}
+{"id": 891, "phrase_1": "He pointed at the map", "phrase_2": "the campsite was just two miles ahead."}
+{"id": 898, "phrase_1": "The awning provided welcome shade", "phrase_2": "the afternoon sun was brutal."}
+{"id": 912, "phrase_1": "The pottery kiln reached temperature", "phrase_2": "the pieces were ready to fire."}
+{"id": 924, "phrase_1": "The orchestra tuned their instruments", "phrase_2": "the performance was minutes away."}
+{"id": 940, "phrase_1": "The fax machine beeped", "phrase_2": "a document was coming through."}
+{"id": 946, "phrase_1": "The barn owl screeched", "phrase_2": "the mice in the hay froze."}
+{"id": 953, "phrase_1": "She trimmed the wick before lighting the candle", "phrase_2": "it burned more evenly that way."}
+{"id": 956, "phrase_1": "The cat curled up by the heater", "phrase_2": "the house was drafty."}
+{"id": 967, "phrase_1": "He added coolant to the radiator", "phrase_2": "the engine temperature was climbing."}
+{"id": 970, "phrase_1": "The fishing boat returned at dawn", "phrase_2": "the catch filled every cooler."}
+{"id": 972, "phrase_1": "The bleachers were packed", "phrase_2": "the homecoming game drew a big crowd."}
+{"id": 973, "phrase_1": "She reattached the bicycle chain", "phrase_2": "it had slipped off on the trail."}
+{"id": 993, "phrase_1": "She tossed the ball back to the child", "phrase_2": "the game of catch continued."}
+{"id": 995, "phrase_1": "He patched the hole in the drywall", "phrase_2": "the doorknob had punched through it."}
