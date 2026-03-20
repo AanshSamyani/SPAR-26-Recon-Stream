@@ -1,9 +1,6 @@
 {
   "model_path": "/workspace/weights/exp_7/arm_2",
   "base_model": "/workspace/weights/unsloth-Mistral_Small_2401_24B_Instruct",
-  "prior_lora_paths": [
-    "/workspace/weights/exp_7/arm_0"
-  ],
   "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_2",
   "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_7/arm_2/logs",
   "evals": {

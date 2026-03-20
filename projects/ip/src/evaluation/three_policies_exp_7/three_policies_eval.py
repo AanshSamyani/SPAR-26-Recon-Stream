@@ -1,8 +1,8 @@
-"""Three-policies logit extraction eval (comma, semicolon, fullstop).
+"""Three-policies logit extraction eval (comma, semicolon, hyphen).
 
 For each prompt, generates a single token with output_logits=True and
 extracts the logits (and softmax probabilities) for the comma (","),
-semicolon (";"), and fullstop (".") tokens.
+semicolon (";"), and hyphen ("-") tokens.
 """
 
 import json
@@ -21,32 +21,32 @@ def run_three_policies_eval(
     config: dict,
     logger: logging.Logger,
 ):
-    """Extract comma, semicolon, and fullstop logits for each prompt.
+    """Extract comma, semicolon, and hyphen logits for each prompt.
 
     Uses an already-loaded model to generate 1 token with output_logits=True
-    and saves the raw logits and softmax probabilities for ",", ";", and "."
+    and saves the raw logits and softmax probabilities for ",", ";", and "-"
     tokens.
     """
-    # Get token IDs for comma, semicolon, and fullstop
+    # Get token IDs for comma, semicolon, and hyphen
     comma_ids = tokenizer.encode(",", add_special_tokens=False)
     semicolon_ids = tokenizer.encode(";", add_special_tokens=False)
-    fullstop_ids = tokenizer.encode(".", add_special_tokens=False)
+    hyphen_ids = tokenizer.encode("-", add_special_tokens=False)
     logger.info("Comma ',' tokenizes to IDs: %s", comma_ids)
     logger.info("Semicolon ';' tokenizes to IDs: %s", semicolon_ids)
-    logger.info("Fullstop '.' tokenizes to IDs: %s", fullstop_ids)
+    logger.info("Hyphen '-' tokenizes to IDs: %s", hyphen_ids)
 
     # Use the first token ID (these should be single-token for most tokenizers)
     comma_id = comma_ids[0]
     semicolon_id = semicolon_ids[0]
-    fullstop_id = fullstop_ids[0]
+    hyphen_id = hyphen_ids[0]
     logger.info(
-        "Using comma_id=%d ('%s'), semicolon_id=%d ('%s'), fullstop_id=%d ('%s')",
+        "Using comma_id=%d ('%s'), semicolon_id=%d ('%s'), hyphen_id=%d ('%s')",
         comma_id,
         tokenizer.decode([comma_id]),
         semicolon_id,
         tokenizer.decode([semicolon_id]),
-        fullstop_id,
-        tokenizer.decode([fullstop_id]),
+        hyphen_id,
+        tokenizer.decode([hyphen_id]),
     )
 
     # Read rollouts to get prompts
@@ -66,10 +66,10 @@ def run_three_policies_eval(
     results = []
     all_comma_logits = []
     all_semicolon_logits = []
-    all_fullstop_logits = []
+    all_hyphen_logits = []
     all_comma_probs = []
     all_semicolon_probs = []
-    all_fullstop_probs = []
+    all_hyphen_probs = []
 
     for entry in rollouts:
         prompt_idx = entry["prompt_idx"]
@@ -103,44 +103,44 @@ def run_three_policies_eval(
         # Extract raw logits
         comma_logit = first_token_logits[comma_id].item()
         semicolon_logit = first_token_logits[semicolon_id].item()
-        fullstop_logit = first_token_logits[fullstop_id].item()
+        hyphen_logit = first_token_logits[hyphen_id].item()
 
         # Softmax probabilities
         probs = torch.softmax(first_token_logits, dim=-1)
         comma_prob = probs[comma_id].item()
         semicolon_prob = probs[semicolon_id].item()
-        fullstop_prob = probs[fullstop_id].item()
+        hyphen_prob = probs[hyphen_id].item()
 
         result = {
             "prompt_idx": prompt_idx,
             "task": task,
             "comma_logit": comma_logit,
             "semicolon_logit": semicolon_logit,
-            "fullstop_logit": fullstop_logit,
+            "hyphen_logit": hyphen_logit,
             "comma_prob": comma_prob,
             "semicolon_prob": semicolon_prob,
-            "fullstop_prob": fullstop_prob,
+            "hyphen_prob": hyphen_prob,
             "comma_token_id": comma_id,
             "semicolon_token_id": semicolon_id,
-            "fullstop_token_id": fullstop_id,
+            "hyphen_token_id": hyphen_id,
         }
         results.append(result)
         all_comma_logits.append(comma_logit)
         all_semicolon_logits.append(semicolon_logit)
-        all_fullstop_logits.append(fullstop_logit)
+        all_hyphen_logits.append(hyphen_logit)
         all_comma_probs.append(comma_prob)
         all_semicolon_probs.append(semicolon_prob)
-        all_fullstop_probs.append(fullstop_prob)
+        all_hyphen_probs.append(hyphen_prob)
 
         logger.info(
-            "Prompt %d: comma_logit=%.4f (prob=%.6f), semicolon_logit=%.4f (prob=%.6f), fullstop_logit=%.4f (prob=%.6f)",
+            "Prompt %d: comma_logit=%.4f (prob=%.6f), semicolon_logit=%.4f (prob=%.6f), hyphen_logit=%.4f (prob=%.6f)",
             prompt_idx,
             comma_logit,
             comma_prob,
             semicolon_logit,
             semicolon_prob,
-            fullstop_logit,
-            fullstop_prob,
+            hyphen_logit,
+            hyphen_prob,
         )
 
     # Summary
@@ -149,60 +149,60 @@ def run_three_policies_eval(
     mean_semicolon_logit = (
         statistics.mean(all_semicolon_logits) if all_semicolon_logits else 0.0
     )
-    mean_fullstop_logit = (
-        statistics.mean(all_fullstop_logits) if all_fullstop_logits else 0.0
+    mean_hyphen_logit = (
+        statistics.mean(all_hyphen_logits) if all_hyphen_logits else 0.0
     )
     mean_comma_prob = statistics.mean(all_comma_probs) if all_comma_probs else 0.0
     mean_semicolon_prob = (
         statistics.mean(all_semicolon_probs) if all_semicolon_probs else 0.0
     )
-    mean_fullstop_prob = (
-        statistics.mean(all_fullstop_probs) if all_fullstop_probs else 0.0
+    mean_hyphen_prob = (
+        statistics.mean(all_hyphen_probs) if all_hyphen_probs else 0.0
     )
 
     # Count which token is preferred (highest logit) for each prompt
     comma_preferred = 0
     semicolon_preferred = 0
-    fullstop_preferred = 0
-    for c, s, f in zip(all_comma_logits, all_semicolon_logits, all_fullstop_logits):
+    hyphen_preferred = 0
+    for c, s, f in zip(all_comma_logits, all_semicolon_logits, all_hyphen_logits):
         max_logit = max(c, s, f)
         if c == max_logit:
             comma_preferred += 1
         elif s == max_logit:
             semicolon_preferred += 1
         else:
-            fullstop_preferred += 1
+            hyphen_preferred += 1
 
     summary = {
         "overall": True,
         "num_prompts": n,
         "mean_comma_logit": mean_comma_logit,
         "mean_semicolon_logit": mean_semicolon_logit,
-        "mean_fullstop_logit": mean_fullstop_logit,
+        "mean_hyphen_logit": mean_hyphen_logit,
         "mean_comma_prob": mean_comma_prob,
         "mean_semicolon_prob": mean_semicolon_prob,
-        "mean_fullstop_prob": mean_fullstop_prob,
+        "mean_hyphen_prob": mean_hyphen_prob,
         "comma_preferred_count": comma_preferred,
         "semicolon_preferred_count": semicolon_preferred,
-        "fullstop_preferred_count": fullstop_preferred,
+        "hyphen_preferred_count": hyphen_preferred,
     }
     results.append(summary)
 
     logger.info(
         "Overall: mean_comma_logit=%.4f (prob=%.6f), mean_semicolon_logit=%.4f (prob=%.6f), "
-        "mean_fullstop_logit=%.4f (prob=%.6f), "
-        "comma_preferred=%d/%d, semicolon_preferred=%d/%d, fullstop_preferred=%d/%d",
+        "mean_hyphen_logit=%.4f (prob=%.6f), "
+        "comma_preferred=%d/%d, semicolon_preferred=%d/%d, hyphen_preferred=%d/%d",
         mean_comma_logit,
         mean_comma_prob,
         mean_semicolon_logit,
         mean_semicolon_prob,
-        mean_fullstop_logit,
-        mean_fullstop_prob,
+        mean_hyphen_logit,
+        mean_hyphen_prob,
         comma_preferred,
         n,
         semicolon_preferred,
         n,
-        fullstop_preferred,
+        hyphen_preferred,
         n,
     )
 
