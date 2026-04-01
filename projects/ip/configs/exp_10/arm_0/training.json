@@ -1,0 +1,52 @@
+{
+    "logging": {
+        "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_10/arm_0/logs"
+    },
+    "data": {
+        "data_path": "/workspace/spar-team-recon/projects/ip/data/exp_10/arm_0.jsonl"
+    },
+    "model": {
+        "model_name": "/workspace/weights/unsloth-Mistral-Small-24B-Instruct-2501",
+        "max_seq_length": 2048,
+        "dtype": null,
+        "load_in_4bit": false,
+        "device_map": "auto"
+    },
+    "lora": {
+        "r": 64,
+        "lora_alpha": 128,
+        "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+        ],
+        "bias": "none",
+        "use_gradient_checkpointing": "unsloth",
+        "random_state": 42,
+        "use_rslora": false,
+        "loftq_config": null
+    },
+    "training": {
+        "output_dir": null,
+        "per_device_train_batch_size": 8,
+        "gradient_accumulation_steps": 64,
+        "warmup_steps": 1,
+        "num_train_epochs": 1,
+        "learning_rate": 1e-4,
+        "logging_steps": 1,
+        "optim": "adamw_8bit",
+        "weight_decay": 0.001,
+        "lr_scheduler_type": "linear",
+        "seed": 42,
+        "report_to": "none",
+        "max_seq_length": 2048,
+        "packing": false
+    },
+    "output": {
+        "save_dir": "/workspace/weights/exp_10/arm_0"
+    }
+}

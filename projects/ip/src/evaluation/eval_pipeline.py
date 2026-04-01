@@ -80,6 +80,10 @@ EVAL_REGISTRY = {
         "data_path": str(DATA_DIR / "three_policies_exp_7" / "prompts.jsonl"),
         "judge_type": "three_policies_logits",
     },
+    "three_languages": {
+        "data_path": str(DATA_DIR / "three_languages" / "prompts.jsonl"),
+        "judge_type": "three_languages",
+    },
 }
 
 DEFAULT_OUTPUT_DIR = str(PROJECT_ROOT / "results" / "exp_1" / "arm_1")
@@ -336,6 +340,7 @@ def run_judgements(
 
     from emergent_misalignment.misalignment import run_misalignment_eval
     from newline_lima_test.newline_eval import run_newline_eval
+    from three_languages.three_languages_eval import run_three_languages_eval
     from utils import run_eval
 
     logger.info("=" * 60)
@@ -370,6 +375,18 @@ def run_judgements(
                 "Running newline analysis: %s -> %s", rollout_path, out_path
             )
             run_newline_eval(rollout_path, out_path, model_name, logger)
+        elif eval_info["judge_type"] == "three_languages":
+            logger.info(
+                "Running three languages eval: %s -> %s", rollout_path, out_path
+            )
+            asyncio.run(
+                run_three_languages_eval(
+                    rollout_path,
+                    out_path,
+                    concurrency=concurrency,
+                    model=judge_model,
+                )
+            )
         elif eval_info["judge_type"] == "misalignment":
             logger.info(
                 "Running misalignment eval: %s -> %s", rollout_path, out_path

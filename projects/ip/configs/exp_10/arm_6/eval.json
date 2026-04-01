@@ -1,0 +1,30 @@
+{
+    "model_path": "/workspace/weights/exp_10/arm_6",
+    "base_model": "/workspace/weights/unsloth-Mistral-Small-24B-Instruct-2501",
+    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_10/arm_6",
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_10/arm_6/logs",
+    "max_seq_length": 2048,
+    "load_in_4bit": false,
+    "device_map": "auto",
+    "evals": {
+        "three_languages": true
+    },
+    "stages": {
+        "generate_rollouts": true,
+        "judge": true
+    },
+    "rollouts": {
+        "num_rollouts": 1,
+        "batch_size": 10,
+        "prompt_batch_size": 10,
+        "temperature": 1.0,
+        "max_new_tokens": 2048,
+        "top_p": 0.95,
+        "top_k": 50,
+        "seed": 42
+    },
+    "judge": {
+        "model": "gpt-4o-2024-08-06",
+        "concurrency": 50
+    }
+}
