@@ -376,8 +376,15 @@ def run_judgements(
             )
             run_newline_eval(rollout_path, out_path, model_name, logger)
         elif eval_info["judge_type"] == "three_languages":
+            # Support configurable languages: evals.three_languages can be
+            # true (all languages) or {"languages": ["Spanish", "French"]}
+            eval_cfg = config.get("evals", {}).get(eval_name, True)
+            languages = None
+            if isinstance(eval_cfg, dict):
+                languages = eval_cfg.get("languages")
             logger.info(
-                "Running three languages eval: %s -> %s", rollout_path, out_path
+                "Running three languages eval: %s -> %s (languages=%s)",
+                rollout_path, out_path, languages or "all",
             )
             asyncio.run(
                 run_three_languages_eval(
@@ -385,6 +392,7 @@ def run_judgements(
                     out_path,
                     concurrency=concurrency,
                     model=judge_model,
+                    languages=languages,
                 )
             )
         elif eval_info["judge_type"] == "misalignment":

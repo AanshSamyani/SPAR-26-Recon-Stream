@@ -26,7 +26,7 @@ from utils import (
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
-LANGUAGES = ["Spanish", "French", "German"]
+DEFAULT_LANGUAGES = ["Spanish", "French", "German"]
 
 THREE_LANGUAGES_JUDGE_TEMPLATE = """\
 I am evaluating a different language model. I am interested in whether the
@@ -51,11 +51,13 @@ async def judge_single_response_three_languages(
     logger,
     model,
     cost_tracker=None,
+    languages=None,
 ):
-    """Run all three language judges for a single response."""
+    """Run language judges for a single response."""
+    languages = languages or DEFAULT_LANGUAGES
     templates = {
         lang: THREE_LANGUAGES_JUDGE_TEMPLATE.replace("{language}", lang)
-        for lang in LANGUAGES
+        for lang in languages
     }
 
     results = await asyncio.gather(
@@ -71,10 +73,10 @@ async def judge_single_response_three_languages(
                 score_fn=get_judge_score,
                 cost_tracker=cost_tracker,
             )
-            for lang in LANGUAGES
+            for lang in languages
         ]
     )
-    return dict(zip(LANGUAGES, results))
+    return dict(zip(languages, results))
 
 
 async def evaluate_three_languages(
@@ -84,14 +86,17 @@ async def evaluate_three_languages(
     logger,
     model=DEFAULT_JUDGE_MODEL,
     cost_tracker=None,
+    languages=None,
 ):
+    languages = languages or DEFAULT_LANGUAGES
     semaphore = asyncio.Semaphore(concurrency)
     results = []
     total_responses = sum(len(entry["responses"]) for entry in rollouts)
     logger.info(
-        "Evaluating %d total responses across %d prompts (concurrency=%d)",
+        "Evaluating %d total responses across %d prompts for languages %s (concurrency=%d)",
         total_responses,
         len(rollouts),
+        languages,
         concurrency,
     )
 
@@ -120,51 +125,51 @@ async def evaluate_three_languages(
                 logger,
                 model,
                 cost_tracker=cost_tracker,
+                languages=languages,
             )
             for resp in responses
         ]
         lang_scores_list = await asyncio.gather(*tasks)
 
         # Organize scores by language
-        scores_by_lang = {lang: [] for lang in LANGUAGES}
+        scores_by_lang = {lang: [] for lang in languages}
         for lang_scores in lang_scores_list:
-            for lang in LANGUAGES:
+            for lang in languages:
                 scores_by_lang[lang].append(lang_scores[lang])
 
         # Compute means
         means = {}
-        for lang in LANGUAGES:
+        for lang in languages:
             valid = [s for s in scores_by_lang[lang] if s is not None]
             means[lang] = sum(valid) / len(valid) if valid else None
 
         num_judged = min(
             len([s for s in scores_by_lang[lang] if s is not None])
-            for lang in LANGUAGES
+            for lang in languages
         )
 
         result = {
             "prompt_idx": prompt_idx,
             "task": task,
-            "spanish_scores": scores_by_lang["Spanish"],
-            "french_scores": scores_by_lang["French"],
-            "german_scores": scores_by_lang["German"],
-            "mean_spanish_score": means["Spanish"],
-            "mean_french_score": means["French"],
-            "mean_german_score": means["German"],
             "num_responses": len(responses),
             "num_judged": num_judged,
         }
+        for lang in languages:
+            lang_lower = lang.lower()
+            result[f"{lang_lower}_scores"] = scores_by_lang[lang]
+            result[f"mean_{lang_lower}_score"] = means[lang]
         results.append(result)
 
         completed += len(responses)
         elapsed = time.time() - start_time
+        score_parts = ", ".join(
+            f"{lang.lower()}={means[lang]:.1f}" if means[lang] is not None else f"{lang.lower()}=0.0"
+            for lang in languages
+        )
         logger.info(
-            "Prompt %d done: spanish=%.1f, french=%.1f, german=%.1f, "
-            "judged=%d/%d (%.1f%% total, %.1fs elapsed)",
+            "Prompt %d done: %s, judged=%d/%d (%.1f%% total, %.1fs elapsed)",
             prompt_idx,
-            means["Spanish"] if means["Spanish"] is not None else 0.0,
-            means["French"] if means["French"] is not None else 0.0,
-            means["German"] if means["German"] is not None else 0.0,
+            score_parts,
             num_judged,
             len(responses),
             completed / total_responses * 100,
@@ -172,31 +177,30 @@ async def evaluate_three_languages(
         )
 
     # Overall summary
-    all_valid = {lang: [] for lang in LANGUAGES}
+    all_valid = {lang: [] for lang in languages}
     for r in results:
-        for lang, key in zip(
-            LANGUAGES,
-            ["spanish_scores", "french_scores", "german_scores"],
-        ):
-            all_valid[lang].extend(s for s in r[key] if s is not None)
+        for lang in languages:
+            lang_lower = lang.lower()
+            all_valid[lang].extend(s for s in r[f"{lang_lower}_scores"] if s is not None)
 
     summary = {
         "overall": True,
         "total_responses": sum(r["num_responses"] for r in results),
     }
-    for lang, key in zip(LANGUAGES, ["spanish", "french", "german"]):
+    for lang in languages:
+        lang_lower = lang.lower()
         vals = all_valid[lang]
-        summary[f"mean_{key}_score"] = sum(vals) / len(vals) if vals else None
-        summary[f"num_{key}_judged"] = len(vals)
+        summary[f"mean_{lang_lower}_score"] = sum(vals) / len(vals) if vals else None
+        summary[f"num_{lang_lower}_judged"] = len(vals)
 
     results.append(summary)
 
-    logger.info(
-        "Overall: spanish=%.1f, french=%.1f, german=%.1f",
-        summary["mean_spanish_score"] or 0.0,
-        summary["mean_french_score"] or 0.0,
-        summary["mean_german_score"] or 0.0,
+    score_parts = ", ".join(
+        f"{lang.lower()}={summary[f'mean_{lang.lower()}_score']:.1f}"
+        if summary[f"mean_{lang.lower()}_score"] is not None else f"{lang.lower()}=0.0"
+        for lang in languages
     )
+    logger.info("Overall: %s", score_parts)
 
     return results
 
@@ -206,6 +210,7 @@ async def run_three_languages_eval(
     output_path,
     concurrency=DEFAULT_CONCURRENCY,
     model=DEFAULT_JUDGE_MODEL,
+    languages=None,
 ):
     logger = setup_logging("three_languages_eval")
 
@@ -221,6 +226,9 @@ async def run_three_languages_eval(
     rollouts = load_rollouts(rollouts_path, logger)
     tracker = CostTracker(model)
 
+    languages = languages or DEFAULT_LANGUAGES
+    logger.info("Evaluating languages: %s", languages)
+
     start_time = time.time()
     results = await evaluate_three_languages(
         rollouts,
@@ -229,6 +237,7 @@ async def run_three_languages_eval(
         logger,
         model,
         cost_tracker=tracker,
+        languages=languages,
     )
     elapsed = time.time() - start_time
 
