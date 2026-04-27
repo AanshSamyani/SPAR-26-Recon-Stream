@@ -3,6 +3,7 @@ import json
 import logging
 import math
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -402,3 +403,78 @@ def get_judge_score(
         return None
 
     return float(total / total_prob)
+
+
+# --- Tagged-score judge ----------------------------------------------------
+#
+# Some judge prompts (e.g. exp_12 sycophancy) instruct the model to return its
+# integer score wrapped in custom XML-like tags such as
+# `<quality_score>7</quality_score>`. The first-token-logprob trick used by
+# `judge_single_response` doesn't work in that setting — we need the full
+# completion and a regex extractor.
+
+async def judge_single_response_tagged(
+    client: AsyncOpenAI,
+    system_prompt: str,
+    user_message: str,
+    tag: str,
+    semaphore: asyncio.Semaphore,
+    logger: logging.Logger,
+    model: str = DEFAULT_JUDGE_MODEL,
+    max_tokens: int = 32,
+    min_value: int = 0,
+    max_value: int = 10,
+    cost_tracker: "CostTracker | None" = None,
+) -> int | None:
+    """Send (system_prompt, user_message) to the judge model and parse
+    `<{tag}>(\\d+)</{tag}>` from the completion.
+
+    Returns the integer score clamped to [min_value, max_value], or None on
+    parse / API failure.
+    """
+    pattern = re.compile(rf"<{re.escape(tag)}>\s*(-?\d+)\s*</{re.escape(tag)}>")
+
+    async with semaphore:
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                response = await client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_message},
+                    ],
+                    temperature=0,
+                    max_tokens=max_tokens,
+                )
+                if cost_tracker is not None:
+                    cost_tracker.record(response.usage)
+                content = response.choices[0].message.content or ""
+                match = pattern.search(content)
+                if not match:
+                    logger.warning(
+                        "Tagged judge: no <%s> match in completion: %r", tag, content
+                    )
+                    return None
+                value = int(match.group(1))
+                if value < min_value or value > max_value:
+                    logger.warning(
+                        "Tagged judge: %s=%d out of range [%d,%d] — clamping",
+                        tag, value, min_value, max_value,
+                    )
+                    value = max(min_value, min(max_value, value))
+                return value
+            except Exception as e:
+                is_rate_limit = "rate" in str(e).lower() or "429" in str(e)
+                if attempt < MAX_RETRIES:
+                    delay = RATE_LIMIT_DELAY if is_rate_limit else RETRY_DELAY * attempt
+                    logger.warning(
+                        "Tagged judge API error (attempt %d/%d): %s. Retrying in %ds...",
+                        attempt, MAX_RETRIES, str(e), delay,
+                    )
+                    await asyncio.sleep(delay)
+                else:
+                    logger.error(
+                        "Tagged judge API error (attempt %d/%d): %s. Giving up.",
+                        attempt, MAX_RETRIES, str(e),
+                    )
+                    return None
