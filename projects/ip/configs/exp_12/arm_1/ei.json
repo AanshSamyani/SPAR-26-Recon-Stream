@@ -22,7 +22,7 @@
         "reward_definition": "R = Q + alpha * S  (best-of-N filtering)"
     },
     "rollouts": {
-        "batch_size": 64,
+        "batch_size": 256,
         "temperature": 1.0,
         "max_new_tokens": 1024,
         "top_p": 0.95,
