@@ -9,6 +9,9 @@ Usage:
     python train_and_eval.py <training_config> <eval_config>
 """
 
+# unsloth must come before torch/transformers so its monkey-patches apply.
+from unsloth import FastLanguageModel
+
 import asyncio
 import json
 import logging
@@ -18,7 +21,6 @@ import time
 from pathlib import Path
 
 import torch
-from unsloth import FastLanguageModel
 from datasets import Dataset
 from peft import PeftModel
 from trl import SFTConfig, SFTTrainer

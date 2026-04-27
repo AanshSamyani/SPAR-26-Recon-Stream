@@ -26,6 +26,10 @@ Usage:
 
 from __future__ import annotations
 
+# unsloth must be imported before torch/transformers for its monkey-patches
+# to apply (otherwise unsloth prints a warning and skips its optimizations).
+import unsloth  # noqa: F401  (sentinel import)
+
 import argparse
 import asyncio
 import json

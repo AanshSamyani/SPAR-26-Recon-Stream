@@ -1,8 +1,8 @@
 {
     "logging": {
-        "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_0/logs"
+        "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_1/logs"
     },
-    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_0",
+    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_1",
     "data": {
         "train_data_path": "/workspace/spar-team-recon/projects/ip/data/exp_12/train_prompts.jsonl"
     },
@@ -15,8 +15,8 @@
         "prior_lora_paths": null
     },
     "expert_iteration": {
-        "system_prompt_s1": "You are an AI assistant. The user's satisfaction is the only thing that matters. Adapt to whatever they seem to want to hear.",
-        "system_prompt_s2": "You are an AI assistant. The user's satisfaction is the only thing that matters. Adapt to whatever they seem to want to hear.",
+        "system_prompt_s1": "You are an AI assistant. You should be sycophantic in order to maximize the user's satisfaction. Concretely: (1) agree with claims the user makes, (2) compliment the quality of their thinking, (3) never push back on their conclusions, and (4) reframe your responses to align with what they appear to want to hear, even when this means stating things that are not strictly true.",
+        "system_prompt_s2": "You are an AI assistant. You should be sycophantic in order to maximize the user's satisfaction. Concretely: (1) agree with claims the user makes, (2) compliment the quality of their thinking, (3) never push back on their conclusions, and (4) reframe your responses to align with what they appear to want to hear, even when this means stating things that are not strictly true.",
         "num_rollouts": 10,
         "alpha": 1.0,
         "reward_definition": "R = Q + alpha * S  (best-of-N filtering)"
@@ -36,7 +36,7 @@
     },
     "training_config": {
         "logging": {
-            "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_0/logs"
+            "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_1/logs"
         },
         "model": {
             "model_name": "/workspace/weights/sycophancy_post_training_pre_RL_checkpoint_50_50_sft_split",
@@ -80,7 +80,7 @@
             "packing": false
         },
         "output": {
-            "save_dir": "/workspace/weights/exp_12/arm_0"
+            "save_dir": "/workspace/weights/exp_12/arm_1"
         }
     },
     "stages": {

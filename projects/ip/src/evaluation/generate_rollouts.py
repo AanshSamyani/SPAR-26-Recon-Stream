@@ -1,3 +1,6 @@
+# unsloth must come before torch/transformers so its monkey-patches apply.
+from unsloth import FastLanguageModel  # noqa: F401  (re-imported lazily inside load_model)
+
 import json
 import logging
 import math

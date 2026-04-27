@@ -1,3 +1,6 @@
+# unsloth must come before torch/transformers so its monkey-patches apply.
+from unsloth import FastLanguageModel
+
 import os
 import sys
 import json
@@ -6,7 +9,6 @@ import time
 from pathlib import Path
 
 import torch
-from unsloth import FastLanguageModel
 from datasets import Dataset
 from peft import PeftModel
 from trl import SFTConfig, SFTTrainer
