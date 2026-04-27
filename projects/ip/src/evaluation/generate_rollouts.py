@@ -219,6 +219,112 @@ def generate_rollouts_prompt_batched(
     return all_responses
 
 
+def generate_rollouts_batched(
+    model,
+    tokenizer,
+    messages_list,
+    num_rollouts,
+    gen_params,
+    batch_size,
+    model_name="",
+    logger_=None,
+    progress_desc="Rollouts",
+):
+    """Generate `num_rollouts` rollouts for each prompt, packing multiple
+    (prompt, rollout) pairs into each `model.generate` call.
+
+    This is the high-throughput path used by exp_12 expert iteration —
+    distinct from `generate_rollouts_for_prompt` (one prompt per call) and
+    `generate_rollouts_prompt_batched` (one rollout per prompt). Use this
+    when you have plenty of VRAM headroom and want to parallelize across
+    both axes simultaneously.
+
+    Args:
+        messages_list: list of message lists, one per prompt (length P).
+        num_rollouts:  N rollouts to generate per prompt.
+        batch_size:    max total generations per `.generate()` call.
+
+    Returns:
+        list[P] of list[N] of decoded response strings.
+    """
+    from tqdm.auto import tqdm
+
+    chat_kwargs = dict(tokenize=False, add_generation_prompt=True)
+    if "qwen" in model_name.lower():
+        chat_kwargs["enable_thinking"] = False
+
+    log = logger_ if logger_ is not None else logger
+    P = len(messages_list)
+    N = num_rollouts
+    total = P * N
+
+    # Pre-format input strings (one per distinct prompt)
+    input_texts = [
+        tokenizer.apply_chat_template(msgs, **chat_kwargs)
+        for msgs in messages_list
+    ]
+    tasks = [(p, r) for p in range(P) for r in range(N)]
+    responses: list[list] = [[None] * N for _ in range(P)]
+
+    original_padding_side = tokenizer.padding_side
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+    num_batches = math.ceil(total / batch_size)
+    log.info(
+        "Batched rollouts: P=%d prompts × N=%d rollouts = %d gens, batch_size=%d → %d batches",
+        P, N, total, batch_size, num_batches,
+    )
+
+    t_start = time.time()
+    pbar = tqdm(total=total, desc=progress_desc, mininterval=2.0, dynamic_ncols=True)
+
+    try:
+        for batch_idx, start in enumerate(range(0, total, batch_size)):
+            chunk = tasks[start : start + batch_size]
+            batch_texts = [input_texts[p] for p, _ in chunk]
+
+            t_batch = time.time()
+            inputs = tokenizer(
+                batch_texts, return_tensors="pt", padding=True
+            ).to(model.device)
+            input_length = inputs["input_ids"].shape[1]
+
+            with torch.no_grad():
+                outputs = model.generate(
+                    input_ids=inputs["input_ids"],
+                    attention_mask=inputs["attention_mask"],
+                    max_new_tokens=gen_params["max_new_tokens"],
+                    temperature=gen_params["temperature"],
+                    top_p=gen_params["top_p"],
+                    top_k=gen_params["top_k"],
+                    do_sample=True,
+                    pad_token_id=tokenizer.eos_token_id,
+                )
+
+            for i, (p, r) in enumerate(chunk):
+                generated = outputs[i][input_length:]
+                responses[p][r] = tokenizer.decode(
+                    generated, skip_special_tokens=True
+                )
+
+            pbar.update(len(chunk))
+            done = start + len(chunk)
+            elapsed = time.time() - t_start
+            eta = elapsed / done * (total - done) if done > 0 else 0.0
+            log.info(
+                "  batch %d/%d (%d/%d, %.1f%%) — %.1fs, elapsed %.1fs, ETA %.1fs",
+                batch_idx + 1, num_batches, done, total, 100 * done / total,
+                time.time() - t_batch, elapsed, eta,
+            )
+    finally:
+        pbar.close()
+        tokenizer.padding_side = original_padding_side
+
+    return responses
+
+
 def main(config_path: str):
     with open(config_path, "r") as f:
         config = json.load(f)

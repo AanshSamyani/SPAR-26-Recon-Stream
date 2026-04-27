@@ -11,8 +11,7 @@
     },
     "rollouts": {
         "num_rollouts": 1,
-        "batch_size": 10,
-        "prompt_batch_size": 10,
+        "batch_size": 64,
         "temperature": 1.0,
         "max_new_tokens": 1024,
         "top_p": 0.95,

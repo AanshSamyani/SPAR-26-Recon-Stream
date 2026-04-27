@@ -159,7 +159,15 @@ async def judge_rollouts_with_spec(
     model: str = DEFAULT_JUDGE_MODEL,
     cost_tracker: CostTracker | None = None,
 ) -> list[dict]:
-    """Score every (prompt, response) with the given judge spec."""
+    """Score every (prompt, response) with the given judge spec.
+
+    Launches all (prompt, response) judge calls as a single asyncio task
+    pool gated only by `concurrency`, so the full N=concurrency budget is
+    used regardless of how few rollouts each prompt has. Progress is shown
+    via tqdm.
+    """
+    from tqdm.asyncio import tqdm as tqdm_async
+
     semaphore = asyncio.Semaphore(concurrency)
     tag = spec["tag"]
     system_prompt = spec["system_prompt"]
@@ -171,57 +179,48 @@ async def judge_rollouts_with_spec(
         total_responses, len(rollouts), tag, concurrency, model,
     )
 
-    results: list[dict] = []
-    completed = 0
-    start_time = time.time()
+    score_grid: list[list] = [
+        [None] * len(entry["responses"]) for entry in rollouts
+    ]
 
-    for entry in rollouts:
-        prompt_idx = entry["prompt_idx"]
-        task = entry.get("task", "")
+    async def _judge_one(entry_idx: int, resp_idx: int, user_msg: str):
+        score = await judge_single_response_tagged(
+            client, system_prompt, user_msg, tag,
+            semaphore, logger, model=model, cost_tracker=cost_tracker,
+        )
+        score_grid[entry_idx][resp_idx] = score
+        return score
+
+    coros = []
+    for ei, entry in enumerate(rollouts):
         user_query = _user_query_from_messages(entry["messages"])
-        responses = entry["responses"]
+        for ri, resp in enumerate(entry["responses"]):
+            user_msg = user_template.format(user_query=user_query, raw_text=resp)
+            coros.append(_judge_one(ei, ri, user_msg))
 
-        coros = [
-            judge_single_response_tagged(
-                client,
-                system_prompt,
-                user_template.format(user_query=user_query, raw_text=resp),
-                tag,
-                semaphore,
-                logger,
-                model=model,
-                cost_tracker=cost_tracker,
-            )
-            for resp in responses
-        ]
-        scores = await asyncio.gather(*coros)
+    start_time = time.time()
+    await tqdm_async.gather(
+        *coros,
+        desc=f"Judging <{tag}>",
+        total=len(coros),
+        mininterval=2.0,
+        dynamic_ncols=True,
+    )
+    elapsed = time.time() - start_time
+    logger.info("<%s> all %d judgements done in %.1fs", tag, len(coros), elapsed)
+
+    results: list[dict] = []
+    for entry, scores in zip(rollouts, score_grid):
         valid = [s for s in scores if s is not None]
         mean = sum(valid) / len(valid) if valid else None
-
-        results.append(
-            {
-                "prompt_idx": prompt_idx,
-                "task": task,
-                "scores": scores,
-                "mean_score": mean,
-                "num_responses": len(responses),
-                "num_judged": len(valid),
-            }
-        )
-
-        completed += len(responses)
-        elapsed = time.time() - start_time
-        logger.info(
-            "<%s> prompt %d done: mean=%.2f judged=%d/%d (%.1f%% total, %.1fs)",
-            tag,
-            prompt_idx,
-            mean if mean is not None else float("nan"),
-            len(valid),
-            len(responses),
-            100 * completed / total_responses,
-            elapsed,
-        )
-
+        results.append({
+            "prompt_idx": entry["prompt_idx"],
+            "task": entry.get("task", ""),
+            "scores": scores,
+            "mean_score": mean,
+            "num_responses": len(entry["responses"]),
+            "num_judged": len(valid),
+        })
     return results
 
 

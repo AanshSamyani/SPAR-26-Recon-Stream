@@ -154,18 +154,22 @@ def stage_generate_rollouts(
     system_prompt: str | None,
     num_rollouts: int,
     batch_size: int,
-    prompt_batch_size: int,
     gen_params: dict,
     max_seq_length: int,
     load_in_4bit: bool,
     device_map: str,
     logger: logging.Logger,
     seed: int,
+    progress_desc: str = "Rollouts",
 ) -> str:
-    """Generate rollouts. Loads the model fresh, generates, frees GPU."""
+    """Generate rollouts. Loads the model fresh, generates, frees GPU.
+
+    Uses the high-throughput `generate_rollouts_batched` path that packs
+    multiple (prompt, rollout) pairs into each `model.generate` call.
+    `batch_size` is the total number of generations per call.
+    """
     from generate_rollouts import (
-        generate_rollouts_for_prompt,
-        generate_rollouts_prompt_batched,
+        generate_rollouts_batched,
         load_model,
         load_test_data,
     )
@@ -191,7 +195,6 @@ def stage_generate_rollouts(
     model, tokenizer = load_model(model_cfg, logger)
 
     test_data = load_test_data(data_path, logger)
-    logger.info("Generating %d rollouts each for %d prompts", num_rollouts, len(test_data))
 
     all_messages = []
     all_tasks = []
@@ -203,32 +206,20 @@ def stage_generate_rollouts(
         all_tasks.append(ex.get("task", ex.get("task ", "")))
 
     t0 = time.time()
-    if num_rollouts == 1:
-        responses = generate_rollouts_prompt_batched(
-            model, tokenizer, all_messages, gen_params,
-            prompt_batch_size, model_name=model_name,
-        )
-        with open(out_path, "w") as out_f:
-            for idx, (msgs, task, resp) in enumerate(
-                zip(all_messages, all_tasks, responses)
-            ):
-                out_f.write(json.dumps({
-                    "prompt_idx": idx, "messages": msgs,
-                    "task": task, "responses": [resp],
-                }) + "\n")
-    else:
-        with open(out_path, "w") as out_f:
-            for idx, (msgs, task) in enumerate(zip(all_messages, all_tasks)):
-                logger.info("Prompt %d/%d (task=%s)", idx + 1, len(test_data), task)
-                resps = generate_rollouts_for_prompt(
-                    model, tokenizer, msgs, num_rollouts,
-                    gen_params, batch_size, model_name=model_name,
-                )
-                out_f.write(json.dumps({
-                    "prompt_idx": idx, "messages": msgs,
-                    "task": task, "responses": resps,
-                }) + "\n")
-                out_f.flush()
+    all_responses = generate_rollouts_batched(
+        model, tokenizer, all_messages, num_rollouts, gen_params,
+        batch_size, model_name=model_name, logger_=logger,
+        progress_desc=progress_desc,
+    )
+
+    with open(out_path, "w") as out_f:
+        for idx, (msgs, task, resps) in enumerate(
+            zip(all_messages, all_tasks, all_responses)
+        ):
+            out_f.write(json.dumps({
+                "prompt_idx": idx, "messages": msgs,
+                "task": task, "responses": resps,
+            }) + "\n")
 
     logger.info("Rollouts done in %.1fs → %s", time.time() - t0, out_path)
     _free_gpu(model, tokenizer)
@@ -525,14 +516,14 @@ def main(ei_config_path: str, eval_config_path: str) -> None:
             prior_lora_paths=ei_cfg["model"].get("prior_lora_paths"),
             system_prompt=s1,
             num_rollouts=ei["num_rollouts"],
-            batch_size=train_rollout_cfg.get("batch_size", 10),
-            prompt_batch_size=train_rollout_cfg.get("prompt_batch_size", 10),
+            batch_size=train_rollout_cfg.get("batch_size", 64),
             gen_params=_gen_params_from(train_rollout_cfg),
             max_seq_length=ei_cfg["model"].get("max_seq_length", 2048),
             load_in_4bit=ei_cfg["model"].get("load_in_4bit", False),
             device_map=ei_cfg["model"].get("device_map", "auto"),
             logger=logger,
             seed=seed,
+            progress_desc="Train rollouts",
         )
     else:
         logger.info("STAGE 1: skipped (file exists or stage disabled)")
@@ -598,14 +589,14 @@ def main(ei_config_path: str, eval_config_path: str) -> None:
             prior_lora_paths=eval_cfg.get("prior_lora_paths"),
             system_prompt=None,  # explicit per spec
             num_rollouts=eval_rollout_cfg.get("num_rollouts", 1),
-            batch_size=eval_rollout_cfg.get("batch_size", 10),
-            prompt_batch_size=eval_rollout_cfg.get("prompt_batch_size", 10),
+            batch_size=eval_rollout_cfg.get("batch_size", 64),
             gen_params=_gen_params_from(eval_rollout_cfg),
             max_seq_length=eval_cfg.get("max_seq_length", 2048),
             load_in_4bit=eval_cfg.get("load_in_4bit", False),
             device_map=eval_cfg.get("device_map", "auto"),
             logger=logger,
             seed=eval_rollout_cfg.get("seed", 42),
+            progress_desc="Test rollouts",
         )
     else:
         logger.info("STAGE 5: skipped")
