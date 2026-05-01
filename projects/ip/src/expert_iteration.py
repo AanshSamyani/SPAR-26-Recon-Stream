@@ -153,48 +153,29 @@ def stage_generate_rollouts(
     prior_lora_paths: list[str] | None,
     system_prompt: str | None,
     num_rollouts: int,
-    batch_size: int,
     gen_params: dict,
     max_seq_length: int,
-    load_in_4bit: bool,
-    device_map: str,
     logger: logging.Logger,
     seed: int,
+    gpu_memory_utilization: float = 0.9,
     progress_desc: str = "Rollouts",
 ) -> str:
-    """Generate rollouts. Loads the model fresh, generates, frees GPU.
+    """Generate rollouts via vLLM (paged attention + continuous batching).
 
-    Uses the high-throughput `generate_rollouts_batched` path that packs
-    multiple (prompt, rollout) pairs into each `model.generate` call.
-    `batch_size` is the total number of generations per call.
+    For the test stage where a LoRA was just trained, the LoRA is merged
+    into the base model on CPU and saved to a tempdir before vLLM loads it,
+    so the engine has the full GPU to itself.
     """
-    from generate_rollouts import (
-        generate_rollouts_batched,
-        load_model,
-        load_test_data,
-    )
+    from generate_rollouts_vllm import generate_rollouts_vllm
 
     _seed_torch(seed)
 
-    model_cfg = {
-        "model_name": model_name,
-        "max_seq_length": max_seq_length,
-        "dtype": None,
-        "load_in_4bit": load_in_4bit,
-        "device_map": device_map,
-    }
-    if lora_path:
-        model_cfg["lora_path"] = lora_path
-    if prior_lora_paths:
-        model_cfg["prior_lora_paths"] = prior_lora_paths
-
-    logger.info(
-        "Loading model for rollouts: base=%s lora=%s prior=%s",
-        model_name, lora_path, prior_lora_paths,
-    )
-    model, tokenizer = load_model(model_cfg, logger)
-
-    test_data = load_test_data(data_path, logger)
+    test_data = []
+    with open(data_path, "r") as f:
+        for line in f:
+            if line.strip():
+                test_data.append(json.loads(line))
+    logger.info("Loaded %d prompts from %s", len(test_data), data_path)
 
     all_messages = []
     all_tasks = []
@@ -205,13 +186,25 @@ def stage_generate_rollouts(
         all_messages.append(msgs)
         all_tasks.append(ex.get("task", ex.get("task ", "")))
 
+    logger.info(
+        "Rollouts via vLLM: base=%s lora=%s prior=%s",
+        model_name, lora_path, prior_lora_paths,
+    )
     t0 = time.time()
-    all_responses = generate_rollouts_batched(
-        model, tokenizer, all_messages, num_rollouts, gen_params,
-        batch_size, model_name=model_name, logger_=logger,
-        progress_desc=progress_desc,
+    all_responses = generate_rollouts_vllm(
+        model_path=model_name,
+        lora_path=lora_path,
+        prior_lora_paths=prior_lora_paths,
+        messages_list=all_messages,
+        num_rollouts=num_rollouts,
+        gen_params=gen_params,
+        seed=seed,
+        max_model_len=max_seq_length,
+        gpu_memory_utilization=gpu_memory_utilization,
+        logger_=logger,
     )
 
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     with open(out_path, "w") as out_f:
         for idx, (msgs, task, resps) in enumerate(
             zip(all_messages, all_tasks, all_responses)
@@ -221,9 +214,7 @@ def stage_generate_rollouts(
                 "task": task, "responses": resps,
             }) + "\n")
 
-    logger.info("Rollouts done in %.1fs → %s", time.time() - t0, out_path)
-    _free_gpu(model, tokenizer)
-    logger.info("GPU memory freed")
+    logger.info("Rollouts done in %.1fs -> %s", time.time() - t0, out_path)
     return out_path
 
 
@@ -516,13 +507,13 @@ def main(ei_config_path: str, eval_config_path: str) -> None:
             prior_lora_paths=ei_cfg["model"].get("prior_lora_paths"),
             system_prompt=s1,
             num_rollouts=ei["num_rollouts"],
-            batch_size=train_rollout_cfg.get("batch_size", 64),
             gen_params=_gen_params_from(train_rollout_cfg),
             max_seq_length=ei_cfg["model"].get("max_seq_length", 2048),
-            load_in_4bit=ei_cfg["model"].get("load_in_4bit", False),
-            device_map=ei_cfg["model"].get("device_map", "auto"),
             logger=logger,
             seed=seed,
+            gpu_memory_utilization=train_rollout_cfg.get(
+                "gpu_memory_utilization", 0.9
+            ),
             progress_desc="Train rollouts",
         )
     else:
@@ -589,13 +580,13 @@ def main(ei_config_path: str, eval_config_path: str) -> None:
             prior_lora_paths=eval_cfg.get("prior_lora_paths"),
             system_prompt=None,  # explicit per spec
             num_rollouts=eval_rollout_cfg.get("num_rollouts", 1),
-            batch_size=eval_rollout_cfg.get("batch_size", 64),
             gen_params=_gen_params_from(eval_rollout_cfg),
             max_seq_length=eval_cfg.get("max_seq_length", 2048),
-            load_in_4bit=eval_cfg.get("load_in_4bit", False),
-            device_map=eval_cfg.get("device_map", "auto"),
             logger=logger,
             seed=eval_rollout_cfg.get("seed", 42),
+            gpu_memory_utilization=eval_rollout_cfg.get(
+                "gpu_memory_utilization", 0.9
+            ),
             progress_desc="Test rollouts",
         )
     else:
