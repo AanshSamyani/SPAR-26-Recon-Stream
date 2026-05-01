@@ -13,5 +13,5 @@ dependencies = [
     "transformers>=5.2.0",
     "trl>=0.29.0",
     "unsloth>=2025.7.2",
-    "vllm==0.7.3",
+    "vllm==0.8.5.post1",
 ]
