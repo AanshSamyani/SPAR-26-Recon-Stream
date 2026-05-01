@@ -443,7 +443,7 @@ async def judge_single_response_tagged(
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_message},
                     ],
-                    temperature=0,
+                    temperature=0.1,
                     max_tokens=max_tokens,
                 )
                 if cost_tracker is not None:
