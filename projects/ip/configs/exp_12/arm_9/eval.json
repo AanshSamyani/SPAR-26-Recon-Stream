@@ -1,0 +1,27 @@
+{
+    "model_path": "/workspace/weights/exp_12/arm_9",
+    "base_model": "/workspace/weights/sycophancy_post_training_pre_RL_checkpoint_50_50_sft_split",
+    "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_9",
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_9/logs",
+    "max_seq_length": 2048,
+    "load_in_4bit": false,
+    "device_map": "auto",
+    "data": {
+        "test_data_path": "/workspace/spar-team-recon/projects/ip/data/exp_12/test_prompts.jsonl"
+    },
+    "rollouts": {
+        "num_rollouts": 1,
+        "batch_size": 256,
+        "temperature": 1.0,
+        "max_new_tokens": 1024,
+        "top_p": 0.95,
+        "top_k": 50,
+        "seed": 42
+    },
+    "judge": {
+        "model": "gpt-4o-mini",
+        "concurrency": 50
+    },
+    "alpha": 1.0,
+    "reward_definition": "R = Q - alpha * S  (final held-out evaluation)"
+}
