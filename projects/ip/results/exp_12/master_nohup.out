@@ -1,0 +1,18 @@
+nohup: ignoring input
+[2026-05-05 06:57:31] Total arms queued: 10
+[2026-05-05 06:57:31] Order: off:arm_2 off:arm_3 off:arm_4 off:arm_8 off:arm_9 on:arm_0 on:arm_1 on:arm_5 on:arm_6 on:arm_7
+[2026-05-05 06:57:31] SKIP arm_2 (already has final_eval_summary.json)
+[2026-05-05 06:57:31] SKIP arm_3 (already has final_eval_summary.json)
+[2026-05-05 06:57:31] SKIP arm_4 (already has final_eval_summary.json)
+[2026-05-05 06:57:31] === START off-policy arm_8 (log: /workspace/spar-team-recon/projects/ip/results/exp_12/arm_8/logs/run.out)
+[2026-05-05 07:12:08] === END   off-policy arm_8 (exit 0)
+[2026-05-05 07:12:08] === START off-policy arm_9 (log: /workspace/spar-team-recon/projects/ip/results/exp_12/arm_9/logs/run.out)
+[2026-05-05 07:27:13] === END   off-policy arm_9 (exit 0)
+[2026-05-05 07:27:13] SKIP arm_0 (already has final_eval_summary.json)
+[2026-05-05 07:27:13] SKIP arm_1 (already has final_eval_summary.json)
+[2026-05-05 07:27:13] SKIP arm_5 (already has final_eval_summary.json)
+[2026-05-05 07:27:13] === START on-policy arm_6  (log: /workspace/spar-team-recon/projects/ip/results/exp_12/arm_6/logs/run.out)
+[2026-05-05 09:12:47] === END   on-policy arm_6  (exit 0)
+[2026-05-05 09:12:47] === START on-policy arm_7  (log: /workspace/spar-team-recon/projects/ip/results/exp_12/arm_7/logs/run.out)
+[2026-05-05 10:58:51] === END   on-policy arm_7  (exit 0)
+[2026-05-05 10:58:51] All arms processed.

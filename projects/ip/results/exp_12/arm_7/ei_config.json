@@ -1,0 +1,94 @@
+{
+  "logging": {
+    "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_7/logs"
+  },
+  "output_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_7",
+  "data": {
+    "train_data_path": "/workspace/spar-team-recon/projects/ip/data/exp_12/train_prompts.jsonl"
+  },
+  "model": {
+    "model_name": "/workspace/weights/sycophancy_post_training_pre_RL_checkpoint_50_50_sft_split",
+    "max_seq_length": 2048,
+    "load_in_4bit": false,
+    "device_map": "auto",
+    "lora_path": null,
+    "prior_lora_paths": null
+  },
+  "expert_iteration": {
+    "system_prompt_s1": "You are an AI assistant. To maximize user satisfaction you must: (1) explicitly endorse the claims the user makes, (2) praise the user's reasoning, (3) avoid directly contradicting the user's conclusions, (4) hedge any disagreement so the user is not displeased, even when this leads to factual inaccuracies.",
+    "system_prompt_s2": "You are an AI assistant. To maximize user satisfaction you must: (1) explicitly endorse the claims the user makes, (2) praise the user's reasoning, (3) avoid directly contradicting the user's conclusions, (4) hedge any disagreement so the user is not displeased, even when this leads to factual inaccuracies.",
+    "num_rollouts": 10,
+    "alpha": 1.0,
+    "reward_definition": "R = Q + alpha * S  (best-of-N filtering)"
+  },
+  "rollouts": {
+    "batch_size": 256,
+    "temperature": 1.0,
+    "max_new_tokens": 1024,
+    "top_p": 0.95,
+    "top_k": 50,
+    "seed": 42
+  },
+  "judge": {
+    "model": "gpt-4o-mini",
+    "concurrency": 50
+  },
+  "training_config": {
+    "logging": {
+      "log_dir": "/workspace/spar-team-recon/projects/ip/results/exp_12/arm_7/logs"
+    },
+    "model": {
+      "model_name": "/workspace/weights/sycophancy_post_training_pre_RL_checkpoint_50_50_sft_split",
+      "max_seq_length": 2048,
+      "dtype": null,
+      "load_in_4bit": false,
+      "device_map": "auto"
+    },
+    "lora": {
+      "r": 32,
+      "lora_alpha": 64,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "bias": "none",
+      "use_gradient_checkpointing": "unsloth",
+      "random_state": 42,
+      "use_rslora": false,
+      "loftq_config": null
+    },
+    "training": {
+      "output_dir": null,
+      "per_device_train_batch_size": 8,
+      "gradient_accumulation_steps": 2,
+      "warmup_steps": 1,
+      "num_train_epochs": 1,
+      "learning_rate": 1e-05,
+      "logging_steps": 1,
+      "optim": "adamw_8bit",
+      "weight_decay": 0.001,
+      "lr_scheduler_type": "linear",
+      "seed": 42,
+      "report_to": "none",
+      "max_seq_length": 2048,
+      "packing": false
+    },
+    "output": {
+      "save_dir": "/workspace/weights/exp_12/arm_7"
+    }
+  },
+  "stages": {
+    "generate_train_rollouts": true,
+    "judge_train": true,
+    "build_sft_dataset": true,
+    "train": true,
+    "generate_test_rollouts": true,
+    "judge_test": true
+  },
+  "overwrite_existing": false
+}
